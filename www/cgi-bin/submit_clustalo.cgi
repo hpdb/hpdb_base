@@ -22,7 +22,7 @@ def main():
         configs = {}
         configs['filename'] = upfile.filename
         configs['jobtype'] = 'clustalo'
-        configs['job_id'] = str(int(round(time.time() * 1000)))
+        configs['jobid'] = str(int(round(time.time() * 1000)))
         configs['find_amr'] = (form.getvalue('find_amr') == 'on')
         configs['found_caga'] = False
         configs['found_vaca'] = False
@@ -36,7 +36,7 @@ def main():
         configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
         configs['amr_analysis'] = {}
         
-        dirpath = os.environ['HPDB_BASE'] + '/data/project/' + configs['job_id']
+        dirpath = os.environ['HPDB_BASE'] + '/data/project/' + configs['jobid']
         os.mkdir(dirpath)
         os.chdir(dirpath)
         
@@ -46,7 +46,7 @@ def main():
         with open('configs.yaml', 'w') as f:
             yaml.dump(configs, f)
         
-        with open(os.environ['HPDB_BASE'] + '/queue/' + configs['job_id'], 'w') as f:
+        with open(os.environ['HPDB_BASE'] + '/queue/' + configs['jobid'], 'w') as f:
             f.write('just another dumb text')
         
         with open('queued', 'w') as f:

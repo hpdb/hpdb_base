@@ -12,11 +12,11 @@ def main():
     if not 'sid' in form or not 'jobid' in form:
         return False
     
-    job_id = form.getvalue('jobid')
+    jobid = form.getvalue('jobid')
     sid = form.getvalue('sid')
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
-    job_dir = um.getUserProjectDir(userid) + job_id + '/'
+    job_dir = um.getUserProjectDir(userid) + jobid + '/'
     
     html_path = os.environ['HPDB_BASE'] + '/scripts/template/invalid.html'
     if os.path.isfile(job_dir + 'configs.yaml'):

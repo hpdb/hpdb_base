@@ -11,7 +11,7 @@ def main():
     end = form.getvalue('end')
     
     data_dir = os.environ['HPDB_BASE'] + '/data/project/'
-    job_ids = sorted(os.listdir(data_dir))
+    jobids = sorted(os.listdir(data_dir))
     
     print('Content-type:text/html')
     print('')
@@ -37,7 +37,7 @@ def main():
     print('<th>gyrA</th>')
     print('</tr>')
     
-    for id in job_ids:
+    for id in jobids:
         if (start and int(id) < int(start)) or (end and int(id) > int(end)): continue
         with open(data_dir + id + '/configs.yaml') as f:
             configs = yaml.full_load(f)

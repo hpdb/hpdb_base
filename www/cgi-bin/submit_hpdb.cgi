@@ -19,7 +19,7 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     configs['projname'] = projname
     configs['userid'] = userid
     configs['username'] = username
-    configs['job_id'] = jobid
+    configs['jobid'] = jobid
     configs['find_amr'] = find_amr
     configs['found_caga'] = False
     configs['found_vaca'] = False
@@ -33,7 +33,7 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
     configs['amr_analysis'] = {}
     
-    dirpath = um.getUserProjectDir(userid) + configs['job_id']
+    dirpath = um.getUserProjectDir(userid) + configs['jobid']
     os.mkdir(dirpath)
     os.chdir(dirpath)
     
@@ -48,7 +48,7 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     
-    with open(os.environ['HPDB_BASE'] + '/queue/' + configs['job_id'], 'w') as f:
+    with open(os.environ['HPDB_BASE'] + '/queue/' + configs['jobid'], 'w') as f:
         f.write(dirpath)
     
     with open('queued', 'w') as f:

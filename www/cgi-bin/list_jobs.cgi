@@ -17,7 +17,7 @@ def main():
         return
     
     data_dir = os.environ['HPDB_BASE'] + '/data/project/'
-    job_ids = sorted(os.listdir(data_dir))
+    jobids = sorted(os.listdir(data_dir))
     
     print('Content-type:text/html')
     print('')
@@ -28,7 +28,7 @@ def main():
     print('</head>')
     print('<body>')
     print('<ul>')
-    for id in job_ids:
+    for id in jobids:
         with open(data_dir + id + '/configs.yaml') as f:
             configs = yaml.full_load(f)
         if os.path.isfile(data_dir + id + '/queued'):

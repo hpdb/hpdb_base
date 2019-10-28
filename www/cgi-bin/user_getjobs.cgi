@@ -17,19 +17,20 @@ def main():
     sid = form.getvalue('sid')
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
-    job_ids = um.listprojects(db, username)
-    job_ids.reverse() # list jobs from newest to oldest
+    jobids = um.listprojects(db, username)
+    jobids.reverse() # list jobs from newest to oldest
     
     projects_dir = um.getUserProjectDir(userid)
     
     projects = []
     
-    for id in job_ids:
+    for id in jobids:
         if not os.path.isdir(projects_dir + id):
             continue
         proj = {}
         with open(projects_dir + id + '/configs.yaml') as f:
             configs = yaml.full_load(f)
+        proj['jobid'] = configs['jobid']
         proj['name'] = configs['projname']
         proj['filename'] = configs['filename']
         proj['type'] = configs['jobtype']

@@ -7,12 +7,12 @@ import os, regex, yaml
 
 def main():
     data_dir = os.environ['HPDB_BASE'] + '/data/project/'
-    job_ids = sorted(os.listdir(data_dir))
+    jobids = sorted(os.listdir(data_dir))
     
     print('Content-type:text/plain')
     print('')
     print('Name,cagA,vacA,EPIYA,s1/s2,m1/m2')
-    for id in job_ids:
+    for id in jobids:
         with open(data_dir + id + '/configs.yaml') as f:
             configs = yaml.full_load(f)
         if not os.path.isfile(data_dir + id + '/queued'):

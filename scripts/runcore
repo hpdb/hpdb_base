@@ -18,8 +18,8 @@ def run():
     if len(files) == 0:
         return False
     
-    job_id = files[0]
-    job_queue_file = os.environ['HPDB_BASE'] + '/queue/' + job_id
+    jobid = files[0]
+    job_queue_file = os.environ['HPDB_BASE'] + '/queue/' + jobid
     with open(job_queue_file, 'r') as f:
         job_dir = f.read()
     

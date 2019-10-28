@@ -5,6 +5,9 @@ from __future__ import division
 from Bio import SeqIO
 import cgi, subprocess
 import os, tempfile, shutil, yaml
+import user_management as um
+
+db = um.newDBConnection()
 
 def run(command):
     try:
@@ -15,10 +18,20 @@ def run(command):
 
 def main():
     form = cgi.FieldStorage()
-    jobs = form.getvalue('jobs').splitlines()
+    if (not 'jobs' in form) or (not 'sid' in form):
+        print('Access-Control-Allow-Origin: *')
+        print('Content-Type:text/plain')
+        print('')
+        print('Invalid')
     
+    jobs = form.getvalue('jobs').splitlines()
     align_caga = (form.getvalue('caga') == 'on')
     align_vaca = (form.getvalue('vaca') == 'on')
+    
+    sid = form.getvalue('sid')
+    username = um.sidtouser(db, sid)
+    userid = um.usertoid(db, username)
+    data_dir = um.getUserProjectDir(userid)
     
     dirpath = tempfile.mkdtemp()
     os.chdir(dirpath)
@@ -27,8 +40,6 @@ def main():
     vac = open("hp-vac.fsa", "w")
     cnt_cag = 0
     cnt_vac = 0
-    
-    data_dir = os.environ['HPDB_BASE'] + '/data/project/'
     
     for job in jobs:
         job = job.split(',')
@@ -60,3 +71,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    db.close()

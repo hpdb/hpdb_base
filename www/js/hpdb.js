@@ -92,6 +92,7 @@ function showLoggedin(sid, username) {
   $('.loggedout-item').hide();
   $('#username_label').text('Hi, ' + username);
   $('#hpdb_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#vf_align_form').append('<input type="hidden" name="sid" value="' + sid + '">');
   fileTree(sid);
   $("#uploader").pluploadQueue({
     runtimes: 'html5,flash,silverlight,html4',
