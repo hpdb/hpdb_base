@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPDB - PTNK</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script> 
+</head>
+<body>
+<script>
+$(document).ready(function() {
+    $('#vfdb').ajaxForm({
+        beforeSubmit: function() {
+            $("#status").text("Submitting... Please wait...");
+        },
+        error: function(error) {
+            $("#status").text(error.responseText);
+        },
+        success: function(responseText) {
+            $("#status").html(`Your job will be available <a href="/cgi-bin/vfdb.cgi?jobid=${responseText}">here</a> once it has been processed.`)
+        }
+    });
+});
+</script>
+<form id="vfdb" action="/cgi-bin/upload.cgi" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="option3-checkbox" value="on">
+  <input type="hidden" name="uGenus4F" value="Helicobacter">
+  <input type="hidden" name="uStrain4F" value="HP">
+  <input type="hidden" name="email" value="hpdb.ptnk@gmail.com">
+  
+  Choose the type of upload file (&#9733)
+  <p>
+  <input type="radio" name="fileType" value="gbk">Pre-annotated COMPLETE genome in GenBank format<br>
+  <input type="radio" name="fileType" value="draftgbk">Pre-annotated DRAFT genome in GenBank format<br>
+  <input type="radio" name="fileType" value="faa">Proteins of ALL predicted CDSs in FASTA format<br>
+  <input type="radio" name="fileType" value="genome" checked>The raw FASTA sequence(s) of a COMPLETE genome<br>
+  <input type="radio" name="fileType" value="contig">The raw FASTA sequences of a DRAFT genome<br>
+  </p>
+  
+  Specify the genome file (&#9733)
+  <input type="file" name="seqfile">
+  
+  <p><button type="submit">Submit</button></p>
+</form>
+<p id="status"></p>
+</body>
+</html>

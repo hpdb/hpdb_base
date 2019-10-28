@@ -1,0 +1,107 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import division
+from subprocess import call
+from Bio import SeqIO
+import os
+import time
+import sys
+import jinja2
+import yaml
+import commands
+
+sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts')
+from ref_AMR import AMR
+import utils
+
+def run(configs):
+    start_time = time.time()
+
+    # ----- Run tools -----
+    utils.runprodigal('input.fasta', 'prot.fasta', 'nu.fasta')
+    caga_ids = utils.runblastp(os.environ['HPDB_BASE'] + '/genome/j99_caga.fasta', 'prot.fasta')
+    vaca_ids = utils.runblastp(os.environ['HPDB_BASE'] + '/genome/j99_vaca.fasta', 'prot.fasta')
+    if configs['find_amr']:
+        utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff', 'input.fasta')
+        utils.runprodigal('snippy/snps.consensus.subs.fa', 'snp_prot.fasta', 'snp_nu.fasta')
+    
+    # ----- Find virulence factors -----
+    prot_dict = SeqIO.index('prot.fasta', 'fasta')
+    nu_dict = SeqIO.index('nu.fasta', 'fasta')
+    
+    for id in caga_ids:
+        caga_prot = str(prot_dict[id].seq).rstrip('*')
+        caga_pos = prot_dict[id].description.split('#')
+        caga_nu = str(nu_dict[id].seq).strip('*')
+        if 'EPIYA' in caga_prot or 'EPIYT' in caga_prot:
+            if len(caga_prot) > 800: configs['found_caga'] = True
+            else: configs['mutant_caga'] = True
+            break
+    
+    for id in vaca_ids:
+        vaca_prot = str(prot_dict[id].seq).rstrip('*')
+        vaca_pos = prot_dict[id].description.split('#')
+        vaca_nu = str(nu_dict[id].seq).strip('*')
+        if utils.fuzzyFind(vaca_prot, 'MELQQTHRKINRPLVSLALVG')[0] >= 0.8:
+            if len(vaca_prot) > 800: configs['found_vaca'] = True
+            else: configs['mutant_vaca'] = True
+            break
+    
+    prot_dict.close()
+    nu_dict.close()
+    
+    # ----- Analyze data -----
+    # cagA
+    if configs['found_caga']:
+        configs['caga_analysis'] = utils.analyzecagA(caga_prot)
+        configs['caga_nu'] = {'name': 'cagA DNA', \
+                              'raw': caga_nu, \
+                              'len': len(caga_nu), \
+                              'start_pos': caga_pos[1].strip(), \
+                              'end_pos': caga_pos[2].strip()}
+        configs['caga_prot'] = {'name': 'cagA Protein', \
+                                'raw': caga_prot, \
+                                'len': len(caga_prot), \
+                                'start_pos': caga_pos[1].strip(), \
+                                'end_pos': caga_pos[2].strip()}
+    
+    # vacA
+    if configs['found_vaca']:
+        configs['vaca_analysis'] = utils.analyzevacA(vaca_prot)
+        configs['vaca_nu'] = {'name': 'vacA DNA', \
+                              'raw': vaca_nu, \
+                              'len': len(vaca_nu), \
+                              'start_pos': vaca_pos[1].strip(), \
+                              'end_pos': vaca_pos[2].strip()}
+        configs['vaca_prot'] = {'name': 'vacA Protein', \
+                                'raw': vaca_prot, \
+                                'len': len(vaca_prot), \
+                                'start_pos': vaca_pos[1].strip(), \
+                                'end_pos': vaca_pos[2].strip()}
+    
+    # AMR
+    if configs['find_amr']:
+        genome = str(SeqIO.read('snippy/snps.consensus.subs.fa', 'fasta').seq)
+        record = list(SeqIO.parse('snp_prot.fasta', 'fasta'))
+        protein_seqs = [str(x.seq) for x in record]
+        for x in AMR:
+            if x['type'] == 'nu':
+                part = genome[x['start'] : x['end']]
+            elif x['type'] == 'prot':
+                part = utils.fuzzyFindInList(protein_seqs, x['ref'])
+            
+            configs['amr_analysis'][x['name']] = []
+            for y in x['subs']:
+                configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
+            configs['amr_analysis'][x['name']] = utils.formatAMR2HTML(configs['amr_analysis'][x['name']])
+    
+    configs['exec_time'] = '%.2f' % (time.time() - start_time)
+    
+    # ----- Output HTML -----
+    j2_env = jinja2.Environment(loader = jinja2.FileSystemLoader(os.environ['HPDB_BASE'] + '/scripts/template'), trim_blocks = True)
+    j2_temp = j2_env.get_template('hpdb_report.html')
+    with open('report.html', 'w') as f:
+        f.write(j2_temp.render(configs).encode('utf8'))
+    
+    return configs

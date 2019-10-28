@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPDB - PTNK</title>
+  <style>.accordion{background-color:#eee;color:#444;cursor:pointer;padding:18px;width:100%;border:none;text-align:left;outline:0;font-size:15px;transition:.4s}.accordion:hover,.active{background-color:#ccc}.panel{padding:0 18px;background-color:#fff;max-height:0;overflow:hidden;transition:max-height .2s ease-out}textarea{border:1px solid #999;width:100%;margin:5px 0;padding:3px}</style>
+</head>
+<body>
+  <h3>Filename: {{ filename }}</h3>
+  <h3>Job ID: {{ job_id }}</h3>
+  <ul>
+    {% if caga_analysis['EPIYA-A'] %}<li><b>EPIYA-A:</b> {{ caga_analysis['EPIYA-A_seq'] }}</li>{% endif %}
+    {% if caga_analysis['EPIYA-B'] %}<li><b>EPIYA-B:</b> {{ caga_analysis['EPIYA-B_seq'] }}</li>{% endif %}
+    {% if caga_analysis['EPIYA-C'] %}<li><b>EPIYA-C:</b> {{ caga_analysis['EPIYA-C_seq'] }}</li>{% endif %}
+    {% if caga_analysis['EPIYA-CC'] %}<li><b>EPIYA-CC:</b> {{ caga_analysis['EPIYA-CC_seq'] }}</li>{% endif %}
+    {% if caga_analysis['EPIYA-D'] %}<li><b>EPIYA-D:</b> {{ caga_analysis['EPIYA-D_seq'] }}</li>{% endif %}
+    {% if found_vaca %}
+    <li><b>{{ vaca_analysis['s1s2'] }}</b></li>
+    <li><b>{{ vaca_analysis['m1m2'] }}</b></li>
+    {% endif %}
+    {% if find_amr %}
+      {% for key, value in amr_analysis.items() %}
+    <li><b>{{ key }}:</b> {{ value }}</li>
+      {% endfor %}
+    {% endif %}
+  </ul>
+  {% if found_caga %}
+    {% for vf in [caga_nu, caga_prot] %}
+  <button class="accordion">{{ vf.name }}</button>
+  <div class="panel">
+    <p><b>Start position in genome:</b> {{ vf.start_pos }}</p>
+    <p><b>End position in genome:</b> {{ vf.end_pos }}</p>
+    <p><b>Length:</b> {{ vf.len }}</p>
+    <textarea rows=10 readonly>{{ vf.raw }}</textarea>
+  </div>
+    {% endfor %}
+  {% else %}
+    {% if mutant_caga %}
+  <h2>Đột biến mất đoạn cagA!</h2>
+    {% else %}
+  <h2>Không tìm thấy cagA!</h2>
+    {% endif %}
+  {% endif %}
+  
+  {% if found_vaca %}
+    {% for vf in [vaca_nu, vaca_prot] %}
+  <button class="accordion">{{ vf.name }}</button>
+  <div class="panel">
+    <p><b>Start position in genome:</b> {{ vf.start_pos }}</p>
+    <p><b>End position in genome:</b> {{ vf.end_pos }}</p>
+    <p><b>Length:</b> {{ vf.len }}</p>
+    <textarea rows=10 readonly>{{ vf.raw }}</textarea>
+  </div>
+    {% endfor %}
+  {% else %}
+    {% if mutant_vaca %}
+  <h2>Đột biến mất đoạn vacA!</h2>
+    {% else %}
+  <h2>Không tìm thấy vacA!</h2>
+    {% endif %}
+  {% endif %}
+  <h5>Execution time: {{ exec_time }} seconds</h5>
+  <script>var i,acc=document.getElementsByClassName("accordion");for(i=0;i<acc.length;i++)acc[i].addEventListener("click",function(){this.classList.toggle("active");var e=this.nextElementSibling;e.style.maxHeight?e.style.maxHeight=null:e.style.maxHeight=e.scrollHeight+"px"});</script>
+</body>
+</html>

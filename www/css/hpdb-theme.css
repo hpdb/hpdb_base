@@ -1,0 +1,276 @@
+/*
+  HPDB Custom CSS
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #fafafa;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+a, a:hover, a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wrapper {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  align-items: stretch;
+  height: 100vh;
+  margin-top: -50px;
+  padding-top: 50px;
+  width: 100%;
+  backface-visibility: hidden;
+  will-change: overflow;
+}
+
+.navbar {
+  display: flex;
+  position: relative;
+  z-index: 10;
+  height: 50px;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: #212529;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebar ul li a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+#sidebar ul li a:hover {
+  color: #007bff;
+  background: #fff;
+}
+
+#sidebar ul ul a {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+}
+
+#sidebar ul ul a:not(.active) {
+  background: #313a42;
+}
+
+#sidebar .nav-link,
+#sidebar .nav-tabs {
+  border: none !important;
+  border-radius: 0px !important;
+}
+
+.sidebar-header img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50px;
+}
+
+a[data-toggle="collapse"] {
+  position: relative;
+}
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  transition: 0.5s;
+}
+
+#sidebar .dropdown-toggle[aria-expanded="true"]:after {
+  transform: rotate(180deg);
+}
+
+#sidebar ul.CTAs {
+  padding: 20px;
+}
+
+#sidebar ul.CTAs a {
+  text-align: center;
+  font-size: 0.9em !important;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+#sidebar a.download {
+  background: #fff;
+  color: #007bff;
+}
+
+#content {
+  width: 100%;
+  padding: 20px;
+  transition: all 0.3s;
+  background: #fff;
+}
+
+.tab-pane h1, h2 {
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 10px;
+  margin: 20px 0;
+}
+
+textarea {
+  font-family: monospace;
+}
+
+.custom-scroll {
+  display: flex;
+  flex-flow: column;
+  overflow: auto;
+  height: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-to-top {
+  position: fixed;
+  display: none;
+  right: 15px;
+  bottom: 15px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  color: #fff;
+  line-height: 46px;
+  background: rgba(52, 58, 64, 0.5);
+  border-radius: 15rem !important;
+}
+
+.scroll-to-top:focus, .scroll-to-top:hover {
+  color: white;
+}
+
+.scroll-to-top:hover {
+  background: #343a40;
+}
+
+@media (max-width: 576px) {
+  #sidebar {
+    margin-left: -250px;
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  #sidebar.active {
+    min-width: 100vw!important;
+  }
+  #username_label {
+    display: none;
+  }
+}
+
+fieldset {
+  background-color: #f7f7f7;
+  border: 2px solid #eee;
+  padding: 0.5em 0.5em 1em 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+legend {
+  font-size: 1.2em;
+  text-align: left;
+  width: auto;
+  background-color: #e5e5e5;
+  color: #222;
+  padding: 0.1em 0.5em;
+  border: 2px solid #d8d8d8;
+}
+
+.modal-content {
+  border-radius: 1.0rem;
+}
+
+.modal-header .close {
+  margin-top: -1.5rem;
+}
+
+.modal-dialog {
+  max-width: 400px;
+}
+.modal-dialog .modal-content {
+  padding: 1rem;
+}
+
+.form-title {
+  margin: -2rem 0rem 2rem;
+}
+
+.delimiter {
+  padding: 1rem;  
+}
+
+.social-buttons .btn-round {
+  margin: 0 0.5rem 1rem;
+  border-radius: 5rem;
+}
+
+.signup-section {
+  padding: 0.3rem 0rem;
+}
+
+.loggedin-item, .loggedout-item {
+  display: none;
+}
+
+.search-box {
+  background-image: url('/images/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+#fileTree {
+  display: block;
+  height: 300px;
+  width: 100%;
+  border-top: solid 1px #BBB;
+  border-left: solid 1px #BBB;
+  border-bottom: solid 1px #BBB;
+  border-right: solid 1px #BBB;
+  background: #FFF;
+  overflow-y: auto;
+}

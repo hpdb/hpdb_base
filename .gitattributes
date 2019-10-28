@@ -1,1 +1,10 @@
 * text=auto eol=lf
+*.eot binary
+*.svg binary
+*.png binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+
+.gitattributes export-ignore
+.gitignore export-ignore

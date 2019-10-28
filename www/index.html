@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HPDB - PTNK</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/hpdb-theme.css">
+  <link rel="stylesheet" href="css/jqueryFileTree.min.css">
+  <link rel="stylesheet" href="js/plupload/jquery.plupload.queue/css/jquery.plupload.queue.css">
+  <script src="js/fontawesome-all.js"></script>
+</head>
+<body>
+  <!-- Top Navbar Holder -->
+  <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand mr-1" href="http://hpdb.tk">HPDB</a>
+    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+      <i class="fas fa-align-justify"></i>
+    </button>
+    <span class="ml-auto text-white" id="username_label"></span>
+    <button type="button" id="login_btn" class="btn btn-outline-primary btn-round ml-auto loggedout-item" data-toggle="modal" data-target="#login_modal">
+      Log in
+    </button>
+    <button type="button" id="logout_btn" class="btn btn-outline-primary btn-round ml-auto loggedin-item" data-toggle="modal" data-target="#logout_modal">
+      Log out
+    </button>
+  </nav>
+  <div class="wrapper">
+    <!-- Login Modal -->
+    <div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-title text-center">
+              <h4>Log into HPDB</h4>
+            </div>
+            <div class="d-flex flex-column">
+              <form>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="login_username" placeholder="Username">
+                  <small id="login_username_help" class="text-danger" style="display: none;">Username cannot be empty!</small>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="login_password" placeholder="Password">
+                  <small id="login_password_help" class="text-danger" style="display: none;">Password cannot be empty!</small>
+                </div>
+                <small id="login_invalid_help" class="text-danger" style="display: none;">Your credentials are invalid!</small>
+                <button type="button" id="login_submit" class="btn btn-primary btn-block btn-round">Login</button>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="rememberme">
+                  <label class="custom-control-label" for="rememberme">Remember me</label>
+                </div>
+              </form>
+              <!-- Login using social network - not supported yet
+              <div class="text-center text-muted delimiter">or use a social network</div>
+              <div class="d-flex justify-content-center social-buttons">
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="Facebook">
+                  <i class="fab fa-facebook"></i>
+                </button>
+                <button type="button" class="btn btn-secondary btn-round" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                  <i class="fab fa-linkedin"></i>
+                </button>
+              </div> !-->
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <div class="resetpwd-section">
+              <!-- Forgot your password? <a href="#" class="text-primary" data-toggle="modal" data-target="#signup_modal" data-dismiss="modal"> Reset it</a>.<br> -->
+              Not a member yet? <a href="#" class="text-primary" data-toggle="modal" data-target="#signup_modal" data-dismiss="modal"> Sign up</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signup_modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-title text-center">
+              <h4>Sign up</h4>
+            </div>
+            <div class="d-flex flex-column">
+              <form>
+                <div class="form-group">
+                  <input type="email" class="form-control" id="signup_email" placeholder="Email">
+                  <small id="signup_email_help" class="text-danger" style="display: none;">Email cannot be empty!</small>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="signup_username" placeholder="Username">
+                  <small id="signup_username_help" class="text-danger" style="display: none;">Username cannot be empty!</small>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" id="signup_password" placeholder="Password">
+                  <small id="signup_password_help" class="text-danger" style="display: none;">Password cannot be empty!</small>
+                </div>
+                <!--<div class="form-group">
+                  <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
+                  <small id="signup_confirmpwd_help" class="text-danger" style="display: none;">Confirm password cannot be empty!</small>
+                </div>-->
+                <button type="button" id="signup_submit" class="btn btn-primary btn-block btn-round">Sign Up</button>
+                <small class="text-muted">Your information is safe with us.</small>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <div class="signup-section">Have an account? <a href="#" class="text-primary" data-toggle="modal" data-target="#login_modal" data-dismiss="modal"> Log in</a>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery File Tree Modal -->
+    <div class="modal fade" id="fileTree_modal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div id="fileTree"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Holder -->
+    <nav id="sidebar" class="custom-scroll">
+      <div class="sidebar-header">
+        <img src="images/hpdb_logo.svg">
+        <p class="text-center text-monospace">Version 0.0.1</p>
+      </div>
+
+      <ul class="list-unstyled nav nav-tabs flex-column" style="padding-bottom: 50px;">
+        <li class="nav-item">
+          <a href="#home" data-toggle="tab" class="nav-link active">Home</a>
+        </li>
+        <li class="loggedin-item">
+          <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pipelines</a>
+          <ul class="collapse list-unstyled submenu" id="submenu1">
+            <li class="nav-item">
+              <a href="#run_hpdb" data-toggle="tab" class="nav-link">Run HPDB</a>
+            </li>
+            <li class="nav-item">
+              <a href="#vf_align" data-toggle="tab" class="nav-link">cagA/vacA alignment</a>
+            </li>
+          </ul>
+        </li>
+        <li class="loggedin-item">
+          <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tools</a>
+          <ul class="collapse list-unstyled submenu" id="submenu2">
+            <li class="nav-item">
+              <a href="#blast" data-toggle="tab" class="nav-link">BLAST</a>
+            </li>
+            <li class="nav-item">
+              <a href="#clustalo" data-toggle="tab" class="nav-link">Clustal Omega</a>
+            </li>
+            <li class="nav-item">
+              <a href="#snippy" data-toggle="tab" class="nav-link">Snippy</a>
+            </li>
+            <li class="nav-item">
+              <a href="/cgi-bin/export_html.cgi" class="nav-link">Export Table</a>
+            </li>
+          </ul>
+        </li>
+        <li class="loggedin-item">
+          <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">External Database</a>
+          <ul class="collapse list-unstyled submenu" id="submenu3">
+            <li class="nav-item">
+              <a href="https://www.ncbi.nlm.nih.gov/genome/genomes/169" class="nav-link">NCBI Genome</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.ncbi.nlm.nih.gov/gds/?term=helicobacter%20pylori" class="nav-link">NCBI GEO DataSets</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.patricbrc.org/view/Taxonomy/210" class="nav-link">PATRIC</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.genome.jp/dbget-bin/www_bfind_sub?serv=kegg&dbkey=genome&keywords=helicobacter+pylori" class="nav-link">KEGG</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.ebi.ac.uk/pride/archive/simpleSearch?q=helicobacter+pylori" class="nav-link">PRIDE</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://helicobacter.biocyc.org/" class="nav-link">BioCyc</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=helicobacter%20pylori" class="nav-link">PUBMED</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item loggedin-item" style="display: none;">
+          <a href="#upload" data-toggle="tab" class="nav-link">Upload Files</a>
+        </li>
+        <li class="nav-item loggedin-item" style="display: none;">
+          <a href="#projects" data-toggle="tab" class="nav-link" id="projects_btn">Your Projects</a>
+        </li>
+        <li class="nav-item" style="display: none;">
+          <a href="/sitemap.html" class="nav-link">Sitemap</a>
+        </li>
+      </ul>
+
+      <ul class="list-unstyled CTAs" style="display: none;">
+        <li>
+          <a href="https://github.com/hieplpvip/HPDB" class="download">View source on GitHub</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content" class="tab-content custom-scroll">
+      <div class="tab-pane active" id="home">
+        <h1 class="text-muted">Welcome to HPDB!</h1>
+        <p>HPDB (<u>H</u>elicobacter <u>P</u>ylori <u>D</u>ata<u>b</u>ase) is created by two students from VNU-HCM High School for the Gifted.</p>
+        <p class="text-danger loggedout-item">You need to log in to be able to use HPDB.</p>
+	    </div>
+      <div class="tab-pane fade" id="run_hpdb">
+        <h2 class="text-muted">Run HPDB</h2>
+        <form id="hpdb_form" action="http://hpdb.tk/cgi-bin/submit_hpdb.cgi" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <legend>STEP 1 - Upload Sequence</legend>
+            <div class="form-group">
+              <label for="hpdb_seqfile">Upload a sequence file:</label>
+              <input type="file" id="hpdb_seqfile" name="seqfile" aria-describedby="hpdb_seqfilehelp" multiple>
+            </div>
+            <div class="form-group">
+              <label for="hpdb_seqfile">Or choose an uploaded file:</label>
+              <div class="input-group mb-3">
+                <input id="hpdb_seqfileloc" name="seqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
+                </div>
+              </div>
+              <small id="hpdb_seqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 2 - Set your parameters</legend>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" name="find_amr" id="find_amr">
+              <label class="custom-control-label" for="find_amr">Find AMR</label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 3 - Submit your job</legend>
+            <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="vf_align">
+        <h2 class="text-muted">cagA and vacA protein sequence alignment</h2>
+        <form class="text-muted green-border-focus" id="vf_align_form" action="/cgi-bin/vf_align.cgi" method="post">
+          <textarea rows="10" class="form-control" name="jobs" placeholder="Syntax: name,job id (one job per line)&#10;e.g. DN01,1569761899004"></textarea><br>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" name="caga" id="align_caga">
+            <label class="custom-control-label" for="align_caga">Align cagA</label>
+          </div>
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" name="vaca" id="align_vaca">
+            <label class="custom-control-label" for="align_vaca">Align vacA</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p id="status"></p>
+        <textarea rows="20" class="form-control" id="vf_align_result" readonly></textarea>
+      </div>
+      <div class="tab-pane fade" id="blast">
+        <h2 class="text-muted">Basic Local Alignment Search Tool</h2>
+        <p>BLAST finds regions of similarity between biological sequences. The program compares nucleotide or protein sequences to sequence databases and calculates the statistical significance.</p>
+        <form id="blast_form" action="http://hpdb.tk/cgi-bin/submit_blast.cgi" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <legend>STEP 1 - Select BLAST Type</legend>
+            <div class="form-group">
+              <label for="blastype">Selete BLAST type</label>
+              <select class="form-control" id="blastype">
+                <option value="blastn">blastn</option>
+                <option value="blastp">blastp</option>
+                <option value="blastx">blastx</option>
+                <option value="tblastn">tblastn</option>
+                <option value="tblastx">tblastx</option>
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 2 - Enter Query Sequence</legend>
+            <div class="form-group">
+              <label for="queryseq">Enter FASTA sequence(s)</label>
+              <textarea class="form-control" id="queryseq" name="queryseq" rows="7"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="queryseqfile">Or, upload a file:</label>
+              <input type="file" id="queryseqfile" name="queryseqfile" aria-describedby="queryseqfilehelp">
+              <small id="queryseqfilehelp" class="form-text text-muted">Supported format: ...</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 3 - Enter Subject Sequence</legend>
+            <div class="form-group">
+              <label for="subseq">Enter FASTA sequence(s)</label>
+              <textarea class="form-control" id="subseq" name="subseq" rows="7"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="subseqfile">Or, upload a file:</label>
+              <input type="file" id="subseqfile" name="subseqfile" aria-describedby="subseqfilehelp">
+              <small id="subseqfilehelp" class="form-text text-muted">Supported format: ...</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 4 - Submit your job</legend>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="clustalo">
+        <h2 class="text-muted">Clustal Omeaga</h2>
+        <p>Clustal Omega is a new multiple sequence alignment program that uses seeded guide trees and HMM profile-profile techniques to generate alignments between <span style="font-weight: 700">three</span> or more sequences.</p>
+        <form id="clustalo_form" action="http://hpdb.tk/cgi-bin/submit_clustalo.cgi" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <legend>STEP 1 - Enter your input sequences</legend>
+            <div class="form-group">
+              <label for="stype">Enter or paste a set of</label>
+              <select class="form-control" id="stype">
+                <option value="protein">PROTEIN</option>
+                <option value="dna">DNA</option>
+                <option value="rna">RNA</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="sequence">sequences in any supported format:</label>
+              <textarea class="form-control" id="sequence" name="sequence" rows="7"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Or, upload a file:</label>
+              <input type="file" name="seqfile" aria-describedby="fileHelp">
+              <small class="form-text text-muted">Supported format: ...</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 2 - Set your parameters</legend>
+            <div class="form-group">
+              <label for="outfmt">OUTPUT FORMAT</label>
+              <select class="form-control" id="outfmt">
+                <option value="clustal_num">ClustalW with character counts</option>
+                <option value="clustal">ClustalW</option>
+                <option value="fa">Pearson/FASTA</option>
+                <option value="msf">MSF</option>
+                <option value="nexus">NEXUS</option>
+                <option value="phylip">PHYLIP</option>
+                <option value="selex">SELEX</option>
+                <option value="stockholm">STOCKHOLM</option>
+                <option value="vienna">VIENNA</option>
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 3 - Submit your job</legend>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="projects">
+        <h2 class="text-muted">Your Projects</h2>
+        <div class="card">
+          <div class="card-body">
+            <label id="p_status" style="display: none;">Just a status placeholder</label>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <input id="search_ptable" type="text" style="display: none;" placeholder="Search for project name or filename..." class="input-sm search-box">
+                  <!--<button type="button" id="loading-btn" class="btn btn-warning btn-xs">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                  </button>-->
+                </div>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <div class="spinner-border m-2 d-none" role="status" id="p_spinner"></div>
+            </div>
+            <div class="table-responsive">
+              <table id="projects_table" class="table table-bordered table-hover" style="display: none;">
+                <thead>
+                  <tr>
+                    <th>Project Name</th>
+                    <th>Project Type</th>
+                    <th>Project Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="upload">
+        <h2 class="text-muted">Upload Files</h2>
+        <form id="hpdb-uploadfile-form" data-ajax="false" enctype="multipart/form-data">
+	        <div id="uploader">
+		        <p>You are not logged in or your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+	        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top" href="#" data-toggle="tooltip" title="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/jquery.form.min.js"></script>
+  <script src="js/jquery.mobile-events.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/sha256.js"></script>
+  <script src="js/jqueryFileTree.min.js"></script>
+  <script src="js/plupload/plupload.full.min.js"></script>
+  <script src="js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+  <script src="js/hpdb.js"></script>
+</body>
+</html>

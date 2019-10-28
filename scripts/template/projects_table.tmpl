@@ -1,0 +1,29 @@
+{% for proj in projects %}
+                  <tr>
+                    <td style="display:none;">
+                      {{ proj.name + proj.filename }}
+                    </td>
+                    <td>
+                      <label>{{ proj.name }}</label>
+                      <br>
+                      <small>Filename: {{ proj.filename }}<br>Created on {{ proj.daysubmit }}</small>
+                    </td>
+                    <td>
+                      <span class="badge badge-success">{{ proj.type }}</span>
+                    </td>
+                    <td>
+                      <div class="progress progress-xs">
+                        <div style="width: {{ proj.percent }}%;" class="progress-bar progress-bar-success"></div>
+                      </div>
+                      <small>{{ proj.status }}</small>
+                    </td>
+                    <td>
+{% if proj.done == True %}
+                      <a href="{{ proj.report }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-folder"></i> View</a>
+{% else %}
+                      <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-folder"></i> View</a>
+{% endif %}
+                      <!--<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>-->
+                    </td>
+                  </tr>
+{% endfor %}

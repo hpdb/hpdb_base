@@ -1,0 +1,10 @@
+install.log
+thirdParty
+bin
+include
+lib
+libexec
+share
+data
+queue
+*.pyc

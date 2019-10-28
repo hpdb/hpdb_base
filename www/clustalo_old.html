@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPDB - PTNK</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script> 
+</head>
+<body>
+<script>
+$(document).ready(function() {
+    $('#vfdb').ajaxForm({
+        beforeSubmit: function() {
+            $("#result").text("Submitting... Please wait...");
+        },
+        error: function(error) {
+            $("#result").text(error.responseText);
+        },
+        success: function(responseText) {
+            $("#result").text(responseText)
+        }
+    });
+});
+</script>
+<form id="vfdb" action="/cgi-bin/clustalo.cgi" method="post">
+  <textarea rows="5" cols="60" name="jobs" placeholder="Syntax: project id,name (one job per line)&#10;e.g. Sep_3-6863059043,DN01"></textarea>
+  <p><button type="submit">Submit</button></p>
+</form>
+<p id="status"></p>
+<textarea rows="50" cols="80" id="result" readonly></textarea>
+</body>
+</html>

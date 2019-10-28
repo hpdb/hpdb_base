@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HPDB - PTNK</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Datatables CSS -->
+  <link href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" rel="stylesheet" integrity="sha384-J/JrQzMo5A/ewqt8Xsq6nTHQVVAk/OOhH66uqpFN9+3+MiM427Ub97OApi7o6orj" crossorigin="anonymous">
+  <!-- Our custom CSS -->
+  <link rel="stylesheet" href="css/hpdb-theme.css">
+
+  <!-- Font Awesome JS -->
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/solid.js" integrity="sha384-Mf3ap7OwO+bjTkzM1RsrothLh38uKXvMWJ2TQPXGHqZcqfeI/cyCV+sfV0IDnBDq" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/fontawesome.js" integrity="sha384-EYYaHDhIRoBhd/Ir/1fPnxg9rZLk/55lKtlNT5KrIcONoCS2kjf7ZWzMoCLLACeo" crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
+  <!-- jQuery CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.5/jquery.csv.min.js" integrity="sha384-4Fu9f2E2aqCftKfT+f6UqEoOmfRTkSAJukq93vMioDRhoHmpgTBpJFiQ33dAYtJo" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- Datatables JS -->
+  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" integrity="sha384-hVry8+iweLeSXncfkJ1oB4r2dRAI2pHZNsSCjTJl4o6hspfUDuGlBKm1nqORIp3S" crossorigin="anonymous"></script>
+  <!-- Our custom JS -->
+  <script src="js/csv_to_html_table.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <h2>Helicobacter Pylori Genome Database</h2>
+    <p>These data are downloaded from <a href="https://www.ncbi.nlm.nih.gov/genome/genomes/169">NCBI Genome Database</a> and are updated every three months.</p>
+    <p class="text-danger font-italic" id="loading">Loading... Please wait.</p>
+    <div id="ncbi_table"></div>
+  </div>
+  <script type="text/javascript">
+    function format_link(link) {
+      if (link)
+        return '<a href="' + link + '" target="_blank"><i class="fa fa-download" aria-hidden="true"></i></a>';
+      else
+        return '';
+    }
+    /* NCBI Table */
+    CsvToHtmlTable.init({
+      csv_path: 'data/genomes_proks169.csv',
+      element: 'ncbi_table', 
+      allow_download: true,
+      csv_options: {separator: ',', delimiter: '"'},
+      custom_formatting: [[17, format_link], [18, format_link]],
+      datatables_options: {'paging': true,
+                           'order': [],
+                           'columnDefs': [{'targets': [4,5], 'visible': false, 'searchable': false }]}
+    }, function() {
+      $('#loading').hide();
+    });
+  </script>
+</body>
+</html>
