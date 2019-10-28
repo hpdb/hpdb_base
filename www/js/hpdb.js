@@ -344,7 +344,7 @@ $(document).ready(function () {
   });
 
   $('form').on('submit', function() {
-    $(this).trigger("reset");
+    //$(this).trigger("reset");
   });
 
   $('.file-selector').on('click', function() {
