@@ -343,6 +343,10 @@ $(document).ready(function () {
     });
   });
 
+  $('form').on('submit', function() {
+    $(this).trigger("reset");
+  });
+
   $('.file-selector').on('click', function() {
     inputFileID = $(this).parent().prev('input').attr('id');
   });
