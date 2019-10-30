@@ -329,7 +329,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda -y install gxx_linux-64
+$rootdir/thirdParty/Anaconda2/bin/conda install -y gxx_linux-64
 $rootdir/thirdParty/Anaconda2/bin/cpan install Getopt::Euclid List::Util Math::Random::MT version
 $rootdir/thirdParty/Anaconda2/bin/cpan install cpan
 $rootdir/thirdParty/Anaconda2/bin/cpan reload cpan
