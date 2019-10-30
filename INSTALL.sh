@@ -10,7 +10,7 @@ mkdir -p thirdParty
 cd thirdParty
 
 
-export PATH=$PATH:$rootdir/bin/
+export PATH=$PATH:$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin
 
 alignments_tools=( clustalo snippy mafft kma muscle mummer )
 analysis_tools=( roary PGAP )
@@ -679,13 +679,13 @@ else
   install_phylip
 fi
 
-if ( checkSystemInstallation grinder )
-then
-  echo "grinder is found"
-else
-  echo "grinder is not found"
-  install_grinder
-fi
+#if ( checkSystemInstallation grinder )
+#then
+#  echo "grinder is found"
+#else
+#  echo "grinder is not found"
+#  install_grinder
+#fi
 
 cd $rootdir
 
