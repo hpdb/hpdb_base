@@ -17,16 +17,12 @@
 sudo yum -y upgrade
 ```
 
-2. Install required packages:
+2. Add required repositories:
 ```
 sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 sudo yum -y install epel-release
-sudo yum -y groupinstall 'development tools'
-sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
-sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 ```
-
-3. Install MariaDB:
 
 Run `sudo vi /etc/yum.repos.d/MariaDB.repo` and paste this:
 ```
@@ -39,7 +35,13 @@ gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 ```
 
-Run `sudo yum -y install mariadb-server mysql-devel`
+3. Install required packages:
+```
+sudo yum -y groupinstall 'development tools'
+sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
+sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
+sudo yum install mariadb-server mysql-community-devel.x86_64
+```
 
 4. Configure firewall for http, https, and smtp:
 ```
