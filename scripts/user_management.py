@@ -73,7 +73,7 @@ def signup(db, email, username, password):
     c = db.cursor()
     c.execute("insert into users(email, username, password) values (%s, %s, %s)", (email, username, password));
     db.commit()
-    id = usertoid(username)
+    id = usertoid(db, username)
     user_folder = os.environ['HPDB_BASE'] + '/data/' + str(id) + '/'
     os.mkdir(user_folder)
     os.mkdir(user_folder + 'MyUpload')
