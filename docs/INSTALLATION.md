@@ -96,7 +96,13 @@ create table projects(
 exit;
 ```
 
-Finally, change password in `scripts/user_management.py`.
+Change password in `scripts/user_management.py`.
+
+3. Install module for Python:
+```
+sudo ln -s /usr/lib64/libmariadbclient.a /usr/lib64/libmariadb.a
+pip install mysqlclient
+```
 
 ### Apache Web Server Configuration
 

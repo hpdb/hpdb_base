@@ -22,7 +22,7 @@ sudo yum -y upgrade
 sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo yum -y install epel-release
 sudo yum -y groupinstall 'development tools'
-sudo yum -y install python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
+sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
 sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 ```
 
