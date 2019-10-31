@@ -39,8 +39,8 @@ gpgcheck=1
 ```
 sudo yum -y groupinstall 'development tools'
 sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
+sudo yum -y install mariadb-server mysql-community-devel.x86_64
 sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
-sudo yum install mariadb-server mysql-community-devel.x86_64
 ```
 
 4. Configure firewall for http, https, and smtp:
