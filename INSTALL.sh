@@ -35,7 +35,7 @@ ln -fs $anacondabin/python $rootdir/bin
 ln -fs $anacondabin/pip $rootdir/bin
 ln -fs $anacondabin/conda $rootdir/bin
 $anacondabin/conda install -y biopython
-$anacondabin/pip install regex mysqlclient
+$anacondabin/pip install regex
 echo "
 ------------------------------------------------------------------------------
                          Anaconda2 Installed
