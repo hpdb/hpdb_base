@@ -13,7 +13,7 @@ cd thirdParty
 export PATH=$PATH:$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin
 
 alignments_tools=( clustalo snippy mafft kma muscle mummer )
-analysis_tools=( roary PGAP )
+analysis_tools=( roary )
 annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal tRNAscan )
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
@@ -230,22 +230,6 @@ fi
 $rootdir/thirdParty/Anaconda2/bin/conda install -y -c conda-forge -c bioconda -c defaults roary
 echo "------------------------------------------------------------------------------
                            roary installed
-------------------------------------------------------------------------------
-"
-}
-
-install_PGAP() {
-echo "------------------------------------------------------------------------------
-                           Installing PGAP
-------------------------------------------------------------------------------
-"
-wget -c -q https://excellmedia.dl.sourceforge.net/project/pgap/PGAP-1.2.1/PGAP-1.2.1.tar.gz
-tar -xzf PGAP-1.2.1.tar.gz
-cd $rootdir/thirdParty
-chmod -R +x PGAP-1.2.1
-chmod -R +r PGAP-1.2.1
-echo "------------------------------------------------------------------------------
-                           PGAP installed
 ------------------------------------------------------------------------------
 "
 }
@@ -590,14 +574,6 @@ then
 else
   echo "roary is not found"
   install_roary
-fi
-
-if [ -x $rootdir/thirdParty/PGAP-1.2.1/PGAP.pl ]
-then
-  echo "PGAP 1.2.1 is found"
-else
-  echo "PGAP 1.2.1 is not found"
-  install_PGAP
 fi
 
 if ( checkSystemInstallation blastn )
