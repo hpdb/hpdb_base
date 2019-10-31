@@ -21,6 +21,28 @@ sequence_simulators=( grinder )
 utility_tools=( Anaconda2 )
 all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
+install_Anaconda2() {
+echo "------------------------------------------------------------------------------
+                         Installing Anaconda2
+------------------------------------------------------------------------------
+"
+if [ ! -f $rootdir/thirdParty/Anaconda2/bin/python ]; then
+    wget -c -q https://repo.anaconda.com/archive/Anaconda2-2019.07-Linux-x86_64.sh
+    bash Anaconda2-2019.07-Linux-x86_64.sh -b -p $rootdir/thirdParty/Anaconda2/
+fi
+anacondabin=$rootdir/thirdParty/Anaconda2/bin/
+ln -fs $anacondabin/python $rootdir/bin
+ln -fs $anacondabin/pip $rootdir/bin
+ln -fs $anacondabin/conda $rootdir/bin
+$anacondabin/conda install -y biopython
+$anacondabin/pip install regex mysqlclient
+echo "
+------------------------------------------------------------------------------
+                         Anaconda2 Installed
+------------------------------------------------------------------------------
+"
+}
+
 install_BLAST+() {
 echo "------------------------------------------------------------------------------
                            Installing ncbi-blast-2.9.0+-x64
@@ -328,24 +350,18 @@ echo "--------------------------------------------------------------------------
 "
 }
 
-install_Anaconda2() {
+install_mysqlclient() {
 echo "------------------------------------------------------------------------------
-                         Installing Anaconda2
+                         Installing mysqlclient
 ------------------------------------------------------------------------------
 "
-if [ ! -f $rootdir/thirdParty/Anaconda2/bin/python ]; then
-    wget -c -q https://repo.anaconda.com/archive/Anaconda2-2019.07-Linux-x86_64.sh
-    bash Anaconda2-2019.07-Linux-x86_64.sh -b -p $rootdir/thirdParty/Anaconda2/
+if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
+    install_Anaconda2
 fi
-anacondabin=$rootdir/thirdParty/Anaconda2/bin/
-ln -fs $anacondabin/python $rootdir/bin
-ln -fs $anacondabin/pip $rootdir/bin
-ln -fs $anacondabin/conda $rootdir/bin
-$anacondabin/conda install -y biopython
-$anacondabin/pip install regex mysqlclient
+$rootdir/thirdParty/Anaconda2/bin/pip install mysqlclient
 echo "
 ------------------------------------------------------------------------------
-                         Anaconda2 Installed
+                         mysqlclient installed
 ------------------------------------------------------------------------------
 "
 }
@@ -652,6 +668,14 @@ then
 else
   echo "phylip is not found"
   install_phylip
+fi
+
+if $rootdir/bin/python -c 'import MySQLdb; print MySQLdb.__version__' >/dev/null 2>&1
+then
+  $rootdir/bin/python -c 'import MySQLdb; print "mysqlclient version", MySQLdb.__version__, "is found"'
+else
+  echo "mysqlclient is not found"
+  install_mysqlclient
 fi
 
 #if ( checkSystemInstallation grinder )
