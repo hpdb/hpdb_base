@@ -10,6 +10,7 @@ import jinja2
 import yaml
 import commands
 from ref_AMR import AMR
+from shutil import copyfile
 import utils
 
 def run(configs):
@@ -18,7 +19,12 @@ def run(configs):
     files = sorted(os.listdir('input'))
     files = [os.path.splitext(f)[0] for f in files]
     
+    os.mkdir('output/gff')
+    
     for f in files:
         utils.runprokka('input/' + f + '.fasta', 'output/' + f, f)
+        copyfile('output/' + f + '/' + f + '.gff', 'output/gff/' + f + '.gff')
+    
+    
     
     return configs
