@@ -8,6 +8,9 @@ import regex
 def runprodigal(input, prot, nu):
     call('prodigal -a %s -d %s -i %s >/dev/null 2>&1' % (prot, nu, input), shell = True)
 
+def runprokka(input, outdir, prefix):
+    call("prokka --kingdom Bacteria --outdir %s --genus 'Helicobacter' --species 'Helicobacter pylori' --prefix %s %s >/dev/null 2>&1" % (outdir, prefix, input), shell = True)
+
 def runblastp(query, subject):
     lines = check_output('blastp -query %s -subject %s -evalue 0.0001 -outfmt "10 sseqid"' % (query, subject), shell = True).splitlines()
     return lines

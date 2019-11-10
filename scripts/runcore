@@ -10,7 +10,7 @@ import yaml
 import commands
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
-import hpdb
+import hpdb, roary
 
 def run():    
     # ----- Get job from queue -----
@@ -35,6 +35,9 @@ def run():
     
     if configs['jobtype'] == 'hpdb':
         configs = hpdb.run(configs)
+    
+    if configs['jobtype'] == 'roary':
+        configs = roary.run(configs)
     
     # ----- Save job config -----
     with open('configs.yaml', 'w') as f:
