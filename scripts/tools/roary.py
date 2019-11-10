@@ -19,6 +19,6 @@ def run(configs):
     files = [os.path.splitext(f)[0] for f in files]
     
     for f in files:
-        runprokka('input/' + f + '.fasta', 'output/' + f, f)
+        utils.runprokka('input/' + f + '.fasta', 'output/' + f, f)
     
     return configs
