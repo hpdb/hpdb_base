@@ -58,7 +58,7 @@ def main():
     configs['userid'] = userid
     configs['username'] = username
     configs['jobid'] = jobid
-    configs['filename'] = 'Not available'
+    configs['filename'] = ''
     configs['dirpath'] = dirpath
 
     with open('configs.yaml', 'w') as f:
