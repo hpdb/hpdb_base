@@ -1,5 +1,5 @@
 allowLoggedinlocalhost = true;
-localsid = '28a6bd943a7da403a29d0466761c2b208d83bf3716a4db2afdb2442bdce498de';
+localsid = 'a3c8a198e3133f4a83fc0ab382a37ee20d9496360edcc0f9f65274cca8bcd0f6';
 
 function getsid() {
   sid = localStorage.getItem('sid');

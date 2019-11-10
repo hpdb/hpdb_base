@@ -14,7 +14,7 @@ export PATH=$PATH:$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin
 
 alignments_tools=( clustalo snippy mafft kma muscle mummer )
 analysis_tools=( roary )
-annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal tRNAscan )
+annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal prokka tRNAscan )
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
 sequence_simulators=( grinder )
@@ -109,6 +109,20 @@ cd $rootdir/thirdParty
 echo "
 ------------------------------------------------------------------------------
                            prodigal v2.6.0 installed
+------------------------------------------------------------------------------
+"
+}
+
+install_prokka()
+{
+echo "------------------------------------------------------------------------------
+                           Installing prokka
+------------------------------------------------------------------------------
+"
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c conda-forge -c bioconda -c defaults prokka
+echo "
+------------------------------------------------------------------------------
+                           prokka installed
 ------------------------------------------------------------------------------
 "
 }
@@ -645,6 +659,15 @@ else
   echo "prodigal is not found"
   install_prodigal
 fi
+
+if ( checkSystemInstallation prokka )
+then
+  echo "prokka is found"
+else
+  echo "prokka is not found"
+  install_prokka
+fi
+
 
 if ( checkSystemInstallation tRNAscan-SE )
 then
