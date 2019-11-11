@@ -25,6 +25,27 @@ def main():
     userid = um.usertoid(db, username)
     projname = form.getvalue('projname')
     
+    cnt = 0
+    if 'seqfile' in form:
+        filefield = form['seqfile']
+        if not isinstance(filefield, list):
+            filefield = [filefield]
+        for upfile in filefield:
+            if upfile.filename != '':
+                cnt += 1
+    if 'seqfileloc' in form:
+        seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
+        if os.path.isfile(seqfileloc):
+            cnt += 1
+    
+    if cnt < 2:
+        print('Content-Type:text/html')
+        print('')
+        with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
+            print(f.read())
+        return
+    
+    
     jobid = str(int(round(time.time() * 1000)))
     
     dirpath = um.getUserProjectDir(userid) + jobid
