@@ -18,7 +18,7 @@ annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal p
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
 sequence_simulators=( grinder )
-utility_tools=( Anaconda2 )
+utility_tools=( Anaconda2 mysqlclient )
 all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
 install_Anaconda2() {
