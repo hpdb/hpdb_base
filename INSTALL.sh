@@ -582,13 +582,13 @@ else
   install_kma
 fi
 
-if ( checkSystemInstallation muscle )
-then
-  echo "muscle is found"
-else
-  echo "muscle is not found"
-  install_muscle
-fi
+#if ( checkSystemInstallation muscle )
+#then
+#  echo "muscle is found"
+#else
+#  echo "muscle is not found"
+#  install_muscle
+#fi
 
 if ( checkLocalInstallation nucmer )
 then
