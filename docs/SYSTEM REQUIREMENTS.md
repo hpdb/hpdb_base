@@ -42,7 +42,7 @@ sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql 
 sudo yum -y install mariadb-server
 ```
 
-Install required libs for mysqlclient:
+Install required libs for mysqlclient (thanks to [this](https://stackoverflow.com/questions/46495448/unable-to-install-mysqlclient-on-centos)):
 ```
 sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 sudo yum -y install mysql-community-devel.x86_64
