@@ -37,7 +37,7 @@
     <h2>Helicobacter Pylori Genome Database</h2>
     <!--<p>These data are downloaded from <a href="https://www.ncbi.nlm.nih.gov/genome/genomes/169">NCBI Genome Database</a> and are updated every three months.</p>-->
     <p class="text-danger font-italic" id="loading">Loading... Please wait.</p>
-    <div id="ncbi_table"></div>
+    <div id="data_table"></div>
   </div>
   <script type="text/javascript">
     function format_download_link(link) {
@@ -105,7 +105,7 @@
     /* NCBI Table */
     CsvToHtmlTable.init({
       csv_path: 'data/data.csv',
-      element: 'ncbi_table', 
+      element: 'data_table', 
       allow_download: true,
       csv_options: {separator: ',', delimiter: '"'},
       custom_formatting: [[1, format_ncbi_genome_link],
