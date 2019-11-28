@@ -13,13 +13,19 @@ db = um.newDBConnection()
 
 def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     jobid = str(int(round(time.time() * 1000)))
+    dirpath = um.getUserProjectDir(userid) + jobid
+    os.mkdir(dirpath)
+    os.chdir(dirpath)
+    
     configs = {}
     configs['jobtype'] = 'hpdb'
+    configs['jobid'] = jobid
     configs['daysubmit'] = time.strftime("%d-%m-%Y")
     configs['projname'] = projname
     configs['userid'] = userid
     configs['username'] = username
-    configs['jobid'] = jobid
+    configs['dirpath'] = dirpath
+    configs['filename'] = ''
     configs['find_amr'] = find_amr
     configs['found_caga'] = False
     configs['found_vaca'] = False
@@ -33,9 +39,6 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
     configs['amr_analysis'] = {}
     
-    dirpath = um.getUserProjectDir(userid) + configs['jobid']
-    os.mkdir(dirpath)
-    os.chdir(dirpath)
     
     if type == 1:
         configs['filename'] = upfile.filename
@@ -48,7 +51,7 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     
-    with open(os.environ['HPDB_BASE'] + '/queue/' + configs['jobid'], 'w') as f:
+    with open(os.environ['HPDB_BASE'] + '/queue/' + jobid, 'w') as f:
         f.write(dirpath)
     
     with open('queued', 'w') as f:

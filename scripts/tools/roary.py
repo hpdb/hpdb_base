@@ -28,4 +28,6 @@ def run(configs):
     
     call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
     
+    configs['exec_time'] = '%.2f' % (time.time() - start_time)
+    
     return configs

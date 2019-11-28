@@ -24,63 +24,41 @@ def main():
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
     projname = form.getvalue('projname')
+    jobid = str(int(round(time.time() * 1000)))
     
-    cnt = 0
+    dirpath = um.getUserProjectDir(userid) + jobid
+    os.mkdir(dirpath)
+    os.chdir(dirpath)
+    
+    ok = False
     if 'seqfile' in form:
-        filefield = form['seqfile']
-        if not isinstance(filefield, list):
-            filefield = [filefield]
-        for upfile in filefield:
-            if upfile.filename != '':
-                cnt += 1
-    if 'seqfileloc' in form:
+        upfile = form['seqfile']
+        if upfile.filename != '':
+            ok = True
+            with open('input.fasta', 'wb') as f:
+                f.write(upfile.file.read())
+    if not ok and 'seqfileloc' in form:
         seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
         if os.path.isfile(seqfileloc):
-            cnt += 1
+            ok = True
+            copyfile(seqfileloc, 'input.fasta')
     
-    if cnt < 2:
+    if not ok:
         print('Content-Type:text/html')
         print('')
         with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
             print(f.read())
         return
-    
-    
-    jobid = str(int(round(time.time() * 1000)))
-    
-    dirpath = um.getUserProjectDir(userid) + jobid
-    inputdir = dirpath + '/input'
-    os.mkdir(dirpath)
-    os.mkdir(inputdir)
-    os.chdir(dirpath)
-    
-    cnt = 0
-    
-    if 'seqfile' in form:
-        filefield = form['seqfile']
-        if not isinstance(filefield, list):
-            filefield = [filefield]
-        for upfile in filefield:
-            if upfile.filename != '':
-                cnt += 1
-                with open('input/' + str(cnt) + '.fasta', 'wb') as f:
-                    f.write(upfile.file.read())
-    
-    if 'seqfileloc' in form:
-        seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
-        if os.path.isfile(seqfileloc):
-            cnt += 1
-            copyfile(seqfileloc, 'input/' + str(cnt) + '.fasta')
-    
+        
     configs = {}
-    configs['jobtype'] = 'roary'
+    configs['jobtype'] = 'snippy'
+    configs['jobid'] = jobid
     configs['daysubmit'] = time.strftime("%d-%m-%Y")
     configs['projname'] = projname
     configs['userid'] = userid
     configs['username'] = username
-    configs['jobid'] = jobid
-    configs['filename'] = ''
     configs['dirpath'] = dirpath
+    configs['filename'] = ''
 
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)

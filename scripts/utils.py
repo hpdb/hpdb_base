@@ -8,11 +8,17 @@ import regex
 def runprodigal(input, prot, nu):
     call('prodigal -a %s -d %s -i %s >/dev/null 2>&1' % (prot, nu, input), shell = True)
 
+def runclustalo(input, stype, outfmt, output):
+    if outfmt == 'clustal_num':
+        call('clustalo -i %s --seqtype=%s --outfmt=clu --resno -o %s' % (input, stype, output), shell = True)
+    else:
+        call('clustalo -i %s --seqtype=%s --outfmt=%s -o %s' % (input, stype, outfmt, output), shell = True)
+
 def runprokka(input, outdir, prefix):
     call("prokka --kingdom Bacteria --outdir %s --genus 'Helicobacter' --species 'Helicobacter pylori' --prefix %s %s >/dev/null 2>&1" % (outdir, prefix, input), shell = True)
 
-def runblastp(query, subject):
-    lines = check_output('blastp -query %s -subject %s -evalue 0.0001 -outfmt "10 sseqid"' % (query, subject), shell = True).splitlines()
+def runblast(prog, query, subject, evalue = '10', outfmt = '0'):
+    lines = check_output('%s -query %s -subject %s -evalue %s -outfmt "%s"' % (prog, query, subject, evalue, outfmt), shell = True).splitlines()
     return lines
 
 def runsnippy(ref, ctgs):

@@ -10,7 +10,7 @@ import yaml
 import commands
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
-import hpdb, roary
+import hpdb, blast, clustalo, roary, snippy
 
 def run():    
     # ----- Get job from queue -----
@@ -38,9 +38,14 @@ def run():
     
     if configs['jobtype'] == 'hpdb':
         configs = hpdb.run(configs)
-    
-    if configs['jobtype'] == 'roary':
+    elif configs['jobtype'] == 'blast':
+        configs = blast.run(configs)
+    elif configs['jobtype'] == 'clustalo':
+        configs = clustalo.run(configs)
+    elif configs['jobtype'] == 'roary':
         configs = roary.run(configs)
+    elif configs['jobtype'] == 'snippy':
+        configs = snippy.run(configs)
     
     # ----- Save job config -----
     with open('configs.yaml', 'w') as f:

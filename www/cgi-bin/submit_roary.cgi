@@ -74,13 +74,13 @@ def main():
     
     configs = {}
     configs['jobtype'] = 'roary'
+    configs['jobid'] = jobid
     configs['daysubmit'] = time.strftime("%d-%m-%Y")
     configs['projname'] = projname
     configs['userid'] = userid
     configs['username'] = username
-    configs['jobid'] = jobid
-    configs['filename'] = ''
     configs['dirpath'] = dirpath
+    configs['filename'] = ''
 
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
