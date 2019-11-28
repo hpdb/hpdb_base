@@ -4,54 +4,52 @@ import cgi
 import os
 import time
 import yaml
+import MySQLdb
+import json
+import user_management as um
+from shutil import copyfile
+
+db = um.newDBConnection()
 
 def main():
     form = cgi.FieldStorage()
-    if not 'seqfile' in form:
+    if not 'seqfile' in form and not 'sequence' in form:
         print('Content-Type:text/html')
         print('')
         with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
             print(f.read())
         return
+        
+    configs = {}
+    configs['jobid'] = str(int(round(time.time() * 1000)))
+    configs['daysubmit'] = time.strftime("%d-%m-%Y")
+    configs['jobtype'] = 'clustalo'
+    configs['projname'] = form.getvalue('projname')
+    configs['stype'] = form.getvalue('stype')
+    configs['outfmt'] = form.getvalue('outfmt')
     
-    filefield = form['seqfile']
-    if not isinstance(filefield, list):
-        filefield = [filefield]
+    dirpath = um.getUserProjectDir(userid) + configs['jobid']
+    os.mkdir(dirpath)
+    os.chdir(dirpath)
     
-    for upfile in filefield:
-        configs = {}
-        configs['filename'] = upfile.filename
-        configs['jobtype'] = 'clustalo'
-        configs['jobid'] = str(int(round(time.time() * 1000)))
-        configs['find_amr'] = (form.getvalue('find_amr') == 'on')
-        configs['found_caga'] = False
-        configs['found_vaca'] = False
-        configs['mutant_caga'] = False
-        configs['mutant_vaca'] = False
-        configs['caga_nu'] = {}
-        configs['caga_prot'] = {}
-        configs['vaca_nu'] = {}
-        configs['vaca_prot'] = {}
-        configs['caga_analysis'] = {'EPIYA-A': False, 'EPIYA-B': False, 'EPIYA-C': False, 'EPIYA-D': False}
-        configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
-        configs['amr_analysis'] = {}
-        
-        dirpath = os.environ['HPDB_BASE'] + '/data/project/' + configs['jobid']
-        os.mkdir(dirpath)
-        os.chdir(dirpath)
-        
-        with open('input.fasta', 'wb') as f:
-            f.write(upfile.file.read())
-        
-        with open('configs.yaml', 'w') as f:
-            yaml.dump(configs, f)
-        
-        with open(os.environ['HPDB_BASE'] + '/queue/' + configs['jobid'], 'w') as f:
-            f.write('just another dumb text')
-        
-        with open('queued', 'w') as f:
-            f.write('yet another dumb text')
-        
+    # FIX-ME: check if seq file is valid
+    with open('input.fasta', 'wb') as f:
+        if form.getvalue('sequence') != '':
+            f.write(form.getvalue('sequence'))
+        else:
+            f.write(form['seqfile'].file.read())
+    
+    with open('configs.yaml', 'w') as f:
+        yaml.dump(configs, f)
+    
+    with open(os.environ['HPDB_BASE'] + '/queue/' + configs['jobid'], 'w') as f:
+        f.write(dirpath)
+    
+    with open('queued', 'w') as f:
+        f.write(dirpath)
+    
+    um.addproject(db, userid, username, jobid)
+    
     print('Access-Control-Allow-Origin: *')
     print('Content-Type:text/plain')
     print('')
