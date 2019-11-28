@@ -8,6 +8,9 @@ import time
 import sys
 import yaml
 import commands
+import user_management as um
+
+db = um.newDBConnection()
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy
@@ -85,3 +88,4 @@ if __name__ == '__main__':
         except Exception as e:
             logf.write(str(e) + '\n')
     logf.close()
+    db.close()
