@@ -37,7 +37,7 @@ gpgcheck=1
 3. Install required packages:
 ```
 sudo yum -y groupinstall 'development tools'
-sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel
+sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel perl-ExtUtils-MakeMaker
 sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 sudo yum -y install mariadb-server
 ```

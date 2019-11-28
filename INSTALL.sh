@@ -18,7 +18,7 @@ annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal p
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
 sequence_simulators=( grinder )
-utility_tools=( Anaconda2 mysqlclient )
+utility_tools=( Anaconda2 mysqlclient jbrowse )
 all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
 install_Anaconda2() {
@@ -380,6 +380,42 @@ echo "
 "
 }
 
+install_JBrowse()
+{
+echo "------------------------------------------------------------------------------
+                           Installing JBrowse-1.11.6
+------------------------------------------------------------------------------
+"
+wget -c -q https://github.com/GMOD/jbrowse/releases/download/1.16.6-release/JBrowse-1.16.6.zip
+unzip JBrowse-1.16.6.zip
+if [ -e $rootdir/www/JBrowse/data ]
+then
+  mv $rootdir/www/JBrowse/data $rootdir/www/JBrowse_olddata
+fi
+if [ -e $rootdir/www/JBrowse ]
+then
+  rm -rf $rootdir/www/JBrowse
+fi
+
+mv JBrowse-1.11.6 $rootdir/www/JBrowse
+cd $rootdir/www/JBrowse
+./setup.sh
+if [ -e $rootdir/www/JBrowse_olddata ]
+then
+  mv $rootdir/www/JBrowse_olddata $rootdir/www/JBrowse/data
+else
+  mkdir -p -m 775 data
+fi
+
+cd $rootdir/thirdParty
+#ln -sf $rootdir/thirdParty/JBrowse-1.11.6 $rootdir/www/JBrowse
+echo "
+------------------------------------------------------------------------------
+                           JBrowse-1.11.6 installed
+------------------------------------------------------------------------------
+"
+}
+
 checkSystemInstallation() {
     IFS=:
     for d in $PATH; do
@@ -699,6 +735,14 @@ then
 else
   echo "mysqlclient is not found"
   install_mysqlclient
+fi
+
+if [ -x $rootdir/www/JBrowse/bin/prepare-refseqs.pl ]
+then
+  echo "JBrowse is found"
+else
+  echo "JBrowse is not found"
+  install_JBrowse
 fi
 
 #if ( checkSystemInstallation grinder )
