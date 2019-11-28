@@ -3,7 +3,7 @@
 from __future__ import division
 from subprocess import call, check_output
 from Bio import SeqIO
-import regex
+import regex, os
 
 def mkdir(path):
     try:
