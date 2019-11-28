@@ -47,8 +47,8 @@ def main():
             proj['done'] = True
             proj['status'] = 'Complete'
             proj['percent'] = '100'
-            proj['report'] = '/cgi-bin/getbyid.cgi?jobid=%s&sid=%s' % (id, sid)
-            proj['download'] = '/cgi-bin/download.cgi?jobid=%s&sid=%s' % (id, sid)
+            proj['report'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
+            proj['download'] = '/cgi-bin/user_download.cgi?jobid=%s&sid=%s' % (id, sid)
         projects.append(proj)
     
     projects = {'projects': projects}
