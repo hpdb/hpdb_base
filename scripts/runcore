@@ -9,11 +9,12 @@ import sys
 import yaml
 import commands
 import user_management as um
-
-db = um.newDBConnection()
+import utils
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy
+
+db = um.newDBConnection()
 
 def forcedelete(file):
     while os.path.isfile(file):
