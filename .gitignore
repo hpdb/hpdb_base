@@ -7,4 +7,5 @@ libexec
 share
 data
 queue
+www/JBrowse
 *.pyc
