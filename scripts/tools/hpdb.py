@@ -92,6 +92,9 @@ def run(configs):
             for y in x['subs']:
                 configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
             configs['amr_analysis'][x['name']] = utils.formatAMR2HTML(configs['amr_analysis'][x['name']])
+    else:
+        for x in AMR:
+            configs['amr_analysis'][x['name']] = 'N/A'
     
     configs['exec_time'] = '%.2f' % (time.time() - start_time)
     
