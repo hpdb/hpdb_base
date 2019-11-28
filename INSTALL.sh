@@ -387,7 +387,7 @@ echo "--------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 "
 wget -c -q https://github.com/GMOD/jbrowse/releases/download/1.16.6-release/JBrowse-1.16.6.zip
-unzip JBrowse-1.16.6.zip
+unzip -q JBrowse-1.16.6.zip
 if [ -e $rootdir/www/JBrowse/data ]
 then
   mv $rootdir/www/JBrowse/data $rootdir/www/JBrowse_olddata
@@ -397,7 +397,7 @@ then
   rm -rf $rootdir/www/JBrowse
 fi
 
-mv JBrowse-1.11.6 $rootdir/www/JBrowse
+mv JBrowse-1.16.6 $rootdir/www/JBrowse
 cd $rootdir/www/JBrowse
 ./setup.sh
 if [ -e $rootdir/www/JBrowse_olddata ]
