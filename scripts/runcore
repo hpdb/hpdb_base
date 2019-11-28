@@ -29,16 +29,16 @@ def run():
     
     # Check if job really exists
     if not os.path.isdir(job_dir):
-        os.remove(job_queue_file)
+        forcedelete(job_queue_file)
         return True # return True to continue getting job from queue
-    
-    with open('running', 'w') as f:
-        f.write('dumb file')
     
     # ----- Load job config -----    
     os.chdir(job_dir)
     with open('configs.yaml', 'r') as f:
         configs = yaml.full_load(f)
+    
+    with open('running', 'w') as f:
+        f.write('dumb file')
     
     if configs['jobtype'] == 'hpdb':
         configs = hpdb.run(configs)
