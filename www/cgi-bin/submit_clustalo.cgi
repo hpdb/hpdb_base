@@ -7,6 +7,7 @@ import yaml
 import MySQLdb
 import json
 import user_management as um
+import utils
 from shutil import copyfile
 
 db = um.newDBConnection()
@@ -26,7 +27,7 @@ def main():
     jobid = str(int(round(time.time() * 1000)))
     
     dirpath = um.getUserProjectDir(userid) + configs['jobid']
-    os.mkdir(dirpath)
+    utils.mkdir(dirpath)
     os.chdir(dirpath)
     
     configs = {}

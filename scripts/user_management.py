@@ -2,6 +2,7 @@
 
 import os, binascii
 import MySQLdb, hashlib
+import utils
 
 # change your password here
 def newDBConnection():
@@ -75,9 +76,9 @@ def signup(db, email, username, password):
     db.commit()
     id = usertoid(db, username)
     user_folder = os.environ['HPDB_BASE'] + '/data/' + str(id) + '/'
-    os.mkdir(user_folder)
-    os.mkdir(user_folder + 'MyUpload')
-    os.mkdir(user_folder + 'MyProjects')
+    utils.mkdir(user_folder)
+    utils.mkdir(user_folder + 'MyUpload')
+    utils.mkdir(user_folder + 'MyProjects')
 
 def logout(db, sid):
     c = db.cursor()

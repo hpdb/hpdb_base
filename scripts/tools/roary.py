@@ -19,8 +19,8 @@ def run(configs):
     files = sorted(os.listdir('input'))
     files = [os.path.splitext(f)[0] for f in files]
     
-    os.mkdir('output')
-    os.mkdir('output/gff')
+    utils.mkdir('output')
+    utils.mkdir('output/gff')
     
     for f in files:
         utils.runprokka('input/' + f + '.fasta', 'output/' + f, f)
