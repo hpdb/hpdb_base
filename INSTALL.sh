@@ -383,7 +383,7 @@ echo "
 install_JBrowse()
 {
 echo "------------------------------------------------------------------------------
-                           Installing JBrowse-1.11.6
+                           Installing JBrowse-1.16.6
 ------------------------------------------------------------------------------
 "
 wget -c -q https://github.com/GMOD/jbrowse/releases/download/1.16.6-release/JBrowse-1.16.6.zip
@@ -408,10 +408,10 @@ else
 fi
 
 cd $rootdir/thirdParty
-#ln -sf $rootdir/thirdParty/JBrowse-1.11.6 $rootdir/www/JBrowse
+#ln -sf $rootdir/thirdParty/JBrowse-1.16.6 $rootdir/www/JBrowse
 echo "
 ------------------------------------------------------------------------------
-                           JBrowse-1.11.6 installed
+                           JBrowse-1.16.6 installed
 ------------------------------------------------------------------------------
 "
 }
