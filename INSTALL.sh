@@ -399,7 +399,7 @@ fi
 
 mv JBrowse-1.16.6 $rootdir/www/JBrowse
 cd $rootdir/www/JBrowse
-./setup.sh
+sudo ./setup.sh
 if [ -e $rootdir/www/JBrowse_olddata ]
 then
   mv $rootdir/www/JBrowse_olddata $rootdir/www/JBrowse/data

@@ -38,6 +38,17 @@ gpgcheck=1
 ```
 sudo yum -y groupinstall 'development tools'
 sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel perl-ExtUtils-MakeMaker
+sudo yum install -y libX11-devel readline-devel libXt-devel ncurses-devel inkscape \
+    expat expat-devel freetype freetype-devel zlib zlib-devel perl-App-cpanminus \
+    perl-Test-Most blas-devel atlas-devel lapack-devel libpng12 libpng12-devel \
+    perl-XML-Simple perl-JSON csh gcc gcc-c++ make binutils gd gsl-devel git graphviz \
+    java-1.7.0-openjdk perl-Archive-Zip perl-CGI curl perl-CGI-Session \
+    perl-CPAN-Meta-YAML perl-DBI perl-Data-Dumper perl-GD perl-IO-Compress \
+    perl-Module-Build perl-XML-LibXML perl-XML-Parser perl-XML-SAX perl-XML-SAX-Writer \
+    perl-XML-Twig perl-XML-Writer perl-YAML perl-PerlIO-gzip libstdc++-static \
+    cairo-devel openssl-devel openssl-static libssh2-devel libcurl-devel \
+    wget rsync bzip2 bzip2-devel xz-devel time zip unzip which perl-CPAN \
+    perl-LWP-Protocol-https cronie gnuplot perl-JSON-XS perl-IO-Socket-IP
 sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 sudo yum -y install mariadb-server
 ```
@@ -46,6 +57,24 @@ Install required libs for mysqlclient (thanks to [this](https://stackoverflow.co
 ```
 sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 sudo yum -y install mysql-community-devel.x86_64
+```
+
+Update perl tools:
+```
+sudo cpanm App::cpanoutdated
+sudo su -
+cpan-outdated -p | cpanm
+exit
+```
+
+Install perl modules by cpanm:
+```
+sudo cpanm -f Bio::Perl Net::Ping
+sudo cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
+sudo cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
+sudo cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
+sudo cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
+sudo cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
 ```
 
 4. Configure firewall for http, https, and smtp:
