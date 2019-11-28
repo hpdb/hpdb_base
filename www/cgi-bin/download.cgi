@@ -16,20 +16,11 @@ def main():
     sid = form.getvalue('sid')
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
-    job_dir = um.getUserProjectDir(userid) + jobid + '/'
     
-    html_path = os.environ['HPDB_BASE'] + '/scripts/template/invalid.html'
-    if os.path.isfile(job_dir + 'configs.yaml'):
-        with open(job_dir + 'configs.yaml') as f:
-            configs = yaml.full_load(f)
-        if configs['username'] == username:
-            html_path = job_dir + '/report.html'
-    
-    print('Content-Type:text/html')
-    print('')
-    with open(html_path, 'r') as f:
-        print(f.read())
-    
+    print('X-Sendfile: ' + um.getUserDownloadDir(userid) + jobid + '.zip')
+    print('Content-Type: application/zip')
+    print('Content-Disposition: attachment; filename=' + jobid + '.zip');
+    print('Pragma: no-cache');
     return True
 
 if __name__ == "__main__":
