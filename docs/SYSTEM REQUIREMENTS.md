@@ -49,7 +49,7 @@ sudo yum install -y libX11-devel readline-devel libXt-devel ncurses-devel inksca
     cairo-devel openssl-devel openssl-static libssh2-devel libcurl-devel \
     wget rsync bzip2 bzip2-devel xz-devel time zip unzip which perl-CPAN \
     perl-LWP-Protocol-https cronie gnuplot perl-JSON-XS perl-IO-Socket-IP
-sudo yum --enablerepo=remi,remi-php74 -y install httpd php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
+sudo yum --enablerepo=remi,remi-php74 -y install httpd httpd-devel php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
 sudo yum -y install mariadb-server
 ```
 
@@ -57,6 +57,12 @@ Install required libs for mysqlclient (thanks to [this](https://stackoverflow.co
 ```
 sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
 sudo yum -y install mysql-community-devel.x86_64
+```
+
+Install `mod_xsendfile` for Apache:
+```
+wget https://raw.githubusercontent.com/nmaier/mod_xsendfile/master/mod_xsendfile.c
+sudo apxs -cia mod_xsendfile.c
 ```
 
 4. Configure firewall for http, https, and smtp:
