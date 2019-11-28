@@ -55,6 +55,9 @@ def run():
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     
+    # ----- Compress -----
+    utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
+    
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)
     forcedelete('running')

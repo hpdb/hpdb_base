@@ -5,6 +5,14 @@ from subprocess import call, check_output
 from Bio import SeqIO
 import regex, errno, os
 
+def zip(path, output):
+    zipf = zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if file != 'running' and file != 'queued':
+                zipf.write(os.path.join(root, file))
+    zipf.close()
+
 def mkdir(path):
     try:
         os.makedirs(path)

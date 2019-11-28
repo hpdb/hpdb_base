@@ -38,7 +38,7 @@ def main():
         if os.path.isfile(projects_dir + id + '/running'):
             proj['done'] = False
             proj['status'] = 'Running'
-            proj['percent'] = '20'
+            proj['percent'] = '50'
         elif os.path.isfile(projects_dir + id + '/queued'):
             proj['done'] = False
             proj['status'] = 'In queue'
@@ -48,6 +48,7 @@ def main():
             proj['status'] = 'Complete'
             proj['percent'] = '100'
             proj['report'] = '/cgi-bin/getbyid.cgi?jobid=%s&sid=%s' % (id, sid)
+            proj['download'] = '/cgi-bin/download.cgi?jobid=%s&sid=%s' % (id, sid)
         projects.append(proj)
     
     projects = {'projects': projects}

@@ -30,6 +30,9 @@ def getUserDir(userid):
 def getUserUploadDir(userid):
     return os.environ['HPDB_BASE'] + '/data/' + str(userid) + '/MyUpload/'
 
+def getUserDownloadDir(userid):
+    return os.environ['HPDB_BASE'] + '/data/' + str(userid) + '/MyDownload/'
+
 def getUserProjectDir(userid):
     return os.environ['HPDB_BASE'] + '/data/' + str(userid) + '/MyProjects/'
 
@@ -78,6 +81,7 @@ def signup(db, email, username, password):
     user_folder = os.environ['HPDB_BASE'] + '/data/' + str(id) + '/'
     utils.mkdir(user_folder)
     utils.mkdir(user_folder + 'MyUpload')
+    utils.mkdir(user_folder + 'MyDownload')
     utils.mkdir(user_folder + 'MyProjects')
 
 def logout(db, sid):
