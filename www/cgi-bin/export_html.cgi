@@ -4,6 +4,9 @@
 from __future__ import division
 from Bio import SeqIO
 import os, regex, yaml, cgi
+import user_management as um
+
+db = um.newDBConnection()
 
 def main():
     form = cgi.FieldStorage()
@@ -81,3 +84,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    db.close()
