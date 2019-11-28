@@ -18,7 +18,7 @@ annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal p
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
 sequence_simulators=( grinder )
-utility_tools=( Anaconda2 mysqlclient jbrowse )
+utility_tools=( Anaconda2 mysqlclient jbrowse circos )
 all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
 install_Anaconda2() {
@@ -416,6 +416,24 @@ echo "
 "
 }
 
+install_circos()
+{
+echo "------------------------------------------------------------------------------
+                           Installing circos-0.69-9
+------------------------------------------------------------------------------
+"
+wget -c -q http://circos.ca/distribution/circos-0.69-9.tgz
+tar -xzf circos-0.69-9.tgz
+circosbin=$rootdir/thirdParty/circos-0.69-9/bin/
+ln -fs $circosbin/circos $rootdir/bin
+cd $rootdir/thirdParty
+echo "
+------------------------------------------------------------------------------
+                           circos-0.69-9 installed
+------------------------------------------------------------------------------
+"
+}
+
 checkSystemInstallation() {
     IFS=:
     for d in $PATH; do
@@ -743,6 +761,14 @@ then
 else
   echo "JBrowse is not found"
   install_JBrowse
+fi
+
+if ( checkSystemInstallation circos )
+then
+  echo "circos is found"
+else
+  echo "circos is not found"
+  install_circos
 fi
 
 #if ( checkSystemInstallation grinder )
