@@ -21,6 +21,7 @@ def main():
     print('Content-Type: application/zip')
     print('Content-Disposition: attachment; filename=' + jobid + '.zip');
     print('Pragma: no-cache');
+    print('')
     return True
 
 if __name__ == "__main__":
