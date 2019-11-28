@@ -54,7 +54,7 @@ def main():
         if (start and int(id) < int(start)) or (end and int(id) > int(end)): continue
         with open(data_dir + id + '/configs.yaml') as f:
             configs = yaml.full_load(f)
-        if not os.path.isfile(data_dir + id + '/queued'):
+        if not os.path.isfile(data_dir + id + '/queued') and configs['jobtype'] == 'hpdb':
             cols = []
             #cols.append('<b><a href="/cgi-bin/getbyid.cgi?jobid=%s">%s</a></b>' % (id, configs['filename']))
             cols.append('<b>%s</b>' % configs['filename'])
