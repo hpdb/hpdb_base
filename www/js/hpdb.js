@@ -92,8 +92,12 @@ function showLoggedin(sid, username) {
   $('.loggedout-item').hide();
   $('#username_label').text('Hi, ' + username);
   $('#hpdb_form').append('<input type="hidden" name="sid" value="' + sid + '">');
-  $('#roary_form').append('<input type="hidden" name="sid" value="' + sid + '">');
   $('#vf_align_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#blast_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#clustalo_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#roary_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#snippy_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#export_table').attr("href", '/cgi-bin/export_html.cgi?sid=' + sid);
   fileTree(sid);
   $("#uploader").pluploadQueue({
     runtimes: 'html5,flash,silverlight,html4',

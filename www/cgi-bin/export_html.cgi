@@ -7,10 +7,20 @@ import os, regex, yaml, cgi
 
 def main():
     form = cgi.FieldStorage()
+    if not 'sid' in form:
+        print('Content-Type:text/html')
+        print('')
+        with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
+            print(f.read())
+        return
+    
+    sid = form.getvalue('sid')
+    username = um.sidtouser(db, sid)
+    userid = um.usertoid(db, username)
     start = form.getvalue('start')
     end = form.getvalue('end')
     
-    data_dir = os.environ['HPDB_BASE'] + '/data/project/'
+    data_dir = um.getUserProjectDir(userid)
     jobids = sorted(os.listdir(data_dir))
     
     print('Content-type:text/html')
