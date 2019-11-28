@@ -59,24 +59,6 @@ sudo rpm -Uvh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.r
 sudo yum -y install mysql-community-devel.x86_64
 ```
 
-Update perl tools:
-```
-sudo cpanm App::cpanoutdated
-sudo su -
-cpan-outdated -p | cpanm
-exit
-```
-
-Install perl modules by cpanm:
-```
-sudo cpanm -f Bio::Perl Net::Ping
-sudo cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
-sudo cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
-sudo cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
-sudo cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
-sudo cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
-```
-
 4. Configure firewall for http, https, and smtp:
 ```
 sudo firewall-cmd --permanent --add-service=http
