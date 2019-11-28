@@ -12,6 +12,10 @@ import commands
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy
 
+def forcedelete(file):
+    while os.path.isfile(file):
+        os.remove(file)
+
 def run():    
     # ----- Get job from queue -----
     files = sorted(os.listdir(os.environ['HPDB_BASE'] + '/queue'))
@@ -52,9 +56,9 @@ def run():
         yaml.dump(configs, f)
     
     # ----- Remove job from queue -----
-    os.remove(job_queue_file)
-    os.remove('running')
-    os.remove('queued')
+    forcedelete(job_queue_file)
+    forcedelete('running')
+    forcedelete('queued')
     
     # ----- Move back to base folder -----
     os.chdir(os.environ['HPDB_BASE'])
