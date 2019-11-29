@@ -16,12 +16,12 @@ def main():
     sid = form.getvalue('sid')
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
+    um.deleteproject(db, userid, username, jobid)
     
-    print('X-Sendfile: ' + um.getUserDownloadDir(userid) + jobid + '.zip')
-    print('Content-Type: application/zip')
-    print('Content-Disposition: attachment; filename=' + jobid + '.zip');
-    print('Pragma: no-cache');
+    print('Access-Control-Allow-Origin: *')
+    print('Content-Type:text/plain')
     print('')
+    print('Done!')
     return True
 
 if __name__ == "__main__":

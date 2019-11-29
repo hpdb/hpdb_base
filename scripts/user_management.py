@@ -2,7 +2,7 @@
 
 import os, binascii
 import MySQLdb, hashlib
-import utils
+import utils, shutil
 
 # change your password here
 def newDBConnection():
@@ -53,6 +53,15 @@ def addproject(db, userid, username, jobid):
     c = db.cursor()
     c.execute("insert into projects(jobid, userid, username) values (%s, %s, %s)", (jobid, userid, username));
     db.commit()
+
+def deleteproject(db, userid, username, jobid):
+    username = username.lower()
+    c = db.cursor()
+    c.execute("delete from projects where userid=%s and jobid=%s", (userid, jobid));
+    db.commit()
+    
+    os.remove(getUserDownloadDir(userid) + jobid + '.zip')
+    shutil.rmtree(getUserProjectDir(userid) + jobid, True)
 
 def listprojects(db, username):
     username = username.lower()
