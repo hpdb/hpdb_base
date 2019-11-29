@@ -49,7 +49,7 @@ sudo yum install -y libX11-devel readline-devel libXt-devel ncurses-devel inksca
     cairo-devel openssl-devel openssl-static libssh2-devel libcurl-devel \
     wget rsync bzip2 bzip2-devel xz-devel time zip unzip which perl-CPAN \
     perl-LWP-Protocol-https cronie gnuplot perl-JSON-XS perl-IO-Socket-IP
-sudo yum --enablerepo=remi,remi-php74 -y install httpd httpd-devel php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml
+sudo yum --enablerepo=remi,remi-php74 -y install httpd httpd-devel php php-common php-mysql php-devel php-gd php-pecl-memcache php-pspell php-snmp php-xmlrpc php-xml php-mbstring
 sudo yum -y install mariadb-server
 ```
 
