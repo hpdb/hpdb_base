@@ -17,8 +17,8 @@ def run(configs):
 
     # ----- Run tools -----
     utils.runprodigal('input.fasta', 'prot.fasta', 'nu.fasta')
-    caga_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_caga.fasta', 'prot.fasta', '0.0001', '10 sseqid')
-    vaca_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_vaca.fasta', 'prot.fasta', '0.0001', '10 sseqid')
+    caga_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_caga.fasta', 'prot.fasta', '0.0001', '10 sseqid').splitlines()
+    vaca_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_vaca.fasta', 'prot.fasta', '0.0001', '10 sseqid').splitlines()
     if configs['find_amr']:
         utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff', 'input.fasta')
         utils.runprodigal('snippy/snps.consensus.subs.fa', 'snp_prot.fasta', 'snp_nu.fasta')

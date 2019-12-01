@@ -35,8 +35,7 @@ def runprokka(input, outdir, prefix):
     call("prokka --kingdom Bacteria --outdir %s --genus 'Helicobacter' --species 'Helicobacter pylori' --prefix %s %s >/dev/null 2>&1" % (outdir, prefix, input), shell = True)
 
 def runblast(prog, query, subject, evalue = '10', outfmt = '0'):
-    lines = check_output('%s -query %s -subject %s -evalue %s -outfmt "%s"' % (prog, query, subject, evalue, outfmt), shell = True).splitlines()
-    return lines
+    return check_output('%s -query %s -subject %s -evalue %s -outfmt "%s"' % (prog, query, subject, evalue, outfmt), shell = True)
 
 def runsnippy(ref, ctgs):
     call('snippy --mapqual 0 --outdir snippy --ref %s --ctgs %s >/dev/null 2>&1' % (ref, ctgs), shell = True)
