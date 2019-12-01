@@ -263,8 +263,8 @@
           <fieldset>
             <legend>STEP 2 - Set your parameters</legend>
             <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" name="find_amr" id="find_amr">
-              <label class="custom-control-label" for="find_amr">Find AMR</label>
+              <input type="checkbox" class="custom-control-input" name="find_amr" id="hpdb_find_amr">
+              <label class="custom-control-label" for="hpdb_find_amr">Find AMR</label>
             </div>
           </fieldset>
           <fieldset>
@@ -300,7 +300,7 @@
             <legend>STEP 1 - Select BLAST Type</legend>
             <div class="form-group">
               <label for="blastype">Selete BLAST type</label>
-              <select class="form-control" id="blastype">
+              <select class="form-control" id="blastype" name="blastype">
                 <option value="blastn">blastn</option>
                 <option value="blastp">blastp</option>
                 <option value="blastx">blastx</option>
@@ -349,7 +349,7 @@
             <legend>STEP 1 - Enter your input sequences</legend>
             <div class="form-group">
               <label for="stype">Enter or paste a set of</label>
-              <select class="form-control" id="stype">
+              <select class="form-control" id="stype" name="stype">
                 <option value="protein">PROTEIN</option>
                 <option value="dna">DNA</option>
                 <option value="rna">RNA</option>
@@ -369,7 +369,7 @@
             <legend>STEP 2 - Set your parameters</legend>
             <div class="form-group">
               <label for="outfmt">OUTPUT FORMAT</label>
-              <select class="form-control" id="outfmt">
+              <select class="form-control" id="outfmt" name="outfmt">
                 <option value="clustal_num">ClustalW with character counts</option>
                 <option value="clustal">ClustalW</option>
                 <option value="fasta">Pearson/FASTA</option>
