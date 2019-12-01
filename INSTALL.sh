@@ -110,9 +110,9 @@ echo "--------------------------------------------------------------------------
                            Installing prodigal v2.6.3
 ------------------------------------------------------------------------------
 "
-wget -c -q https://github.com/hyattpd/Prodigal/releases/download/v2.6.3/prodigal.linux -O prodigal
-chmod +x prodigal
-cp prodigal $rootdir/bin
+wget -c -q https://github.com/hyattpd/Prodigal/releases/download/v2.6.3/prodigal.linux -O prodigal-v2.6.3
+chmod +x prodigal-v2.6.3
+cp prodigal-v2.6.3 $rootdir/bin/prodigal
 cd $rootdir/thirdParty
 echo "
 ------------------------------------------------------------------------------
@@ -283,8 +283,8 @@ echo "--------------------------------------------------------------------------
                            Installing centrifuge
 ------------------------------------------------------------------------------
 "
-wget -c -q https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz
-tar -xzf v1.0.4-beta.tar.gz
+wget -c -q https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz -o centrifuge-1.0.4-beta.tar.gz
+tar -xzf centrifuge-1.0.4-beta.tar.gz
 cd centrifuge-1.0.4-beta
 sed -i.bak 's,prefix=/usr/local,prefix='"$rootdir"',' Makefile
 make && make install
@@ -698,13 +698,13 @@ else
   install_phage_finder
 fi
 
-if [ -x $rootdir/thirdParty/plasmidfinder-2.1/plasmidfinder.py ]
-then
-  echo "plasmidfinder 2.1 is found"
-else
-  echo "plasmidfinder 2.1 is not found"
-  install_plasmidfinder
-fi
+#if [ -x $rootdir/thirdParty/plasmidfinder-2.1/plasmidfinder.py ]
+#then
+#  echo "plasmidfinder 2.1 is found"
+#else
+#  echo "plasmidfinder 2.1 is not found"
+#  install_plasmidfinder
+#fi
 
 if ( checkSystemInstallation aragorn )
 then
