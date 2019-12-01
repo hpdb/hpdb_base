@@ -27,8 +27,8 @@ echo "--------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 "
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/python ]; then
-    wget -c -q https://repo.anaconda.com/archive/Anaconda2-2019.07-Linux-x86_64.sh
-    bash Anaconda2-2019.07-Linux-x86_64.sh -b -p $rootdir/thirdParty/Anaconda2/
+    wget -c -q https://repo.anaconda.com/archive/Anaconda2-2019.10-Linux-x86_64.sh
+    bash Anaconda2-2019.10-Linux-x86_64.sh -b -p $rootdir/thirdParty/Anaconda2/
 fi
 anacondabin=$rootdir/thirdParty/Anaconda2/bin/
 ln -fs $anacondabin/python $rootdir/bin
@@ -206,8 +206,8 @@ echo "--------------------------------------------------------------------------
                            Installing kma
 ------------------------------------------------------------------------------
 "
-wget -c -q https://bitbucket.org/genomicepidemiology/kma/get/1.2.12.tar.gz
-tar -xzf 1.2.12.tar.gz
+wget -c -q https://bitbucket.org/genomicepidemiology/kma/get/1.2.12.tar.gz -o kma-1.2.12.tar.gz
+tar -xzf kma-1.2.12.tar.gz
 cd genomicepidemiology-kma-*
 make
 cp kma $rootdir/bin
