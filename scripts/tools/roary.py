@@ -24,6 +24,7 @@ def run(configs):
     
     for f in files:
         utils.runprokka('input/' + f + '.fasta', 'output/' + f, f)
+        time.sleep(5)
         copyfile('output/' + f + '/' + f + '.gff', 'output/gff/' + f + '.gff')
     
     call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)

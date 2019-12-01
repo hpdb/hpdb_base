@@ -26,7 +26,7 @@ def main():
     userid = um.usertoid(db, username)
     jobid = str(int(round(time.time() * 1000)))
     
-    dirpath = um.getUserProjectDir(userid) + configs['jobid']
+    dirpath = um.getUserProjectDir(userid) + jobid
     utils.mkdir(dirpath)
     os.chdir(dirpath)
     
