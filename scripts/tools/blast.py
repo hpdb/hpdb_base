@@ -19,7 +19,8 @@ def run(configs):
     result = utils.runblast(configs['blastype'], 'query.fasta', 'subject.fasta')
     
     # Save result
-    
+    with open('output.txt', 'w') as f:
+        f.write(result)
     
     configs['exec_time'] = '%.2f' % (time.time() - start_time)
     

@@ -40,7 +40,6 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
     configs['amr_analysis'] = {}
     
-    
     if type == 1:
         configs['filename'] = upfile.filename
         with open('input.fasta', 'wb') as f:
