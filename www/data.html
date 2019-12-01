@@ -13,23 +13,14 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <!-- Datatables CSS -->
-  <link href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" rel="stylesheet" integrity="sha384-J/JrQzMo5A/ewqt8Xsq6nTHQVVAk/OOhH66uqpFN9+3+MiM427Ub97OApi7o6orj" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/datatables.min.css" >
 
-  <!-- Font Awesome JS -->
-  <script src="https://use.fontawesome.com/releases/v5.11.2/js/solid.js" integrity="sha384-Mf3ap7OwO+bjTkzM1RsrothLh38uKXvMWJ2TQPXGHqZcqfeI/cyCV+sfV0IDnBDq" crossorigin="anonymous"></script>
-  <script src="https://use.fontawesome.com/releases/v5.11.2/js/fontawesome.js" integrity="sha384-EYYaHDhIRoBhd/Ir/1fPnxg9rZLk/55lKtlNT5KrIcONoCS2kjf7ZWzMoCLLACeo" crossorigin="anonymous"></script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin="anonymous"></script>
-  <!-- jQuery CSV -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.5/jquery.csv.min.js" integrity="sha384-4Fu9f2E2aqCftKfT+f6UqEoOmfRTkSAJukq93vMioDRhoHmpgTBpJFiQ33dAYtJo" crossorigin="anonymous"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <!-- Datatables JS -->
-  <script src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js" integrity="sha384-hVry8+iweLeSXncfkJ1oB4r2dRAI2pHZNsSCjTJl4o6hspfUDuGlBKm1nqORIp3S" crossorigin="anonymous"></script>
-  <!-- Our custom JS -->
+  <script src="js/fontawesome-all.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/jquery.csv.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/datatables.min.js"></script>
   <script src="js/csv_to_html_table.js"></script>
 </head>
 <body>
@@ -68,7 +59,8 @@
       if (raw) {
         ids = raw.split('/');
         links = ids.map(function(id) {
-          return '<a href="https://www.genome.jp/dbget-bin/www_bget?gn:' + id + '" target="_blank">' + id + '</a>';
+          //return '<a href="https://www.genome.jp/dbget-bin/www_bget?gn:' + id + '" target="_blank">' + id + '</a>';
+          return '<a href="https://www.genome.jp/dbget-bin/get_linkdb?-t+2+gn:' + id + '" target="_blank">' + id + '</a>';
         });
         return links.join('/');
       } else
@@ -77,6 +69,12 @@
     function format_biocyc_link(id) {
       if (id)
         return '<a href="https://helicobacter.biocyc.org/organism-summary?object=' + id + '" target="_blank">' + id +'</a>';
+      else
+        return 'N/A';
+    }
+    function format_vfdb_link(val) {
+      if (val == 'yes')
+        return '<a href="http://www.mgc.ac.cn/cgi-bin/VFs/compvfs.cgi?Genus=Helicobacter&pylori-I00575=I00575&pylori-I00578=I00578&pylori-I00579=I00579&pylori-I00580=I00580&pylori-I00581=I00581&pylori-I00583=I00583" target="_blank">VFDB</a>';
       else
         return 'N/A';
     }
@@ -113,18 +111,18 @@
                           [3, format_patric_link],
                           [4, format_kegg_link],
                           [5, format_biocyc_link],
-                          [6, format_download_link],
+                          [6, format_vfdb_link],
                           [7, format_download_link],
-                          [8, format_biosample_link],
-                          [9, format_bioproject_link],
-                          [10, format_assembly_link],
-                          [17, format_protein_link]],
+                          [8, format_download_link],
+                          [9, format_biosample_link],
+                          [10, format_bioproject_link],
+                          [11, format_assembly_link],
+                          [18, format_protein_link]],
       datatables_options: {'paging': true,
+                           'fixedHeader': true,
                            'order': [],
                            'search': { 'smart': false },
-                           'columnDefs': [
-                           ]}
-      //                     'columnDefs': [{'targets': [4,5], 'visible': false, 'searchable': false }]}
+                           'columnDefs': [{'targets': [2], 'visible': false}]}
     }, function() {
       $('#loading').hide();
     });
