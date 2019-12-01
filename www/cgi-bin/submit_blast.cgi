@@ -54,13 +54,6 @@ def main():
         else:
             f.write(form['subseqfile'].file.read())
     
-    if not ok:
-        print('Content-Type:text/html')
-        print('')
-        with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
-            print(f.read())
-        return
-    
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     
