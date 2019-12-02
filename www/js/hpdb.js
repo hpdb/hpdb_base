@@ -160,6 +160,49 @@ function checkSession() {
   });
 }
 
+function load_pubmed_data() {
+  var eutilSearchURL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?usehistory=y&db=pubmed&term=Helicobacter%20pylori&retmode=json';
+  
+  $.getJSON(eutilSearchURL, function(pubmedList) {
+    if (pubmedList.esearchresult.count > 0) {
+      var pmids = pubmedList.esearchresult.idlist;
+      var retmax = 5;
+      var eutilSummaryURL = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=' + pmids + '&retmax=' + retmax + '&retmode=json';
+      var ulItem = [];
+      ulItem.push('<ul>');
+      
+      $.getJSON(eutilSummaryURL, function(pubmedSummary) {
+        for (var i = 0; i < pubmedSummary.result.uids.length; i++) {
+          var value = pubmedSummary.result.uids[i];
+          var author;
+          if (pubmedSummary.result[value].authors.length == 1) {
+            author = pubmedSummary.result[value].authors[0].name;
+          } else if (pubmedSummary.result[value].authors.length == 2) {
+            author = pubmedSummary.result[value].authors[0].name + ' and ' + pubmedSummary.result[value].authors[1].name;
+          } else {
+            author = pubmedSummary.result[value].authors[0].name + ' et al.';
+          }
+          
+          var listItem = [];
+          listItem.push('<li>');
+          listItem.push('<div>' + pubmedSummary.result[value].pubdate + '</div>');
+          listItem.push('<a href="https://www.ncbi.nlm.nih.gov/pubmed/' +  value + '" target="_blank">' + pubmedSummary.result[value].title + '</a>');
+          listItem.push('<div>' + author + '</div>');
+          listItem.push('<div>' + pubmedSummary.result[value].source + '</div>');
+          listItem.push('</li>');
+          ulItem.push(listItem.join('\n'));
+        }
+        // add show more link
+        ulItem.push('<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=Helicobacter%20pylori" target="_blank">show more >></a>');
+        ulItem.push('</ul>');
+        $('#pubmed').html(ulItem.join('\n'));
+      });
+    } else {
+      $('#pubmed').html('<ul><li>No recent articles found.</li></ul>');
+    }
+  });
+}
+
 $(document).ready(function () {
   /* SIDEBAR */
   $('#sidebarCollapse').on('click', function() {
@@ -208,7 +251,16 @@ $(document).ready(function () {
       $('#vf_align_result').text(error.responseText);
     },
     success: function(responseText) {
-      $('#vf_align_result').text(responseText)
+      $('#vf_align_result').text(responseText);
+    }
+  });
+  $('.tool_form').ajaxForm({
+    clearForm: true,
+    error: function(error) {
+      alert(error.responseText);
+    },
+    success: function(responseText) {
+      alert(responseText);
     }
   });
 
@@ -355,6 +407,8 @@ $(document).ready(function () {
   $('.file-selector').on('click', function() {
     inputFileID = $(this).parent().prev('input').attr('id');
   });
+
+  load_pubmed_data();
 
   checkSession();
 });

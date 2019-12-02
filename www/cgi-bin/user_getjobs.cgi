@@ -35,7 +35,11 @@ def main():
         proj['filename'] = configs['filename']
         proj['type'] = configs['jobtype']
         proj['daysubmit'] = configs['daysubmit']
-        if os.path.isfile(projects_dir + id + '/running'):
+        if os.path.isfile(projects_dir + id + '/error'):
+            proj['done'] = False
+            proj['status'] = 'Error'
+            proj['percent'] = '0'
+        elif os.path.isfile(projects_dir + id + '/running'):
             proj['done'] = False
             proj['status'] = 'Running'
             proj['percent'] = '50'

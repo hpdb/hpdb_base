@@ -19,9 +19,6 @@ def run(configs):
     utils.runprodigal('input.fasta', 'prot.fasta', 'nu.fasta')
     caga_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_caga.fasta', 'prot.fasta', '0.0001', '10 sseqid').splitlines()
     vaca_ids = utils.runblast('blastp', os.environ['HPDB_BASE'] + '/genome/j99_vaca.fasta', 'prot.fasta', '0.0001', '10 sseqid').splitlines()
-    if configs['find_amr']:
-        utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff', 'input.fasta')
-        utils.runprodigal('snippy/snps.consensus.subs.fa', 'snp_prot.fasta', 'snp_nu.fasta')
     
     # ----- Find virulence factors -----
     prot_dict = SeqIO.index('prot.fasta', 'fasta')
@@ -76,31 +73,12 @@ def run(configs):
                                 'len': len(vaca_prot), \
                                 'start_pos': vaca_pos[1].strip(), \
                                 'end_pos': vaca_pos[2].strip()}
-    
-    # AMR
-    if configs['find_amr']:
-        genome = str(SeqIO.read('snippy/snps.consensus.subs.fa', 'fasta').seq)
-        record = list(SeqIO.parse('snp_prot.fasta', 'fasta'))
-        protein_seqs = [str(x.seq) for x in record]
-        for x in AMR:
-            if x['type'] == 'nu':
-                part = genome[x['start'] : x['end']]
-            elif x['type'] == 'prot':
-                part = utils.fuzzyFindInList(protein_seqs, x['ref'])
-            
-            configs['amr_analysis'][x['name']] = []
-            for y in x['subs']:
-                configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
-            configs['amr_analysis'][x['name']] = utils.formatAMR2HTML(configs['amr_analysis'][x['name']])
-    else:
-        for x in AMR:
-            configs['amr_analysis'][x['name']] = 'N/A'
-    
+        
     configs['exec_time'] = '%.2f' % (time.time() - start_time)
     
     # ----- Output HTML -----
     j2_env = jinja2.Environment(loader = jinja2.FileSystemLoader(os.environ['HPDB_BASE'] + '/scripts/template'), trim_blocks = True)
-    j2_temp = j2_env.get_template('hpdb_report.html')
+    j2_temp = j2_env.get_template('vf_report.html')
     with open('report.html', 'w') as f:
         f.write(j2_temp.render(configs).encode('utf8'))
     

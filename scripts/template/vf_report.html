@@ -19,11 +19,6 @@
     <li><b>{{ vaca_analysis['s1s2'] }}</b></li>
     <li><b>{{ vaca_analysis['m1m2'] }}</b></li>
     {% endif %}
-    {% if find_amr %}
-      {% for key, value in amr_analysis.items() %}
-    <li><b>{{ key }}:</b> {{ value }}</li>
-      {% endfor %}
-    {% endif %}
   </ul>
   {% if found_caga %}
     {% for vf in [caga_nu, caga_prot] %}

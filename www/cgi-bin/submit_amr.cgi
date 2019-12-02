@@ -12,14 +12,14 @@ from shutil import copyfile
 
 db = um.newDBConnection()
 
-def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
+def newJob(type, projname, userid, username, upfile, seqfileloc = ''):
     jobid = str(int(round(time.time() * 1000)))
     dirpath = um.getUserProjectDir(userid) + jobid
     utils.mkdir(dirpath)
     os.chdir(dirpath)
     
     configs = {}
-    configs['jobtype'] = 'hpdb'
+    configs['jobtype'] = 'amr detection'
     configs['jobid'] = jobid
     configs['daysubmit'] = time.strftime("%d-%m-%Y")
     configs['projname'] = projname
@@ -27,17 +27,6 @@ def newJob(type, projname, userid, username, find_amr, upfile, seqfileloc = ''):
     configs['username'] = username
     configs['dirpath'] = dirpath
     configs['filename'] = ''
-    configs['find_amr'] = find_amr
-    configs['found_caga'] = False
-    configs['found_vaca'] = False
-    configs['mutant_caga'] = False
-    configs['mutant_vaca'] = False
-    configs['caga_nu'] = {}
-    configs['caga_prot'] = {}
-    configs['vaca_nu'] = {}
-    configs['vaca_prot'] = {}
-    configs['caga_analysis'] = {'EPIYA-A': False, 'EPIYA-B': False, 'EPIYA-C': False, 'EPIYA-D': False}
-    configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
     configs['amr_analysis'] = {}
     
     if type == 1:
@@ -72,7 +61,6 @@ def main():
     username = um.sidtouser(db, sid)
     userid = um.usertoid(db, username)
     projname = form.getvalue('projname')
-    find_amr = (form.getvalue('find_amr') == 'on')
     
     if 'seqfile' in form:
         filefield = form['seqfile']
@@ -80,12 +68,12 @@ def main():
             filefield = [filefield]
         for upfile in filefield:
             if upfile.filename != '':
-                newJob(1, projname, userid, username, find_amr, upfile)
+                newJob(1, projname, userid, username, upfile)
     
     if 'seqfileloc' in form:
         seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
         if os.path.isfile(seqfileloc):
-            newJob(2, projname, userid, username, find_amr, '', seqfileloc)
+            newJob(2, projname, userid, username, '', seqfileloc)
     
     print('Access-Control-Allow-Origin: *')
     print('Content-Type:text/plain')

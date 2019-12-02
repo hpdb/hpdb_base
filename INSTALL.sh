@@ -250,11 +250,7 @@ tar -xzf MUMmer3.23.tar.gz
 cd MUMmer3.23
 #for 64bit MUMmer complie
 make CPPFLAGS="-O3 -DSIXTYFOURBITS"
-cp nucmer $rootdir/bin/.
-cp show-coords $rootdir/bin/.
-cp show-snps $rootdir/bin/.
-cp mgaps $rootdir/bin/.
-cp delta-filter $rootdir/bin/.
+find . -type f -perm /a+x -exec cp {} $rootdir/bin/ \;
 cd $rootdir/thirdParty
 echo "
 ------------------------------------------------------------------------------

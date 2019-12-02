@@ -274,3 +274,23 @@ legend {
   background: #FFF;
   overflow-y: auto;
 }
+
+#pubmed a {
+  color: #09456f;
+}
+
+#pubmed ul li {
+  list-style: none;
+  margin: 0 0 5px 0;
+  padding: 0 0 5px 7px;
+  position: relative;
+  border-bottom: #aec9d2 1px solid;
+}
+
+#pubmed ul li:before {
+  content: "\25BA \0020";
+  font-size: 10px;
+  position: absolute;
+  top: 5px;
+  left: -10px;
+}
