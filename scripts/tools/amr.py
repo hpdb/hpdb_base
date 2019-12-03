@@ -25,7 +25,10 @@ def run(configs):
     protein_seqs = [str(x.seq) for x in record]
     for x in AMR:
         if x['type'] == 'nu':
-            part = genome[x['start'] : x['end']]
+            if x['rev']:
+                part = genome[x['end'] : x['start'] : -1]
+            else:
+                part = genome[x['start'] : x['end']]
         elif x['type'] == 'prot':
             part = utils.fuzzyFindInList(protein_seqs, x['ref'])
     
