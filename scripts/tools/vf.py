@@ -81,7 +81,7 @@ def analyzevacA(pro):
     return res
 
 def formatColor(str, seg, color = 'red'):
-    return str.replace(seg, '<b style="color: %s;">%s</b>'.format(color, seg))
+    return str.replace(seg, '<b style="color: %s;">%s</b>' % (color, seg))
 
 def run(configs):
     start_time = time.time()
