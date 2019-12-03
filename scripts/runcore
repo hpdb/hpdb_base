@@ -71,7 +71,7 @@ def run():
         logf.write(str(e) + '\n')
         os.chdir(job_dir)
         with open('error', 'w') as f:
-            f.write('str(e)')
+            f.write(str(e))
     
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)

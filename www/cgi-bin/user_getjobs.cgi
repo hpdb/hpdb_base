@@ -55,7 +55,8 @@ def main():
             proj['done'] = True
             proj['status'] = 'Complete'
             proj['percent'] = '100'
-            proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
+            if os.path.isfile(projects_dir + id + '/report.html'):
+                proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
             proj['downloadjob'] = '/cgi-bin/user_downloadjob.cgi?jobid=%s&sid=%s' % (id, sid)
             proj['deletejob'] = '/cgi-bin/user_deletejob.cgi?jobid=%s&sid=%s' % (id, sid)
         projects.append(proj)

@@ -22,7 +22,7 @@ def main():
     if os.path.isfile(job_dir + 'configs.yaml'):
         with open(job_dir + 'configs.yaml') as f:
             configs = yaml.full_load(f)
-        if configs['username'] == username:
+        if configs['username'] == username and os.path.isfile(job_dir + '/report.html'):
             html_path = job_dir + '/report.html'
     
     print('Content-Type:text/html')
