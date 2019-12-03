@@ -57,20 +57,25 @@ def run():
             configs = roary.run(configs)
         elif configs['jobtype'] == 'snippy':
             configs = snippy.run(configs)
+        
         # ----- Save job config -----
+        os.chdir(job_dir)
         with open('configs.yaml', 'w') as f:
             yaml.dump(configs, f)
         
         # ----- Compress -----
+        os.chdir(job_dir)
         utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
     except Exception as e:
         global logf
         logf.write(str(e) + '\n')
+        os.chdir(job_dir)
         with open('error', 'w') as f:
             f.write('dumb file')
     
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)
+    os.chdir(job_dir)
     forcedelete('running')
     forcedelete('queued')
     

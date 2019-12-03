@@ -13,9 +13,7 @@ from ref_AMR import AMR
 from shutil import copyfile
 import utils
 
-def createPlot():
-    call('create_pan_genome_plots.R', shell = True)
-    
+def createPlot(format = 'png', labels = False):    
     '''
     Taken and modified from roary_plots.py
     '''
@@ -63,7 +61,7 @@ def createPlot():
     
     sns.despine(left=True,
                 bottom=True)
-    plt.savefig('pangenome_frequency.%s'%options.format, dpi=300)
+    plt.savefig('pangenome_frequency.%s'%format, dpi=300)
     plt.clf()
     
     # Sort the matrix according to tip labels in the tree
@@ -94,7 +92,7 @@ def createPlot():
         
         ax1.set_title('Roary matrix\n(%d gene clusters)'%roary.shape[0])
         
-        if options.labels:
+        if labels:
             fsize = 12 - 0.1*roary.shape[1]
             if fsize < 7:
                 fsize = 7
@@ -120,7 +118,7 @@ def createPlot():
                        title=('Tree\n(%d strains)'%roary.shape[1],),
                        do_show=False,
                       )
-        plt.savefig('pangenome_matrix.%s'%options.format, dpi=300)
+        plt.savefig('pangenome_matrix.%s'%format, dpi=300)
         plt.clf()
     
     # Plot the pangenome pie chart
@@ -145,7 +143,7 @@ def createPlot():
           explode=[0.1, 0.05, 0.02, 0], radius=0.9,
           colors=[(0, 0, 1, float(x)/total) for x in (core, softcore, shell, cloud)],
           autopct=my_autopct)
-    plt.savefig('pangenome_pie.%s'%options.format, dpi=300)
+    plt.savefig('pangenome_pie.%s'%format, dpi=300)
     plt.clf()
 
 def run(configs):
@@ -167,6 +165,7 @@ def run(configs):
     call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
     
     os.chdir('output/roary')
+    call('create_pan_genome_plots.R', shell = True)
     createPlot()
     os.move('pangenome_frequency.png', '../plots/')
     os.move('pangenome_matrix.png', '../plots/')
