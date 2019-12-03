@@ -60,8 +60,11 @@ def deleteproject(db, userid, username, jobid):
     c.execute("delete from projects where userid=%s and jobid=%s", (userid, jobid));
     db.commit()
     
-    os.remove(getUserDownloadDir(userid) + jobid + '.zip')
-    shutil.rmtree(getUserProjectDir(userid) + jobid, True)
+    try:
+        shutil.rmtree(getUserProjectDir(userid) + jobid, True)
+        os.remove(getUserDownloadDir(userid) + jobid + '.zip')
+    except OSError:
+        pass
 
 def listprojects(db, username):
     username = username.lower()
