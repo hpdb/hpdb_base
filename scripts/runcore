@@ -67,8 +67,9 @@ def run():
         os.chdir(job_dir)
         utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
     except Exception as e:
-        global logf
+        logf = open("/home/hpdb/runcore.log", "a+")
         logf.write(str(e) + '\n')
+        logf.close()
         os.chdir(job_dir)
         with open('error', 'w') as f:
             f.write(str(e))
@@ -89,13 +90,11 @@ def stop_if_already_running():
     l = commands.getstatusoutput("ps aux | grep -e '%s' | grep -v grep | awk '{print $2}'| awk '{print $2}'" % script_name)
     if l[1]:
         print('Already running. Exiting...')
+        db.close()
         sys.exit(0);
 
 if __name__ == '__main__':
     stop_if_already_running()
-    global logf
-    logf = open("/home/hpdb/runcore.log", "w")
     if not run():
         time.sleep(2)
-    logf.close()
     db.close()
