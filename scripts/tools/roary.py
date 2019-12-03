@@ -13,7 +13,7 @@ from ref_AMR import AMR
 from shutil import copyfile
 import utils
 
-def createPlot:
+def createPlot():
     call('create_pan_genome_plots.R', shell = True)
     
     '''
