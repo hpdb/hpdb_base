@@ -8,7 +8,6 @@ import os
 import time
 import jinja2
 import yaml
-import commands
 from ref_AMR import AMR
 import utils
 
@@ -33,6 +32,8 @@ def run(configs):
     record = list(SeqIO.parse('snp_prot.fasta', 'fasta'))
     protein_seqs = [str(x.seq) for x in record]
     for x in AMR:
+        if x['hidden']:
+            continue
         if x['type'] == 'nu':
             if x['rev']:
                 part = genome[x['end'] : x['start'] : -1]
