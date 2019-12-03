@@ -80,7 +80,7 @@ def analyzevacA(pro):
     
     return res
 
-def addColor(str, color = 'red'):
+def addColor(seg, color = 'red'):
     return '<b style="color: %s;">%s</b>' % (color, seg)
 
 def formatColor(str, seg, color = 'red'):
