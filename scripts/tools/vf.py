@@ -80,8 +80,11 @@ def analyzevacA(pro):
     
     return res
 
+def addColor(str, color = 'red'):
+    return '<b style="color: %s;">%s</b>' % (color, seg)
+
 def formatColor(str, seg, color = 'red'):
-    return str.replace(seg, '<b style="color: %s;">%s</b>' % (color, seg))
+    return str.replace(seg, addColor(seg, color))
 
 def run(configs):
     start_time = time.time()
@@ -128,14 +131,19 @@ def run(configs):
                               'end_pos': caga_pos[2].strip()}
         formatted = caga_prot
         if configs['caga_analysis']['EPIYA-A']:
+            configs['caga_analysis']['EPIYA-A_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-A_seq'], 'red')
             formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-A_seq'], 'red')
         if configs['caga_analysis']['EPIYA-B']:
+            configs['caga_analysis']['EPIYA-B_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-B_seq'], 'blue')
             formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-B_seq'], 'blue')
         if configs['caga_analysis']['EPIYA-C']:
+            configs['caga_analysis']['EPIYA-C_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-C_seq'], 'green')
             formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-C_seq'], 'green')
         if configs['caga_analysis']['EPIYA-CC']:
+            configs['caga_analysis']['EPIYA-CC_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-CC_seq'], 'orange')
             formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-CC_seq'], 'orange')
         if configs['caga_analysis']['EPIYA-D']:
+            configs['caga_analysis']['EPIYA-D_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-D_seq'], 'purple')
             formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-D_seq'], 'purple')
         configs['caga_prot'] = {'name': 'cagA Protein', \
                                 'raw': caga_prot, \
