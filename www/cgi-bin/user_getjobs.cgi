@@ -35,10 +35,14 @@ def main():
         proj['filename'] = configs['filename']
         proj['type'] = configs['jobtype']
         proj['daysubmit'] = configs['daysubmit']
+        proj['reportjob'] = ''
+        proj['downloadjob'] = ''
+        proj['deletejob'] = ''
         if os.path.isfile(projects_dir + id + '/error'):
             proj['done'] = False
             proj['status'] = 'Error'
             proj['percent'] = '0'
+            proj['deletejob'] = '/cgi-bin/user_deletejob.cgi?jobid=%s&sid=%s' % (id, sid)
         elif os.path.isfile(projects_dir + id + '/running'):
             proj['done'] = False
             proj['status'] = 'Running'

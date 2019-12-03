@@ -18,15 +18,20 @@
                       <small>{{ proj.status }}</small>
                     </td>
                     <td>
-{% if proj.done == True %}
+{% if proj.reportjob != '' %}
                       <a href="{{ proj.reportjob }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-folder"></i> View</a>
-                      <a href="{{ proj.downloadjob }}" class="btn btn-info btn-xs" target="_blank"><i class="fa fa-download"></i> Download</a>
-                      <a href="{{ proj.deletejob }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
 {% else %}
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-folder"></i> View</a>
-                      <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-download"></i> Download</a>
-                      <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-trash"></i> Delete</a>
 {% endif %}
+{% if proj.downloadjob != '' %}
+                      <a href="{{ proj.downloadjob }}" class="btn btn-info btn-xs" target="_blank"><i class="fa fa-download"></i> Download</a>
+{% else %}
+                      <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-download"></i> Download</a>
+{% endif %}
+{% if proj.deletejob != '' %}
+                      <a href="{{ proj.deletejob }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+{% else %}
+                      <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-trash"></i> Delete</a>
                     </td>
                   </tr>
 {% endfor %}
