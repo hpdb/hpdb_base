@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HPDB - PTNK</title>
-  <style>.accordion{background-color:#eee;color:#444;cursor:pointer;padding:18px;width:100%;border:none;text-align:left;outline:0;font-size:15px;transition:.4s}.accordion:hover,.active{background-color:#ccc}.panel{padding:0 18px;background-color:#fff;max-height:0;overflow:hidden;transition:max-height .2s ease-out}textarea{border:1px solid #999;width:100%;margin:5px 0;padding:3px}</style>
+  <style>.accordion{background-color:#eee;color:#444;cursor:pointer;padding:18px;width:100%;border:none;text-align:left;outline:0;font-size:15px;transition:.4s}.accordion:hover,.active{background-color:#ccc}.panel{padding:0 18px;background-color:#fff;max-height:0;overflow:hidden;transition:max-height .2s ease-out}textarea{border:1px solid #999;width:100%;margin:5px 0;padding:3px}[contenteditable]{border:1px solid #999;max-height:150px;overflow:auto;overflow-wrap:break-word;margin:5px 0;padding:3px;font-family:verdana,Arial,'sans serif';font-weight:400;font-size:11px}</style>
 </head>
 <body>
   <h3>Filename: {{ filename }}</h3>
@@ -27,7 +27,7 @@
     <p><b>Start position in genome:</b> {{ vf.start_pos }}</p>
     <p><b>End position in genome:</b> {{ vf.end_pos }}</p>
     <p><b>Length:</b> {{ vf.len }}</p>
-    <textarea rows=10 readonly>{{ vf.raw }}</textarea>
+    <div contenteditable="false">{{ vf.formatted }}</div>
   </div>
     {% endfor %}
   {% else %}
@@ -45,7 +45,7 @@
     <p><b>Start position in genome:</b> {{ vf.start_pos }}</p>
     <p><b>End position in genome:</b> {{ vf.end_pos }}</p>
     <p><b>Length:</b> {{ vf.len }}</p>
-    <textarea rows=10 readonly>{{ vf.raw }}</textarea>
+    <div contenteditable="false">{{ vf.formatted }}</div>
   </div>
     {% endfor %}
   {% else %}

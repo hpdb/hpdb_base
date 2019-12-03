@@ -12,6 +12,15 @@ import commands
 from ref_AMR import AMR
 import utils
 
+def formatAMR2HTML(inp):
+    out = []
+    for x in inp:
+        if x[0] != x[-1]:
+            out.append('<span style="font-weight:bold; color:red">' + x + '</span>')
+        else:
+            out.append(x)
+    return ' '.join(out)
+
 def run(configs):
     start_time = time.time()
 
@@ -35,7 +44,7 @@ def run(configs):
         configs['amr_analysis'][x['name']] = []
         for y in x['subs']:
             configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
-        configs['amr_analysis'][x['name']] = utils.formatAMR2HTML(configs['amr_analysis'][x['name']])
+        configs['amr_analysis'][x['name']] = formatAMR2HTML(configs['amr_analysis'][x['name']])
     
     configs['exec_time'] = '%.2f' % (time.time() - start_time)
     
