@@ -13,7 +13,13 @@ from ref_AMR import AMR
 from shutil import copyfile
 import utils
 
-def createPlot(format = 'png', labels = False):    
+def createRtabPlot():
+    call('create_pan_genome_plots.R', shell = True)
+    os.move('conserved_vs_total_genes.png', '../plots/')
+    os.move('unique_vs_new_genes.png', '../plots/')
+    os.move('Rplots.pdf', '../plots/')
+
+def createAccessoryPlot(format = 'png', labels = False):
     '''
     Taken and modified from roary_plots.py
     '''
@@ -145,6 +151,10 @@ def createPlot(format = 'png', labels = False):
           autopct=my_autopct)
     plt.savefig('pangenome_pie.%s'%format, dpi=300)
     plt.clf()
+    
+    os.move('pangenome_frequency.png', '../plots/')
+    os.move('pangenome_matrix.png', '../plots/')
+    os.move('pangenome_pie.png', '../plots/')
 
 def run(configs):
     start_time = time.time()
@@ -165,14 +175,12 @@ def run(configs):
     call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
     
     os.chdir('output/roary')
-    call('create_pan_genome_plots.R', shell = True)
-    createPlot()
-    os.move('pangenome_frequency.png', '../plots/')
-    os.move('pangenome_matrix.png', '../plots/')
-    os.move('pangenome_pie.png', '../plots/')
-    os.move('conserved_vs_total_genes.png', '../plots/')
-    os.move('unique_vs_new_genes.png', '../plots/')
-    os.move('Rplots.pdf', '../plots/')
+    accessory_plot_files = ['accessory_binary_genes.fa.newick', 'gene_presence_absence.csv']
+    rtab_plot_files = ['number_of_new_genes.Rtab', 'number_of_conserved_genes.Rtab', 'number_of_genes_in_pan_genome.Rtab', 'number_of_unique_genes.Rtab', 'blast_identity_frequency.Rtab']
+    if all([os.path.isfile(f) for f in accessory_plot_files]):
+        createAccessoryPlot()
+    if all([os.path.isfile(f) for f in rtab_plot_files]):
+        createRtabPlot()
     os.chdir('../../')
     
     configs['exec_time'] = '%.2f' % (time.time() - start_time)
