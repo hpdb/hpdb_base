@@ -1,67 +1,82 @@
 import glob, os
 
-indir  = 'data/genomes/' 
-outdir = 'circos/input/karyotypes/'
-def karyotype_file_from_fasta(fasta_fname, out_fname, color = 'grey'):
-    '''
-    This function takes a fastafile (fasta_fname) and "translates" this 
-    to a karyotype file (out_fname). Grey is the default color for chromosomes.
-    '''
+def karyotype_file_from_fasta(fasta_fname, out_fname, chr2color = None):
     outfile = open(out_fname, 'w')
     l      = 0 # counter for the sequence length
-    cindex = 1 # counter for the chromosomes, note that this only works 
-               # because the fastafile is ordered!
+    cindex = 1 # counter for the chromosomes 
     cid    = ''
+    color  = 'grey'
     for line in open(fasta_fname).readlines():
-        if line[0] == '>': 
-            '''
-            This is the fastaheader. We need to store the name in this header 
-            (we assign it to the variable cid), while we count the length of 
-            the subsequent lines (the sequence of this chromosome), until we 
-            encounter the next header
-            '''
-            if l > 0: 
-                '''
-                If l > 0 it means it is not the first sequence.
-                We first have to process the previous sequence before we can move on 
-                with this one
-                '''    
-                #process previous sequence
-                outfile.write('chr - '+cid+' '+str(cindex)+' 0 '+' '+str(l)+' '+color+'\n')
-                #make everything ready for this one
+        if line[0] == '>':
+            if l > 0:
+                outfile.write('chr - ' + cid + ' ' + str(cindex) + ' 0 ' + ' ' + str(l) + ' ' + color + '\n')
                 l = 0
                 cindex += 1
-                
-            '''If you encounter a header, store it in cid.
-            '''
             cid = line[1:].strip().split()[0]
+            if chr2color != None and cid in chr2color:
+                color = chr2color[cid]
             print(cid, cindex)
                 
         else:
-            ''' 
-            If it is not header it is part of the sequence, add the length of this line. 
-            str.strip() takes of any newlines, spaces etc. so we don't count those.
-            '''
             l += len(line.strip())
-        
-    ''' 
-    When you've reached the end of the file, you still need to process the last header. 
-    We do this here.
-    '''
+    # last one
     if l > 0:
-        outfile.write('chr - '+cid+' '+str(cindex)+' 0 '+' '+str(l)+' '+color+'\n')
-            
+        outfile.write('chr - ' + cid + ' ' + str(cindex) + ' 0 ' + ' ' + str(l) + ' ' + color + '\n')
+    
     outfile.close()
 
-colors = ['green', 'orange']
-filenames = []
-filenames.extend(glob.glob(indir + '*.fna'))
-filenames.extend(glob.glob(indir + '*.fasta'))
+def coords_to_links(coords_fname, links_fname, chr2color = None, min_length = 0):
+    linksfile = open(links_fname, 'w')
+    lines     = open(coords_fname).readlines()
+    type      = lines[1].strip()
+    lines     = lines[5:] #skip header
+    for line in lines:
+        columns = line.strip().split()
+        if type == 'PROMER':
+            chrA  = columns[15]
+            chrB  = columns[16]
+            fromA = columns[0]
+            toA   = columns[1]
+            fromB = columns[3]
+            toB   = columns[4]
+            lenA  = int(columns[6])
+            lenB  = int(columns[7])
+        elif type == 'NUCMER':
+            chrA  = columns[11]
+            chrB  = columns[12]
+            fromA = columns[0]
+            toA   = columns[1]
+            fromB = columns[3]
+            toB   = columns[4]
+            lenA  = int(columns[6])
+            lenB  = int(columns[7])
+        else:
+            print('Unexpected fileformat, can not continue!')
+        
+        if lenA >= min_length and lenB >= min_length: 
+            out = chrA + ' ' + fromA + ' ' + toA + ' ' + chrB + ' ' + fromB + ' ' + toB
+            
+            if chr2color != None:
+                if chrA in chr2color:
+                    linksfile.write(out + ' color=' + chr2color[chrA] + '\n')
+                elif chrB in chr2color:
+                    linksfile.write(out + ' color=' + chr2color[chrB] + '\n')
+            else:
+                linksfile.write(out + '\n')
+    linksfile.close()
 
-if len(colors) != len(filenames): #check if your list of colors is long enough 
-    print("I need more colors, I have ", len(colors), " color(s) for ", len(filenames), " files")
-else:  
-    for i, fasta_fname in enumerate(filenames):
-        print(os.path.basename(fasta_fname), colors[i])
-        out_fname = outdir + os.path.basename(fasta_fname) + '.txt'
-        karyotype_file_from_fasta(fasta_fname, out_fname, color = colors[i])
+filenames = []
+filenames.extend(glob.glob('genomes/*.fna'))
+filenames.extend(glob.glob('genomes/*.fasta'))
+
+chr2color = {}
+chr2color['NC_000915.1'] = 'blue'
+chr2color['NC_000921.1'] = 'yellow'
+
+for i, fasta_fname in enumerate(filenames):
+    out_fname = 'karyotypes/' + os.path.splitext(os.path.basename(fasta_fname))[0] + '.txt'
+    karyotype_file_from_fasta(fasta_fname, out_fname, chr2color = chr2color)
+
+coords_fname = 'promer_out.coords'
+links_fname  = 'links/links.txt'
+coords_to_links(coords_fname, links_fname, chr2color = chr2color, min_length = 1000)
