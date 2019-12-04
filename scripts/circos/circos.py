@@ -1,4 +1,5 @@
 import glob, os
+from subprocess import call
 
 def karyotype_file_from_fasta(fasta_fname, out_fname, chr2color = None):
     outfile = open(out_fname, 'w')
@@ -65,6 +66,9 @@ def coords_to_links(coords_fname, links_fname, chr2color = None, min_length = 0)
                 linksfile.write(out + '\n')
     linksfile.close()
 
+call("promer -p promer_out genomes/26695.fna genomes/j99.fna >& promer.log", shell = True)
+call("show-coords -r promer_out.delta > promer_out.coords", shell = True)
+
 filenames = []
 filenames.extend(glob.glob('genomes/*.fna'))
 filenames.extend(glob.glob('genomes/*.fasta'))
@@ -80,3 +84,5 @@ for i, fasta_fname in enumerate(filenames):
 coords_fname = 'promer_out.coords'
 links_fname  = 'links/links.txt'
 coords_to_links(coords_fname, links_fname, chr2color = chr2color, min_length = 1000)
+
+call("circos -conf circos.conf", shell = True)

@@ -1,8 +1,105 @@
 import requests, html, os, csv
+import urllib, urlparse, yaml
 from htmldom import htmldom
+
+class MyDumper(yaml.Dumper):
+    def increase_indent(self, flow = False, indentless = False):
+        return super(MyDumper, self).increase_indent(flow, False)
+
+def parse_url():
+    return dict(urlparse.parse_qsl(urlparse.urlsplit(url).query))
+
+def run_query(function, username, password, args):
+    server = 'http://pubseed.theseed.org/rast/server.cgi'
+    param = {'function': function,
+         'username': username,
+         'password': password,
+         'args': yaml.dump(args, Dumper = MyDumper, default_flow_style = False)}
+    return requests.post(server, data = param)
+
+'''
+status_of_RAST_job(username, password, *jobid);
+
+where *jobid is a list of job ids.
+
+The return value is a hash keyed by Jobid of
+		    {status} = Job Stage
+		    {error_msg} = message
+		    {verbose-status} = RAST Metadata
+'''
+def status_of_RAST_job(username, password, *jobids):
+    return run_query('status_of_RAST_job', username, password, {'-job': jobids})
+
+'''
+retrieve_RAST_job(username, password, jobid, format)
+
+where jobid is the RAST id of the job and
+
+format is one of:
+		genbank 		    (Genbank format)
+		genbank_stripped 	(Genbank with EC numbers removed)
+		embl 			    (EMBL format)
+		embl_stripped 		(EMBL with EC numbers stripped)
+		gff3 			    (GFF3 format)
+		gff3_stripped 		(GFF3 with EC numbers stripped)
+		rast_tarball 		(gzipped tar file of the entire job)
+
+The return is a hash of
+		{status} = ok|error
+		{file} = the downloaded file name
+		{error_msg} = The error message
+'''
+def retrieve_RAST_job(username, password, *jobids):
+    # Working
+
+'''
+kill_RAST_job(username, password, *jobids);
+
+where *jobids is a list job ids to kill.
+
+Return is a hash keyed by Job ID of
+			{status} = ok|error
+			{messages} = Messages
+'''
+def kill_RAST_job(username, password, *jobids):
+    return run_query('kill_RAST_job', username, password, {'-job': jobids})
+
+'''
+delete_RAST_job(username, password, *jobids);
+
+where *jobids is a list job ids to delete.
+
+Return is a hash keyed by Job ID of
+			{status} = ok|error
+			{messages} = Messages
+'''
+def delete_RAST_job(username, password, *jobids):
+    return run_query('delete_RAST_job', username, password, {'-job': jobids})
+
+'''
+get_job_metadata(username, password, jobid);
+
+where jobid is the RAST id of a RAST job
+
+Return is a hash of
+			{status} = ok|error
+			{error_message} = Error Message
+			{key} => {metdata}
+'''
+def get_job_metadata(username, password, jobid):
+    return run_query('get_job_metadata', username, password, {'-job': jobid})
+
+x = svr_status_of_RAST_job('baohiep', 'Lbh@812002', 799648, 801485)
+print(run_query('status_of_RAST_job', 'baohiep', 'Lbh@812002', {'-job': [799648]}))
+
+parse_url('http://pubseed.theseed.org/rast/server.cgi?function=status_of_RAST_job&args=---%0A-job%3A%0A++-+799648%0A&username=baohiep&password=Lbh%40812002')
 
 # FIX-ME: Get cookies dynamically
 headers = {'Cookie': 'WebSession=ccbf70236e38e90066d792843efb5b08'}
+
+def getCookies(username, password):
+
+def logout(cookies):
 
 def phase1():
     data = {'_submitted': '1',
