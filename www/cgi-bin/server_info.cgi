@@ -3,13 +3,10 @@
 import psutil
 import platform
 import datetime
-import time
 import os
 import regex
 import subprocess
-import shlex
 import sys
-import commands
 
 def run(command):
     try:

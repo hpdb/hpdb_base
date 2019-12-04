@@ -1,6 +1,11 @@
 import requests, html, os, csv
-import urllib, urlparse, yaml
+import urllib, yaml
 from htmldom import htmldom
+
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 
 class MyDumper(yaml.Dumper):
     def increase_indent(self, flow = False, indentless = False):
@@ -42,6 +47,8 @@ format is one of:
 		embl_stripped 		(EMBL with EC numbers stripped)
 		gff3 			    (GFF3 format)
 		gff3_stripped 		(GFF3 with EC numbers stripped)
+		gtf 			    (GTF format)
+		gtf_stripped 		(GTF with EC numbers stripped)
 		rast_tarball 		(gzipped tar file of the entire job)
 
 The return is a hash of
@@ -50,7 +57,8 @@ The return is a hash of
 		{error_msg} = The error message
 '''
 def retrieve_RAST_job(username, password, *jobids):
-    # Working
+    # WIP
+    return
 
 '''
 kill_RAST_job(username, password, *jobids);
@@ -89,28 +97,41 @@ Return is a hash of
 def get_job_metadata(username, password, jobid):
     return run_query('get_job_metadata', username, password, {'-job': jobid})
 
-x = svr_status_of_RAST_job('baohiep', 'Lbh@812002', 799648, 801485)
-print(run_query('status_of_RAST_job', 'baohiep', 'Lbh@812002', {'-job': [799648]}))
+'''
+Below are web-simulated methods
+'''
 
-parse_url('http://pubseed.theseed.org/rast/server.cgi?function=status_of_RAST_job&args=---%0A-job%3A%0A++-+799648%0A&username=baohiep&password=Lbh%40812002')
+def get_cookies_RAST(username, password):
+    data = {'page': 'Home',
+            'login': username,
+            'password': password,
+            'action': 'perform_login'}
+    return 'WebSession=' + requests.post('http://rast.nmpdr.org/rast.cgi', data = data).cookies['WebSession']
 
-# FIX-ME: Get cookies dynamically
-headers = {'Cookie': 'WebSession=ccbf70236e38e90066d792843efb5b08'}
+def logout_RAST(cookies):
+    headers = {'Cookie': cookies}
+    return requests.get('http://rast.nmpdr.org/rast.cgi?page=Jobs&logout=1', headers = headers)
 
-def getCookies(username, password):
+def find_between(s, first, last):
+    try:
+        start = s.index(first) + len(first)
+        end = s.index(last, start)
+        return s[start:end]
+    except ValueError:
+        return ''
 
-def logout(cookies):
-
-def phase1():
+def submit_RAST_job(username, password, seqfile, strain):
+    cookies = get_cookies_RAST(username, password)
+    headers = {'Cookie': cookies}
+    # Phase 1
     data = {'_submitted': '1',
             '_page': '1',
             'page': 'UploadGenome',
             '_submit': 'Use this data and go to step 2'}
-    file = {'sequences_file': open('genomic.fna','rb')}
-    res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, files = file, headers = headers).text
-    return res
-
-def phase2(rawhtml, strain):
+    file = {'sequences_file': open(seqfile,'rb')}
+    rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, files = file, headers = headers).text
+    
+    # Phase 2
     dom = htmldom.HtmlDom()
     dom = dom.createDom(rawhtml)
     data = {'_submitted': '2',
@@ -128,10 +149,9 @@ def phase2(rawhtml, strain):
             '_submit': 'Use this data and go to step 3'}
     data['upload_dir'] = dom.find('#upload_dir').attr('value')
     data['upload_check'] = html.unescape(dom.find('#upload_check').attr('value'))
-    res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
-    return res
-
-def phase3(rawhtml, strain):
+    rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
+    
+    # Phase 3
     dom = htmldom.HtmlDom()
     dom = dom.createDom(rawhtml)
     data = {'_submitted': '3',
@@ -220,17 +240,33 @@ def phase3(rawhtml, strain):
     data['upload_dir'] = dom.find('#upload_dir').attr('value')
     data['upload_check'] = html.unescape(dom.find('#upload_check').attr('value'))
     res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
+    logout_RAST(cookies)
+    res = find_between(res, 'Your upload will be processed as job ', '.')
     return res
+
+def download_RAST_job(username, password, jobid):
+    cookies = get_cookies_RAST(username, password)
+    headers = {'Cookie': cookies}
     
-if __name__ == "__main__":
-    with open('complete genome.csv') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if row[0] != 'Name':
-                strain = row[0][20:] + ' [' + row[1] + ']'
-                print('Uploading ' + strain + '...')
-                os.chdir(row[1])
-                rawhtml = phase1()
-                rawhtml = phase2(rawhtml, strain)
-                rawhtml = phase3(rawhtml, strain)
-                os.chdir('..')
+    def download(jobid, file):
+        data = {'page': 'DownloadFile',
+                'job': str(jobid),
+                'file': file,
+                'do_download': 'Download'}
+        
+        with requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers, stream = True) as r:
+            r.raise_for_status()
+            with open(file, 'wb') as f:
+                for chunk in r.iter_content(chunk_size = 8192): 
+                    if chunk:
+                        f.write(chunk)
+    
+    rawhtml = requests.get('http://rast.nmpdr.org/?page=JobDetails&job=' + str(jobid), headers = headers).text
+    dom = htmldom.HtmlDom()
+    dom = dom.createDom(rawhtml)
+    list_files = [x.attr('value') for x in dom.find('select')[0].find('option')]
+    for file in list_files:
+        print('Downloading ' + file)
+        download(jobid, file)
+    
+    logout_RAST(cookies)

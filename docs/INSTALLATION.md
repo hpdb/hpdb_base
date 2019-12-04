@@ -16,7 +16,7 @@ git clone https://github.com/hieplpvip/HPDB.git base
 
 3. Create directories for projects and create symlinks for them:
 ```
-mkdir data queue
+mkdir data queue queue/external
 ln -s `pwd`/data base/data
 ln -s `pwd`/queue base/queue
 ```
