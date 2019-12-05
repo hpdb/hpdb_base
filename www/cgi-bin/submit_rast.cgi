@@ -52,8 +52,8 @@ def process():
     
     config = ConfigParser()
     config.read(os.environ['HPDB_BASE'] + '/sys.properties')
-    username = config._sections['RAST Account']['username']
-    password = config._sections['RAST Account']['password']
+    rast_username = config._sections['RAST Account']['username']
+    rast_password = config._sections['RAST Account']['password']
 
     configs = {}
     configs['jobtype'] = 'rast'
@@ -65,7 +65,7 @@ def process():
     configs['dirpath'] = dirpath
     configs['filename'] = ''
     configs['strain'] = strain
-    configs['rast_id'] = rast.submit_RAST_job(username, password, 'input.fasta', configs['strain'])
+    configs['rast_id'] = rast.submit_RAST_job(rast_username, rast_password, 'input.fasta', configs['strain'])
     #configs['exec_time'] = '%.2f' % (time.time() - start_time)
     
     with open('configs.yaml', 'w') as f:
