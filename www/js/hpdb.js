@@ -254,16 +254,20 @@ $(document).ready(function () {
     beforeSubmit: function(arr, $form, options) {
       $form.find(':submit').text('Submitting...');
       $form.find(':submit').attr('disabled', 'disabled');
+      $form.find(':submit').removeClass('btn-primary').addClass('btn-secondary');
+      $form.find(':submit').hide().show(0); // hack to force redrawing button
     },
-    error: function(error) {
+    error: function(xhr, status, error, $form) {
       alert(error.responseText);
       $form.find(':submit').text('Submit');
       $form.find(':submit').removeAttr('disabled');
+      $form.find(':submit').removeClass('btn-secondary').addClass('btn-primary');
     },
     success: function(responseText, statusText, xhr, $form) {
       alert(responseText);
       $form.find(':submit').text('Submit');
       $form.find(':submit').removeAttr('disabled');
+      $form.find(':submit').removeClass('btn-secondary').addClass('btn-primary');
     }
   });
 
