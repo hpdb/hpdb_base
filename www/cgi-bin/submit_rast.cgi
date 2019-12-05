@@ -11,7 +11,6 @@ from shutil import copyfile
 db = um.newDBConnection()    
 
 def process():
-    return 'Coming soon...'
     form = cgi.FieldStorage()
     if not 'sid' in form:
         return 'You are not logged in!'
