@@ -1,4 +1,4 @@
-import requests, html, os, csv
+import requests, HTMLParser, os, csv
 import urllib, yaml
 from htmldom import htmldom
 
@@ -6,6 +6,9 @@ try:
     import urlparse
 except ImportError:
     import urllib.parse as urlparse
+
+def htmlunescape(str):
+    return HTMLParser.HTMLParser().unescape(str)
 
 class MyDumper(yaml.Dumper):
     def increase_indent(self, flow = False, indentless = False):
@@ -148,7 +151,7 @@ def submit_RAST_job(username, password, seqfile, strain):
             'genetic_code': '11',
             '_submit': 'Use this data and go to step 3'}
     data['upload_dir'] = dom.find('#upload_dir').attr('value')
-    data['upload_check'] = html.unescape(dom.find('#upload_check').attr('value'))
+    data['upload_check'] = htmlunescape(dom.find('#upload_check').attr('value'))
     rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
     
     # Phase 3
@@ -238,7 +241,7 @@ def submit_RAST_job(username, password, seqfile, strain):
             'disable_replication': '1',
             '_submit': 'Finish the upload'}
     data['upload_dir'] = dom.find('#upload_dir').attr('value')
-    data['upload_check'] = html.unescape(dom.find('#upload_check').attr('value'))
+    data['upload_check'] = htmlunescape(dom.find('#upload_check').attr('value'))
     res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
     logout_RAST(cookies)
     res = find_between(res, 'Your upload will be processed as job ', '.')

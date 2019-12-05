@@ -20,7 +20,7 @@ def forcedelete(file):
 
 def check_queue():    
     # ----- Get job from queue -----
-    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue') if os.path.isfile(x)])
+    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/' + x)])
     if len(files) == 0:
         return False
     
@@ -92,7 +92,7 @@ def check_queue():
 
 def check_external():
     # ----- Get job from external queue -----
-    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/external') if os.path.isfile(x)])
+    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/external/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/external/' + x)])
     if len(files) == 0:
         return False
     
