@@ -146,6 +146,9 @@ def func2():
 
 if __name__ == '__main__':
     stop_if_already_running()
+    logf = open("/home/hpdb/runcore_external.log", "a+")
+    logf.write('[+] runcore started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+    logf.close()
     p1 = Process(target = func1)
     p2 = Process(target = func2)
     p1.start()
