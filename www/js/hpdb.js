@@ -251,11 +251,15 @@ $(document).ready(function () {
   });
   $('.tool_form').ajaxForm({
     clearForm: true,
+    beforeSubmit: function($form) {
+      $form.find(':submit').attr('disabled', 'disabled');
+    },
     error: function(error) {
       alert(error.responseText);
     },
-    success: function(responseText) {
+    success: function(responseText, $form) {
       alert(responseText);
+      $form.find(':submit').attr('disabled', 'disabled');
     }
   });
 
