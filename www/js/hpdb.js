@@ -251,15 +251,19 @@ $(document).ready(function () {
   });
   $('.tool_form').ajaxForm({
     clearForm: true,
-    beforeSubmit: function($form) {
+    beforeSubmit: function(arr, $form, options) {
+      $form.find(':submit').text('Submitting...');
       $form.find(':submit').attr('disabled', 'disabled');
     },
     error: function(error) {
       alert(error.responseText);
+      $form.find(':submit').text('Submit');
+      $form.find(':submit').removeAttr('disabled');
     },
-    success: function(responseText, $form) {
+    success: function(responseText, statusText, xhr, $form) {
       alert(responseText);
-      $form.find(':submit').attr('disabled', 'disabled');
+      $form.find(':submit').text('Submit');
+      $form.find(':submit').removeAttr('disabled');
     }
   });
 
