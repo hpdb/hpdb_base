@@ -5,8 +5,7 @@ from __future__ import division
 import os
 import time
 import utils
-import rast
-import rast_sdk as rast
+import RAST_sdk as rast
 
 username = ''
 password = ''
