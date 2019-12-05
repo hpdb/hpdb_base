@@ -3,24 +3,22 @@
 # To stop pipeline, create a file named stopcore at /home/hpdb/
 
 from __future__ import division
+from multiprocessing import Process
 import os
 import time
 import sys
 import yaml
 import commands
-import user_management as um
 import utils
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy, amr, vf, rast
 
-db = um.newDBConnection()
-
 def forcedelete(file):
     while os.path.isfile(file):
         os.remove(file)
 
-def run():    
+def check_queue():    
     # ----- Get job from queue -----
     files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue') if os.path.isfile(x)])
     if len(files) == 0:
@@ -36,7 +34,7 @@ def run():
         forcedelete(job_queue_file)
         return True # return True to continue getting job from queue
     
-    # ----- Load job config -----    
+    # ----- Load job config -----
     os.chdir(job_dir)
     with open('configs.yaml', 'r') as f:
         configs = yaml.full_load(f)
@@ -98,31 +96,66 @@ def check_external():
     if len(files) == 0:
         return False
     
-    jobid = files[0]
-    job_queue_file = os.environ['HPDB_BASE'] + '/queue/external/' + jobid
-    with open(job_queue_file, 'r') as f:
-        job_dir = f.read()
-    
-    # Check if job really exists
-    if not os.path.isdir(job_dir):
-        forcedelete(job_queue_file)
-        return True # return True to continue getting job from queue
-    
-    # ----- Load job config -----    
-    os.chdir(job_dir)
-    with open('configs.yaml', 'r') as f:
-        configs = yaml.full_load(f)
+    for jobid in files:
+        job_queue_file = os.environ['HPDB_BASE'] + '/queue/external/' + jobid
+        with open(job_queue_file, 'r') as f:
+            job_dir = f.read()
+        
+        # Check if job really exists
+        if not os.path.isdir(job_dir):
+            forcedelete(job_queue_file)
+            continue
+        
+        # ----- Load job config -----
+        os.chdir(job_dir)
+        with open('configs.yaml', 'r') as f:
+            configs = yaml.full_load(f)
+        
+        try:
+            if configs['jobtype'] == 'rast':
+                configs, done = rast.check(configs)
+            if done:
+                continue
+            
+            # ----- Save job config -----
+            os.chdir(job_dir)
+            with open('configs.yaml', 'w') as f:
+                yaml.dump(configs, f)
+            
+            # ----- Compress -----
+            os.chdir(job_dir)
+            utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
+        except Exception as e:
+            logf = open("/home/hpdb/runcore_external.log", "a+")
+            logf.write(str(e) + '\n')
+            logf.close()
+            os.chdir(job_dir)
+            forcedelete(job_queue_file)
+            forcedelete('running')
+            forcedelete('queued')
+            with open('error', 'w') as f:
+                f.write(str(e))
 
 def stop_if_already_running():
     script_name = os.path.basename(__file__)
     l = commands.getstatusoutput("ps aux | grep -e '%s' | grep -v grep | awk '{print $2}'| awk '{print $2}'" % script_name)
     if l[1]:
         print('Already running. Exiting...')
-        db.close()
         sys.exit(0);
+
+def func1():
+    if not check_queue():
+        time.sleep(2)
+
+def func2():
+    if not check_external():
+        time.sleep(60)
 
 if __name__ == '__main__':
     stop_if_already_running()
-    if not run():
-        time.sleep(2)
-    db.close()
+    p1 = Process(target = func1)
+    p2 = Process(target = func2)
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()

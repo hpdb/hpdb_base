@@ -5,6 +5,7 @@ from __future__ import division
 import os
 import time
 import utils
+import rast
 import rast_sdk as rast
 
 username = ''
@@ -17,4 +18,10 @@ def run(configs):
     return configs
 
 def check(configs):
-    x = rast.status_of_RAST_job(username, password, configs['rast_id'])
+    res = yaml.safe_load(rast.status_of_RAST_job(username, password, configs['rast_id']).text)
+    if res[configs['rast_id']]['status'] == 'complete':
+        os.chdir(configs['dirpath'])
+        rast.download_RAST_job(username, password, configs['rast_id'])
+        return True, configs
+    else:
+        return False, configs
