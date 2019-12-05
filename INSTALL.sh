@@ -35,7 +35,7 @@ ln -fs $anacondabin/python $rootdir/bin
 ln -fs $anacondabin/pip $rootdir/bin
 ln -fs $anacondabin/conda $rootdir/bin
 $anacondabin/conda install -y biopython
-$anacondabin/pip install regex
+$anacondabin/pip install regex htmldom
 $anacondabin/cpanm -f Bio::Perl Net::Ping
 $anacondabin/cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
 $anacondabin/cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
