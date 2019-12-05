@@ -66,7 +66,7 @@ def process():
     configs['filename'] = ''
     configs['strain'] = strain
     configs['rast_id'] = rast.submit_RAST_job(username, password, 'input.fasta', configs['strain'])
-    configs['exec_time'] = '%.2f' % (time.time() - start_time)
+    #configs['exec_time'] = '%.2f' % (time.time() - start_time)
     
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
