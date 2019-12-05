@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division
+from ConfigParser import ConfigParser
 import os
 import time
 import utils
 import RAST_sdk as rast
 
-username = ''
-password = ''
+config = ConfigParser()
+config.read(os.environ['HPDB_BASE'] + '/sys.properties')
+username = config._sections['RAST Account']['username']
+password = config._sections['RAST Account']['password']
 
 def run(configs):
     start_time = time.time()
