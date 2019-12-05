@@ -245,7 +245,7 @@ def submit_RAST_job(username, password, seqfile, strain):
     res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
     logout_RAST(cookies)
     res = find_between(res, 'Your upload will be processed as job ', '.')
-    return res
+    return int(res)
 
 def download_RAST_job(username, password, jobid):
     cookies = get_cookies_RAST(username, password)

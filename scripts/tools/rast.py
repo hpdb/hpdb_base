@@ -8,18 +8,11 @@ import time
 import utils
 import RAST_sdk as rast
 
-config = ConfigParser()
-config.read(os.environ['HPDB_BASE'] + '/sys.properties')
-username = config._sections['RAST Account']['username']
-password = config._sections['RAST Account']['password']
-
-def run(configs):
-    start_time = time.time()
-    configs['rast_id'] = rast.submit_RAST_job(username, password, 'input.fasta', configs['strain'])
-    configs['exec_time'] = '%.2f' % (time.time() - start_time)
-    return configs
-
 def check(configs):
+    config = ConfigParser()
+    config.read(os.environ['HPDB_BASE'] + '/sys.properties')
+    username = config._sections['RAST Account']['username']
+    password = config._sections['RAST Account']['password']
     res = yaml.safe_load(rast.status_of_RAST_job(username, password, configs['rast_id']).text)
     if res[configs['rast_id']]['status'] == 'complete':
         os.chdir(configs['dirpath'])

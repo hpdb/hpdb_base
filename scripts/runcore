@@ -55,8 +55,6 @@ def check_queue():
             configs = roary.run(configs)
         elif configs['jobtype'] == 'snippy':
             configs = snippy.run(configs)
-        elif configs['jobtype'] == 'rast':
-            configs = rast.run(configs)
         
         # ----- Save job config -----
         os.chdir(job_dir)
@@ -64,9 +62,8 @@ def check_queue():
             yaml.dump(configs, f)
         
         # ----- Compress -----
-        if not 'external' in configs:
-            os.chdir(job_dir)
-            utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
+        os.chdir(job_dir)
+        utils.zip('.', um.getUserDownloadDir(configs['userid']) + jobid + '.zip')
     except Exception as e:
         logf = open("/home/hpdb/runcore.log", "a+")
         logf.write(str(e) + '\n')
@@ -77,13 +74,9 @@ def check_queue():
     
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)
-    if not 'external' in configs:
-        os.chdir(job_dir)
-        forcedelete('running')
-        forcedelete('queued')
-    else:
-        with open(os.environ['HPDB_BASE'] + '/queue/external/' + jobid, 'w') as f:
-            f.write(dirpath)
+    os.chdir(job_dir)
+    forcedelete('running')
+    forcedelete('queued')
     
     # ----- Move back to base folder -----
     os.chdir(os.environ['HPDB_BASE'])

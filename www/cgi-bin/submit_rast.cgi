@@ -6,7 +6,9 @@ import time
 import yaml
 import utils
 import user_management as um
+import RAST_sdk as rast
 from shutil import copyfile
+from ConfigParser import ConfigParser
 
 db = um.newDBConnection()    
 
@@ -47,7 +49,12 @@ def process():
     
     if not ok:
         return 'No sequence file found'
-        
+    
+    config = ConfigParser()
+    config.read(os.environ['HPDB_BASE'] + '/sys.properties')
+    username = config._sections['RAST Account']['username']
+    password = config._sections['RAST Account']['password']
+
     configs = {}
     configs['jobtype'] = 'rast'
     configs['jobid'] = jobid
@@ -57,17 +64,21 @@ def process():
     configs['username'] = username
     configs['dirpath'] = dirpath
     configs['filename'] = ''
-    configs['external'] = True
     configs['strain'] = strain
-
+    configs['rast_id'] = rast.submit_RAST_job(username, password, 'input.fasta', configs['strain'])
+    configs['exec_time'] = '%.2f' % (time.time() - start_time)
+    
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     
-    with open(os.environ['HPDB_BASE'] + '/queue/' + jobid, 'w') as f:
+    with open(os.environ['HPDB_BASE'] + '/queue/external/' + jobid, 'w') as f:
         f.write(dirpath)
     
     with open('queued', 'w') as f:
         f.write(dirpath)
+    
+    with open('runnig', 'w') as f:
+        f.write('dumb file')
     
     um.addproject(db, userid, username, jobid)
     
