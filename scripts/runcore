@@ -65,7 +65,7 @@ def check_queue():
         os.chdir(job_dir)
         utils.zip('.', um.getUserDownloadDir(configs['userid']) + jobid + '.zip')
     except Exception as e:
-        logf = open("/home/hpdb/runcore.log", "a+")
+        logf = open("/home/hpdb/runcore_queue.log", "a+")
         logf.write(str(e) + '\n')
         logf.close()
         os.chdir(job_dir)
@@ -137,18 +137,21 @@ def stop_if_already_running():
         sys.exit(0);
 
 def func1():
+    logf = open("/home/hpdb/runcore_queue.log", "a+")
+    logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+    logf.close()
     if not check_queue():
         time.sleep(2)
 
 def func2():
+    logf = open("/home/hpdb/runcore_external.log", "a+")
+    logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+    logf.close()
     if not check_external():
         time.sleep(60)
 
 if __name__ == '__main__':
     stop_if_already_running()
-    logf = open("/home/hpdb/runcore_external.log", "a+")
-    logf.write('[+] runcore started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
-    logf.close()
     p1 = Process(target = func1)
     p2 = Process(target = func2)
     p1.start()
