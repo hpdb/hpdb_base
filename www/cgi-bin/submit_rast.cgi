@@ -50,10 +50,10 @@ def process():
     if not ok:
         return 'No sequence file found'
     
-    config = ConfigParser()
-    config.read(os.environ['HPDB_BASE'] + '/sys.properties')
-    rast_username = config._sections['RAST Account']['username']
-    rast_password = config._sections['RAST Account']['password']
+    sys_config = ConfigParser()
+    sys_config.read(os.environ['HPDB_BASE'] + '/sys.properties')
+    rast_username = sys_config._sections['RAST Account']['username']
+    rast_password = sys_config._sections['RAST Account']['password']
 
     configs = {}
     configs['jobtype'] = 'rast'
