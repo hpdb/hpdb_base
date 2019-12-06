@@ -10,6 +10,7 @@ import sys
 import yaml
 import commands
 import utils
+import traceback
 import user_management as um
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
@@ -72,6 +73,7 @@ def check_queue():
         os.chdir(job_dir)
         with open('error', 'w') as f:
             f.write(str(e))
+            f.write(traceback.format_exc())
     
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)
@@ -129,6 +131,7 @@ def check_external():
             forcedelete('queued')
             with open('error', 'w') as f:
                 f.write(str(e))
+                f.write(traceback.format_exc())
 
 def stop_if_already_running():
     script_name = os.path.basename(__file__)
