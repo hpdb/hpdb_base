@@ -249,29 +249,3 @@ def submit_RAST_job(username, password, seqfile, strain):
 
 def download_RAST_job(username, password, jobid):
     print('a')
-    cookies = get_cookies_RAST(username, password)
-    headers = {'Cookie': cookies}
-    print('b')
-    def download(jobid, file):
-        data = {'page': 'DownloadFile',
-                'job': str(jobid),
-                'file': file,
-                'do_download': 'Download'}
-        
-        with requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers, stream = True) as r:
-            r.raise_for_status()
-            with open(file, 'wb') as f:
-                for chunk in r.iter_content(chunk_size = 8192): 
-                    if chunk:
-                        f.write(chunk)
-    print('c')
-    rawhtml = requests.get('http://rast.nmpdr.org/?page=JobDetails&job=' + str(jobid), headers = headers).text
-    dom = htmldom.HtmlDom()
-    dom = dom.createDom(rawhtml)
-    list_files = [x.attr('value') for x in dom.find('select')[0].find('option')]
-    print('d')
-    for file in list_files:
-        print('Downloading ' + file)
-        download(jobid, file)
-    
-    logout_RAST(cookies)
