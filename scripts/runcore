@@ -10,6 +10,7 @@ import sys
 import yaml
 import commands
 import utils
+import user_management as um
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy, amr, vf, rast
