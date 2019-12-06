@@ -140,15 +140,17 @@ def func1():
     logf = open("/home/hpdb/runcore_queue.log", "a+")
     logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
     logf.close()
-    if not check_queue():
-        time.sleep(2)
+    while True:
+        if not check_queue():
+            time.sleep(2)
 
 def func2():
     logf = open("/home/hpdb/runcore_external.log", "a+")
     logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
     logf.close()
-    if not check_external():
-        time.sleep(60)
+    while True:
+        if not check_external():
+            time.sleep(60)
 
 if __name__ == '__main__':
     stop_if_already_running()
