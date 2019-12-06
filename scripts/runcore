@@ -112,7 +112,7 @@ def check_external():
         try:
             if configs['jobtype'] == 'rast':
                 done, configs = rast.check(configs)
-            if done:
+            if not done:
                 continue
             
             # ----- Save job config -----
