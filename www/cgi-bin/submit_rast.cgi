@@ -64,6 +64,7 @@ def process():
     configs['username'] = username
     configs['dirpath'] = dirpath
     configs['filename'] = ''
+    configs['external'] = True
     configs['strain'] = strain
     configs['rast_id'] = rast.submit_RAST_job(rast_username, rast_password, 'input.fasta', configs['strain'])
     #configs['exec_time'] = '%.2f' % (time.time() - start_time)

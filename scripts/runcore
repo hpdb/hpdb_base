@@ -87,6 +87,7 @@ def check_queue():
     return True
 
 def check_external():
+    import yaml
     # ----- Get job from external queue -----
     files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/external/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/external/' + x)])
     if len(files) == 0:
