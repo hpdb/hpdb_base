@@ -69,10 +69,11 @@ def check_queue():
     except Exception as e:
         logf = open("/home/hpdb/runcore_queue.log", "a+")
         logf.write(str(e) + '\n')
+        logf.write(traceback.format_exc() + '\n')
         logf.close()
         os.chdir(job_dir)
         with open('error', 'w') as f:
-            f.write(str(e))
+            f.write(str(e) + '\n')
             f.write(traceback.format_exc())
     
     # ----- Remove job from queue -----
@@ -125,13 +126,14 @@ def check_external():
         except Exception as e:
             logf = open("/home/hpdb/runcore_external.log", "a+")
             logf.write(str(e) + '\n')
+            logf.write(traceback.format_exc() + '\n')
             logf.close()
             os.chdir(job_dir)
             forcedelete(job_queue_file)
             forcedelete('running')
             forcedelete('queued')
             with open('error', 'w') as f:
-                f.write(str(e))
+                f.write(str(e) + '\n')
                 f.write(traceback.format_exc())
 
 def stop_if_already_running():

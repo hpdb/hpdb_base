@@ -6,6 +6,7 @@ from ConfigParser import ConfigParser
 import os
 import time
 import utils
+import yaml
 import RAST_sdk as rast
 
 def check(configs):
