@@ -77,7 +77,7 @@ def process():
     with open('queued', 'w') as f:
         f.write(dirpath)
     
-    with open('runnig', 'w') as f:
+    with open('running', 'w') as f:
         f.write('dumb file')
     
     um.addproject(db, userid, username, jobid)
