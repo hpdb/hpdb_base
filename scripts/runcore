@@ -135,6 +135,17 @@ def check_external():
             with open('error', 'w') as f:
                 f.write(str(e) + '\n')
                 f.write(traceback.format_exc())
+        
+        # ----- Remove job from queue -----
+        forcedelete(job_queue_file)
+        os.chdir(job_dir)
+        forcedelete('running')
+        forcedelete('queued')
+    
+    # ----- Move back to base folder -----
+    os.chdir(os.environ['HPDB_BASE'])
+    
+    return True
 
 def stop_if_already_running():
     script_name = os.path.basename(__file__)
