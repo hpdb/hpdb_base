@@ -248,10 +248,9 @@ def submit_RAST_job(username, password, seqfile, strain):
     return int(res)
 
 def download_RAST_job(username, password, jobid):
-    print('a')
     cookies = get_cookies_RAST(username, password)
     headers = {'Cookie': cookies}
-    print('b')
+    
     def download(jobid, file):
         data = {'page': 'DownloadFile',
                 'job': str(jobid),
@@ -264,12 +263,14 @@ def download_RAST_job(username, password, jobid):
                 for chunk in r.iter_content(chunk_size = 8192): 
                     if chunk:
                         f.write(chunk)
-    print('c')
+    
     rawhtml = requests.get('http://rast.nmpdr.org/?page=JobDetails&job=' + str(jobid), headers = headers).text
     dom = htmldom.HtmlDom()
     dom = dom.createDom(rawhtml)
-    list_files = [x.attr('value') for x in dom.find('select')[0].find('option')]
-    print('d')
+    element = dom.find('select')[0] # dirty hack to work on Python 2
+    cnt = element.html().count('value')
+    element = element.find('option')
+    list_files = [element[x].attr('value') for x in range(cnt)]
     for file in list_files:
         print('Downloading ' + file)
         download(jobid, file)
