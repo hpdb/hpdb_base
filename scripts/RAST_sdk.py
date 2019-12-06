@@ -247,7 +247,7 @@ def submit_RAST_job(username, password, seqfile, strain):
     res = find_between(res, 'Your upload will be processed as job ', '.')
     return int(res)
 
-def download_RAST_job(username, password, jobid):
+def download_RAST_job(username, password, jobid, verbose = False):
     cookies = get_cookies_RAST(username, password)
     headers = {'Cookie': cookies}
     
@@ -272,7 +272,8 @@ def download_RAST_job(username, password, jobid):
     element = element.find('option')
     list_files = [element[x].attr('value') for x in range(cnt)]
     for file in list_files:
-        print('Downloading ' + file)
+        if (verbose):
+            print('Downloading ' + file)
         download(jobid, file)
     
     logout_RAST(cookies)
