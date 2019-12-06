@@ -14,7 +14,7 @@ def check(configs):
     config.read(os.environ['HPDB_BASE'] + '/sys.properties')
     rast_username = config._sections['RAST Account']['username']
     rast_password = config._sections['RAST Account']['password']
-    res = yaml.safe_load(rast.status_of_RAST_job(rast_username, v, configs['rast_id']).text)
+    res = yaml.safe_load(rast.status_of_RAST_job(rast_username, rast_password, configs['rast_id']).text)
     if res[configs['rast_id']]['status'] == 'complete':
         os.chdir(configs['dirpath'])
         rast.download_RAST_job(rast_username, rast_password, configs['rast_id'])
