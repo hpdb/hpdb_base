@@ -29,7 +29,7 @@ def check_queue():
     jobid = files[0]
     job_queue_file = os.environ['HPDB_BASE'] + '/queue/' + jobid
     with open(job_queue_file, 'r') as f:
-        job_dir = f.read()
+        job_dir = f.read().strip()
     
     # Check if job really exists
     if not os.path.isdir(job_dir):
@@ -97,7 +97,7 @@ def check_external():
     for jobid in files:
         job_queue_file = os.environ['HPDB_BASE'] + '/queue/external/' + jobid
         with open(job_queue_file, 'r') as f:
-            job_dir = f.read()
+            job_dir = f.read().strip()
         
         # Check if job really exists
         if not os.path.isdir(job_dir):
