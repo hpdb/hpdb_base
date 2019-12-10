@@ -3,7 +3,7 @@ AMR.append({'name': '23S rRNA', 'start': 445248, 'end': 448223, 'type': 'nu', 'r
             'subs': [{'pos': 2145, 'orig': 'A'}, \
                      {'pos': 2146, 'orig': 'A'}]})
 
-AMR.append({'name': '23S rRNA (2)', 'start': 1473917, 'end': 1476893, 'type': 'nu', 'rev': True, 'hidden': False, \
+AMR.append({'name': '23S rRNA (2)', 'start': 1473917, 'end': 1476893, 'type': 'nu', 'rev': True, 'hidden': True, \
             'subs': [{'pos': 2145, 'orig': 'A'}, \
                      {'pos': 2146, 'orig': 'A'}]})
 
