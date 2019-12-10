@@ -41,7 +41,7 @@ def run(configs):
                 part = genome[x['start'] : x['end']]
         elif x['type'] == 'prot':
             part = utils.fuzzyFindInList(protein_seqs, x['ref'])
-    
+        
         configs['amr_analysis'][x['name']] = []
         for y in x['subs']:
             configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])

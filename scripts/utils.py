@@ -52,3 +52,13 @@ def fuzzyFindInList(list, s2):
             best = fuzzy.fuzzy_counts[0]
             matched = fuzzy[0]
     return matched
+
+def tsv2csv(input, output):
+    with open(input, 'r') as fin:
+        cr = csv.reader(fin, dialect = 'excel-tab')
+        filecontents = [line for line in cr]
+    
+    # write comma-delimited file (comma is the default delimiter)
+    with open(output, 'wb') as fou:
+        cw = csv.writer(fou)
+        cw.writerows(filecontents)

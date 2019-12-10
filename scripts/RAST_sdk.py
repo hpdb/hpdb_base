@@ -277,3 +277,15 @@ def download_RAST_job(username, password, jobid, verbose = False):
         download(jobid, file)
     
     logout_RAST(cookies)
+
+def parse_RAST(tsvfile):
+    with open(tsvfile, 'r') as tsv:
+        features = [line for line in csv.reader(tsv, dialect = 'excel-tab')][1:]
+    
+    peg    = list(filter(lambda f: f[2] == 'peg', features))
+    repeat = list(filter(lambda f: f[2] == 'repeat', features))
+    rna    = list(filter(lambda f: f[2] == 'rna', features))
+    tRNA    = list(filter(lambda f: 'tRNA' in f[7], features))
+    rRNA    = list(filter(lambda f: 'rRNA' in f[7], features))
+    
+    return peg, repeat, tRNA, rRNA

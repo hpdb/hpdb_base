@@ -3,7 +3,7 @@
 
 from __future__ import division
 from ConfigParser import ConfigParser
-import os
+import os, glob
 import time
 import utils
 import yaml
@@ -24,4 +24,6 @@ def check(configs):
     else: # complete
         os.chdir(configs['dirpath'])
         rast.download_RAST_job(rast_username, rast_password, configs['rast_id'])
+        configs['rast_genome_id'] = os.path.splitext(glob.glob("*.txt")[0])[0]
+        utils.tsv2csv(configs['rast_genome_id'] + '.txt', configs['rast_genome_id'] + '.csv')
         return True, configs
