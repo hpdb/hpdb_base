@@ -84,7 +84,20 @@ def addColor(seg, color = 'red'):
     return '<b style="color: %s;">%s</b>' % (color, seg)
 
 def formatColor(str, seg, color = 'red'):
-    return str.replace(seg, addColor(seg, color))
+    ok = False
+    pos = -1
+    while not ok:
+        pos = str.find(seg, pos + 1)
+        if pos == -1:
+            break
+        elif str[pos - 1] != '>':
+            ok = True
+            break
+    
+    if not ok:
+        return str
+    
+    return str[: pos] + addColor(seg, color) + str[pos + len(seg) :]
 
 def run(configs):
     start_time = time.time()
