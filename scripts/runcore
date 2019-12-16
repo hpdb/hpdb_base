@@ -17,164 +17,164 @@ sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
 import hpdb, blast, clustalo, roary, snippy, amr, vf, rast
 
 def forcedelete(file):
-    while os.path.isfile(file):
-        os.remove(file)
+  while os.path.isfile(file):
+    os.remove(file)
 
 def check_queue():    
-    # ----- Get job from queue -----
-    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/' + x)])
-    if len(files) == 0:
-        return False
+  # ----- Get job from queue -----
+  files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/' + x)])
+  if len(files) == 0:
+    return False
+  
+  jobid = files[0]
+  job_queue_file = os.environ['HPDB_BASE'] + '/queue/' + jobid
+  with open(job_queue_file, 'r') as f:
+    job_dir = f.read().strip()
+  
+  # Check if job really exists
+  if not os.path.isdir(job_dir):
+    forcedelete(job_queue_file)
+    return True # return True to continue getting job from queue
+  
+  # ----- Load job config -----
+  os.chdir(job_dir)
+  with open('configs.yaml', 'r') as f:
+    configs = yaml.full_load(f)
+  
+  with open('running', 'w') as f:
+    f.write('dumb file')
+  
+  try:
+    if configs['jobtype'] == 'caga/vaca':
+      configs = vf.run(configs)
+    elif configs['jobtype'] == 'amr detection':
+      configs = amr.run(configs)
+    elif configs['jobtype'] == 'blast':
+      configs = blast.run(configs)
+    elif configs['jobtype'] == 'clustalo':
+      configs = clustalo.run(configs)
+    elif configs['jobtype'] == 'roary':
+      configs = roary.run(configs)
+    elif configs['jobtype'] == 'snippy':
+      configs = snippy.run(configs)
     
-    jobid = files[0]
-    job_queue_file = os.environ['HPDB_BASE'] + '/queue/' + jobid
+    # ----- Save job config -----
+    os.chdir(job_dir)
+    with open('configs.yaml', 'w') as f:
+      yaml.dump(configs, f)
+    
+    # ----- Compress -----
+    os.chdir(job_dir)
+    utils.zip('.', um.getUserDownloadDir(configs['userid']) + jobid + '.zip')
+  except Exception as e:
+    logf = open("/home/hpdb/runcore_queue.log", "a+")
+    logf.write(str(e) + '\n')
+    logf.write(traceback.format_exc() + '\n')
+    logf.close()
+    os.chdir(job_dir)
+    with open('error', 'w') as f:
+      f.write(str(e) + '\n')
+      f.write(traceback.format_exc())
+  
+  # ----- Remove job from queue -----
+  forcedelete(job_queue_file)
+  os.chdir(job_dir)
+  forcedelete('running')
+  forcedelete('queued')
+  
+  # ----- Move back to base folder -----
+  os.chdir(os.environ['HPDB_BASE'])
+  
+  return True
+
+def check_external():
+  import yaml
+  # ----- Get job from external queue -----
+  files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/external/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/external/' + x)])
+  if len(files) == 0:
+    return False
+  
+  for jobid in files:
+    job_queue_file = os.environ['HPDB_BASE'] + '/queue/external/' + jobid
     with open(job_queue_file, 'r') as f:
-        job_dir = f.read().strip()
+      job_dir = f.read().strip()
     
     # Check if job really exists
     if not os.path.isdir(job_dir):
-        forcedelete(job_queue_file)
-        return True # return True to continue getting job from queue
+      forcedelete(job_queue_file)
+      continue
     
     # ----- Load job config -----
     os.chdir(job_dir)
     with open('configs.yaml', 'r') as f:
-        configs = yaml.full_load(f)
-    
-    with open('running', 'w') as f:
-        f.write('dumb file')
+      configs = yaml.full_load(f)
     
     try:
-        if configs['jobtype'] == 'caga/vaca':
-            configs = vf.run(configs)
-        elif configs['jobtype'] == 'amr detection':
-            configs = amr.run(configs)
-        elif configs['jobtype'] == 'blast':
-            configs = blast.run(configs)
-        elif configs['jobtype'] == 'clustalo':
-            configs = clustalo.run(configs)
-        elif configs['jobtype'] == 'roary':
-            configs = roary.run(configs)
-        elif configs['jobtype'] == 'snippy':
-            configs = snippy.run(configs)
-        
-        # ----- Save job config -----
-        os.chdir(job_dir)
-        with open('configs.yaml', 'w') as f:
-            yaml.dump(configs, f)
-        
-        # ----- Compress -----
-        os.chdir(job_dir)
-        utils.zip('.', um.getUserDownloadDir(configs['userid']) + jobid + '.zip')
+      if configs['jobtype'] == 'rast':
+        done, configs = rast.check(configs)
+      if not done:
+        continue
+      
+      # ----- Save job config -----
+      os.chdir(job_dir)
+      with open('configs.yaml', 'w') as f:
+        yaml.dump(configs, f)
+      
+      # ----- Compress -----
+      os.chdir(job_dir)
+      utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
     except Exception as e:
-        logf = open("/home/hpdb/runcore_queue.log", "a+")
-        logf.write(str(e) + '\n')
-        logf.write(traceback.format_exc() + '\n')
-        logf.close()
-        os.chdir(job_dir)
-        with open('error', 'w') as f:
-            f.write(str(e) + '\n')
-            f.write(traceback.format_exc())
+      logf = open("/home/hpdb/runcore_external.log", "a+")
+      logf.write(str(e) + '\n')
+      logf.write(traceback.format_exc() + '\n')
+      logf.close()
+      os.chdir(job_dir)
+      forcedelete(job_queue_file)
+      forcedelete('running')
+      forcedelete('queued')
+      with open('error', 'w') as f:
+        f.write(str(e) + '\n')
+        f.write(traceback.format_exc())
     
     # ----- Remove job from queue -----
     forcedelete(job_queue_file)
     os.chdir(job_dir)
     forcedelete('running')
     forcedelete('queued')
-    
-    # ----- Move back to base folder -----
-    os.chdir(os.environ['HPDB_BASE'])
-    
-    return True
-
-def check_external():
-    import yaml
-    # ----- Get job from external queue -----
-    files = sorted([x for x in os.listdir(os.environ['HPDB_BASE'] + '/queue/external/') if os.path.isfile(os.environ['HPDB_BASE'] + '/queue/external/' + x)])
-    if len(files) == 0:
-        return False
-    
-    for jobid in files:
-        job_queue_file = os.environ['HPDB_BASE'] + '/queue/external/' + jobid
-        with open(job_queue_file, 'r') as f:
-            job_dir = f.read().strip()
-        
-        # Check if job really exists
-        if not os.path.isdir(job_dir):
-            forcedelete(job_queue_file)
-            continue
-        
-        # ----- Load job config -----
-        os.chdir(job_dir)
-        with open('configs.yaml', 'r') as f:
-            configs = yaml.full_load(f)
-        
-        try:
-            if configs['jobtype'] == 'rast':
-                done, configs = rast.check(configs)
-            if not done:
-                continue
-            
-            # ----- Save job config -----
-            os.chdir(job_dir)
-            with open('configs.yaml', 'w') as f:
-                yaml.dump(configs, f)
-            
-            # ----- Compress -----
-            os.chdir(job_dir)
-            utils.zip('.', um.getUserDownloadDir(configs['userid']) + configs['jobid'] + '.zip')
-        except Exception as e:
-            logf = open("/home/hpdb/runcore_external.log", "a+")
-            logf.write(str(e) + '\n')
-            logf.write(traceback.format_exc() + '\n')
-            logf.close()
-            os.chdir(job_dir)
-            forcedelete(job_queue_file)
-            forcedelete('running')
-            forcedelete('queued')
-            with open('error', 'w') as f:
-                f.write(str(e) + '\n')
-                f.write(traceback.format_exc())
-        
-        # ----- Remove job from queue -----
-        forcedelete(job_queue_file)
-        os.chdir(job_dir)
-        forcedelete('running')
-        forcedelete('queued')
-    
-    # ----- Move back to base folder -----
-    os.chdir(os.environ['HPDB_BASE'])
-    
-    return True
+  
+  # ----- Move back to base folder -----
+  os.chdir(os.environ['HPDB_BASE'])
+  
+  return True
 
 def stop_if_already_running():
-    script_name = os.path.basename(__file__)
-    l = commands.getstatusoutput("ps aux | grep -e '%s' | grep -v grep | awk '{print $2}'| awk '{print $2}'" % script_name)
-    if l[1]:
-        print('Already running. Exiting...')
-        sys.exit(0);
+  script_name = os.path.basename(__file__)
+  l = commands.getstatusoutput("ps aux | grep -e '%s' | grep -v grep | awk '{print $2}'| awk '{print $2}'" % script_name)
+  if l[1]:
+    print('Already running. Exiting...')
+    sys.exit(0);
 
 def func1():
-    logf = open("/home/hpdb/runcore_queue.log", "a+")
-    logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
-    logf.close()
-    while True:
-        if not check_queue():
-            time.sleep(2)
+  logf = open("/home/hpdb/runcore_queue.log", "a+")
+  logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+  logf.close()
+  while True:
+    if not check_queue():
+      time.sleep(2)
 
 def func2():
-    logf = open("/home/hpdb/runcore_external.log", "a+")
-    logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
-    logf.close()
-    while True:
-        if not check_external():
-            time.sleep(60)
+  logf = open("/home/hpdb/runcore_external.log", "a+")
+  logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+  logf.close()
+  while True:
+    if not check_external():
+      time.sleep(60)
 
 if __name__ == '__main__':
-    stop_if_already_running()
-    p1 = Process(target = func1)
-    p2 = Process(target = func2)
-    p1.start()
-    p2.start()
-    p1.join()
-    p2.join()
+  stop_if_already_running()
+  p1 = Process(target = func1)
+  p2 = Process(target = func2)
+  p1.start()
+  p2.start()
+  p1.join()
+  p2.join()

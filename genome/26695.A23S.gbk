@@ -1,0 +1,65 @@
+LOCUS       26695.A23S             2975 bp    DNA     BCT 31-JAN-2014
+DEFINITION  Helicobacter pylori 26695, 23S ribosomal RNA
+SOURCE      Helicobacter pylori 26695
+  ORGANISM  Helicobacter pylori 26695
+            Bacteria; Proteobacteria; Epsilonproteobacteria; Campylobacterales;
+            Helicobacteraceae; Helicobacter.
+FEATURES             Location/Qualifiers
+     gene            1..2975
+                     /locus_tag="HP_r01"
+                     /note="rrnA23S"
+     rRNA            1..2975
+                     /locus_tag="HP_r01"
+                     /product="23S ribosomal RNA"
+ORIGIN
+        1 taaggcagtg gtagcgctga agaatattcg tgcaattgtc gttattcatt ataaaaaggg
+       61 cgggttttaa aggatatttt aaaatttaaa acaagctttt aagagcagat ggcggatgcc
+      121 ttgccaaaga gaggcgatga aggacgtact agactgcgat aagctatgcg gagctgtcaa
+      181 ggagctttga tgcgtagatg tccgaatggg gcaacccaac taatagagat attagttact
+      241 ctttaataga gagcgaacct agtgaagtga aacatctcag taactagagg aaaagaaatc
+      301 aacgagattc cctaagtagt ggcgagcgaa cggggaaaag ggcaaaccga gtgcttgcat
+      361 tcggggttga ggactgcaac atccaagaga acgctttagc agagttacct ggaaaggtaa
+      421 gccatagaaa gtgatagcct tgtatgcgac aaggcgttct taggtagcag tatccagagt
+      481 aggccaggac acgagaaatc caggttgaag ccggggagac cactctccaa ccctaaatac
+      541 tactctttga gcgatagcga acaagtaccg tgagggaaag gtgaaaagaa ccgcagtgag
+      601 cggagtgaaa tagaacctga aaccatctgc ttacaatcat tcagagccct atgatttatc
+      661 agggtgatgg actgcctttt gcataatgat cctgcgagtt gtggtatctg gcaaggttaa
+      721 gcgaatgcga agccgtagcg aaagcgagtc ttaatagggc gaacaagtca gatgctgcag
+      781 acccgaagct aagtgatcta tccatggcca agttgaaacg cgtgtaatag cgcgtggagg
+      841 actgaactcg tacccattga aacgggttgg gatgagctgt ggataggggt gaaaggccaa
+      901 acaaacttag tgatagctgg ttctcttcga aatatattta ggtatagcct caagtgataa
+      961 taaaaggggg tagagccctg attgggctag ggctgctcgc cgcggtacca aaccctatca
+     1021 aacttcgaat accttttatc gtatcttggg agtcaggcgg tgggtgataa aatcaatcgt
+     1081 caaaagggga acaacccaga ctaccaaata aggtccctaa gttctattct gagtggaaaa
+     1141 agatgtgtgg ctactcaaac aaccaggagg ttggcttaga agcagccatc ctttaaagaa
+     1201 agcgtaacag ctcactggtc tagtggtcat gcgctgaaaa tataacgggg ctaagataga
+     1261 caccgaattt gtagattgtg ttaaacacag tggtagaaga gcgttcatac cagcgttgaa
+     1321 ggtataccgg taaggagtgc tggagcggta tgaagtgagc atgcaggaat gagtaacgat
+     1381 aagatatatg agaattgtat ccgccgtaaa tctaaggttt cctacgcgat ggtcgtcatc
+     1441 gtagggttag tcgggtccta agccgagtcc gaaaggggta ggtgatggca aattggttaa
+     1501 tattccaata ccgactgtgg agcgtgatgg ggggacgcat agggttaagc gagctagctg
+     1561 atggaagcgc tagtctaagg gcgtagattg gagggaaggc aaatccacct ctgtatttga
+     1621 aacccaaaca ggctctttga gtccttttag gacaaaggga gaatcgctga taccgtcgtg
+     1681 ccaagaaaag tctctaagca tatccatagt cgtccgtacc gcaaaccgac acaggtagat
+     1741 gagatgagta ttctaaggcg cgtgaaagaa ctctggttaa ggaactctgc aaactagcac
+     1801 cgtaagttcg cgataaggtg tgccacagcg atgtggtctc agcaaagagt ccctcccgac
+     1861 tgtttaccaa aaacacagca ctttgccaac tcgtaagagg aagtataagg tgtgacgcct
+     1921 gcccggtgct cgaaggttaa gaggatgcgt cagtcgcaag atgaagcgtt gaattgaagc
+     1981 ccgagtaaac ggcggccgta actataacgg tcctaaggta gcgaaattcc ttgtcggtta
+     2041 aataccgacc tgcatgaatg gcgtaacgag atgggagctg tctcaaccag agattcagtg
+     2101 aaattgtagt ggaggtgaaa attcctccta cccgcggcaa gacggaaaga ccccgtggac
+     2161 ctttactaca acttagcact gctaatggga atatcatgcg caggataggt gggaggcttt
+     2221 gaagtaaggg ctttggctct tatggagcca tccttgagat accacccttg atgtttctgt
+     2281 tagctaactg gcctgtgtta tccacaggca ggacaatgct tggtgggtag tttgactggg
+     2341 gcggtcgcct cctaaaaagt aacggaggct tgcaaaggtt ggctcattgc ggttggaaat
+     2401 cgcaagttga gtgtaatggc acaagccagc ctgactgtaa gacatacaag tcaagcagag
+     2461 acgaaagtcg gtcatagtga tccggtggtt ctgtgtggaa gggccatcgc tcaaaggata
+     2521 aaaggtaccc cggggataac aggctgatct cccccaagag ctcacatcga cggggaggtt
+     2581 tggcacctcg atgtcggctc atcgcatcct ggggctggag caggtcccaa gggtatggct
+     2641 gttcgccatt taaagcggta cgcgagctgg gttcagaacg tcgtgagaca gttcggtccc
+     2701 tatctgccgt gggcgtagga aagttgagga gagctgtccc tagtacgaga ggaccgggat
+     2761 ggacgtgtca ctggtgcacc agttgttctg ccaagagcat cgctgggtag ctacacacgg
+     2821 atgtgataac tgctgaaagc atctaagcag gaagccaact ccaagatgaa ctttccctga
+     2881 agctcgcaca aagactatgt gcttgatagg gtagatgtgt gagcgcagta atgcgtttag
+     2941 ctgactacta ctaatagagc gtttggcttg ttttt
+//
