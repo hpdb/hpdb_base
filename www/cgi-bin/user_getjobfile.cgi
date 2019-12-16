@@ -22,6 +22,7 @@ def main():
     if not os.path.isfile(filepath):
         return False;
     
+    print('Access-Control-Allow-Origin: *')
     print('X-Sendfile: ' + filepath)
     print('Content-Type: application/octet-stream')
     print('Content-Disposition: attachment; filename=' + filename);
