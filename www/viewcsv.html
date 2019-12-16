@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HPDB - PTNK</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/datatables.min.css" >
+
+  <script src="js/fontawesome-all.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/jquery.csv.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/datatables.min.js"></script>
+  <script src="js/csv_to_html_table.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <h2>Helicobacter Pylori Genome Database</h2>
+    <!--<p>These data are downloaded from <a href="https://www.ncbi.nlm.nih.gov/genome/genomes/169">NCBI Genome Database</a> and are updated every three months.</p>-->
+    <p class="text-danger font-italic" id="loading">Loading... Please wait.</p>
+    <div id="data_table"></div>
+  </div>
+  <script type="text/javascript">
+    function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&');
+      for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+      }
+    }; 
+
+    CsvToHtmlTable.init({
+      csv_path: getUrlParameter('file'),
+      element: 'data_table', 
+      allow_download: true,
+      csv_options: {separator: ',', delimiter: '"'},
+      custom_formatting: [],
+      datatables_options: {'paging': true,
+                           'fixedHeader': true,
+                           'order': [],
+                           'search': { 'smart': false },
+                           'columnDefs': [{'targets': [], 'visible': false}]}
+    }, function() {
+      $('#loading').hide();
+    });
+  </script>
+</body>
+</html>
