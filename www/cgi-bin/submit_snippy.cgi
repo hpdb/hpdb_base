@@ -14,7 +14,7 @@ db = um.newDBConnection()
 
 def main():
     form = cgi.FieldStorage()
-    if (not 'seqfile' in form and not 'seqfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
+    if (not 'seqfile' in form and not 'seqfileloc' in form) or (not 'refseqfile' in form and not 'refseqfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
         print('Content-Type:text/html')
         print('')
         with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
@@ -44,13 +44,26 @@ def main():
             ok = True
             copyfile(seqfileloc, 'input.fasta')
     
+    ok = False
+    if 'refseqfile' in form:
+        upfile = form['refseqfile']
+        if upfile.filename != '':
+            ok = True
+            with open('ref.fasta', 'wb') as f:
+                f.write(upfile.file.read())
+    if not ok and 'refseqfileloc' in form:
+        refseqfileloc = um.getUserDir(userid) + form.getvalue('refseqfileloc')
+        if os.path.isfile(refseqfileloc):
+            ok = True
+            copyfile(refseqfileloc, 'ref.fasta')
+    
     if not ok:
         print('Content-Type:text/html')
         print('')
         with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
             print(f.read())
         return
-        
+    
     configs = {}
     configs['jobtype'] = 'snippy'
     configs['jobid'] = jobid
@@ -60,7 +73,7 @@ def main():
     configs['username'] = username
     configs['dirpath'] = dirpath
     configs['filename'] = ''
-
+    
     with open('configs.yaml', 'w') as f:
         yaml.dump(configs, f)
     

@@ -131,7 +131,7 @@ def submit_RAST_job(username, password, seqfile, strain):
             '_page': '1',
             'page': 'UploadGenome',
             '_submit': 'Use this data and go to step 2'}
-    file = {'sequences_file': open(seqfile,'rb')}
+    file = {'sequences_file': open(seqfile, 'rb')}
     rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, files = file, headers = headers).text
     
     # Phase 2

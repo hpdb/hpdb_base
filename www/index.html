@@ -478,7 +478,7 @@
               <input type="file" id="snippy_seqfile" name="seqfile" aria-describedby="snippy_seqfilehelp">
             </div>
             <div class="form-group">
-              <label for="snippy_seqfile">Or choose an uploaded file:</label>
+              <label for="snippy_seqfileloc">Or choose an uploaded file:</label>
               <div class="input-group mb-3">
                 <input id="snippy_seqfileloc" name="seqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
                 <div class="input-group-append">
@@ -488,8 +488,24 @@
               <small id="snippy_seqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
             </div>
           </fieldset>
+            <legend>STEP 2 - Upload Reference Sequence</legend>
+            <div class="form-group">
+              <label for="snippy_refseqfile">Upload a sequence file:</label>
+              <input type="file" id="snippy_refseqfile" name="refseqfile" aria-describedby="snippy_refseqfilehelp">
+            </div>
+            <div class="form-group">
+              <label for="snippy_refseqfileloc">Or choose an uploaded file:</label>
+              <div class="input-group mb-3">
+                <input id="snippy_refseqfileloc" name="refseqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
+                </div>
+              </div>
+              <small id="snippy_refseqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
+            </div>
+          </fieldset>
           <fieldset>
-            <legend>STEP 2 - Submit your job</legend>
+            <legend>STEP 3 - Submit your job</legend>
             <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
