@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 }
 
 //read config
-function read_config($configFile){
+function read_config($configFile) {
   $file_handle = fopen($configFile, "rb");
   while (!feof($file_handle) ) {
     $line_of_text = fgets($file_handle);
-    $line_of_text=rtrim($line_of_text);
-    if (preg_match("/=/",$line_of_text)){
+    $line_of_text = rtrim($line_of_text);
+    if (preg_match("/=/", $line_of_text)){
       $parts = explode('=', $line_of_text);
       $array["$parts[0]"] = $parts[1];
     }
@@ -29,7 +29,7 @@ function read_config($configFile){
   return $array;
 }
 
-$hpdb_config=read_config(__DIR__."/sys.properties");
+$hpdb_config = read_config(__DIR__ . "/../sys.properties");
 
 // 5 minutes execution time
 @set_time_limit(5 * 60);
