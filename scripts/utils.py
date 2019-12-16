@@ -3,7 +3,7 @@
 from __future__ import division
 from subprocess import call, check_output
 from Bio import SeqIO
-import regex, errno, os, zipfile
+import regex, errno, os, zipfile, csv
 
 def zip(path, output):
   zipf = zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED)
