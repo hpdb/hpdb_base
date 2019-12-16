@@ -27,7 +27,7 @@ def run(configs):
   utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff',
                   'input.fasta',
                   'snippy_whole_genome')
-  utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/26695.A23S.gbk',
+  utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/26695.A23S.fasta',
                   'input.fasta',
                   'snippy_A23S')
   utils.runprodigal('snippy_whole_genome/snps.consensus.subs.fa',
