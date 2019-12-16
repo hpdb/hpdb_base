@@ -24,12 +24,12 @@ def run(configs):
   start_time = time.time()
   
   # ----- Run tools -----
-  utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff',
-                  'input.fasta',
-                  'snippy_whole_genome')
   utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/26695.A23S.fasta',
                   'input.fasta',
                   'snippy_A23S')
+  utils.runsnippy(os.environ['HPDB_BASE'] + '/genome/GCA_000008525.1_ASM852v1_genomic.gbff',
+                  'input.fasta',
+                  'snippy_whole_genome')
   utils.runprodigal('snippy_whole_genome/snps.consensus.subs.fa',
                     'snippy_whole_genome/snp_prot.fasta',
                     'snippy_whole_genome/snp_nu.fasta')
