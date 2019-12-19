@@ -33,7 +33,7 @@
 {% else %}
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-trash"></i> Delete</a>
 {% endif %}
-{% if proj.jobtype == 'rast' %}
+{% if 'jbrowse' in proj %}
                       <a href="{{ proj.jbrowse }}" class="btn btn-primary btn-xs"><i class="fa fa-dna"></i> JBrowse</a>
 {% endif %}
                     </td>
