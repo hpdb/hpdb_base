@@ -30,5 +30,5 @@ def check(configs):
     
     # prepare JBrowse data
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.fasta --out JBrowse', shell = True)
-    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff ' + configs['rast_genome_id'] + '.gff --trackLabel gff --trackType CanvasFeatures --JBrowse', shell = True)
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff ' + configs['rast_genome_id'] + '.gff --trackLabel gff --trackType CanvasFeatures --out JBrowse', shell = True)
     return True, configs
