@@ -55,13 +55,13 @@ def createAccessoryPlot(format = 'png', labels = False):
   plt.figure(figsize = (7, 5))
   
   plt.hist(roary.sum(axis = 1), roary.shape[1],
-       histtype = "stepfilled", alpha = .7)
+           histtype = "stepfilled", alpha = .7)
   
   plt.xlabel('No. of genomes')
   plt.ylabel('No. of genes')
   
   sns.despine(left = True, bottom = True)
-  plt.savefig('pangenome_frequency.%s'%format, dpi = 300)
+  plt.savefig('pangenome_frequency.%s' % format, dpi = 300)
   plt.clf()
   
   # Sort the matrix according to tip labels in the tree
@@ -155,16 +155,9 @@ def run(configs):
   files = [os.path.splitext(f)[0] for f in files]
   
   utils.mkdir('output')
-  utils.mkdir('output/gff')
-  utils.mkdir('output/prokka')
   utils.mkdir('output/plots')
   
-  for f in files:
-    utils.runprokka('input/' + f + '.fasta', 'output/prokka/' + f, f)
-    time.sleep(5)
-    shutil.copyfile('output/prokka/' + f + '/' + f + '.gff', 'output/gff/' + f + '.gff')
-  
-  call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
+  call('roary -f ./output/roary -e -n ./input/*.gff', shell = True)
   
   os.chdir('output/roary')
   accessory_plot_files = ['accessory_binary_genes.fa.newick', 'gene_presence_absence.csv']
