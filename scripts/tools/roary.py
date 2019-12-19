@@ -159,7 +159,7 @@ def run(configs):
   utils.mkdir('output/plots')
   
   for f in files:
-    call('bp_genbank2gff3.pl ' + f + ' --outdir output/gff', shell = True)
+    call('bp_genbank2gff3.pl input/' + f + ' --outdir output/gff', shell = True)
     time.sleep(2)
   
   call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
