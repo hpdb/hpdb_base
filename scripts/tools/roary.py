@@ -152,12 +152,17 @@ def run(configs):
   start_time = time.time()
   
   files = sorted(os.listdir('input'))
-  files = [os.path.splitext(f)[0] for f in files]
+  #files = [os.path.splitext(f)[0] for f in files]
   
   utils.mkdir('output')
+  utils.mkdir('output/gff')
   utils.mkdir('output/plots')
   
-  call('roary -f ./output/roary -e -n ./input/*.gff', shell = True)
+  for f in files:
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/bp_genbank2gff3.pl ' + f + ' --outdir output/gff', shell = True)
+    time.sleep(2)
+  
+  call('roary -f ./output/roary -e -n ./output/gff/*.gff', shell = True)
   
   os.chdir('output/roary')
   accessory_plot_files = ['accessory_binary_genes.fa.newick', 'gene_presence_absence.csv']

@@ -63,15 +63,13 @@ def main():
       filefield = [filefield]
     for upfile in filefield:
       if upfile.filename != '':
-        cnt += 1
-        with open('input/' + str(cnt) + '.gbk', 'wb') as f:
+        with open('input/' + os.path.splitext(upfile.filename)[0] + '.gbk', 'wb') as f:
           f.write(upfile.file.read())
   
   if 'gbkfileloc' in form:
     gbkfileloc = um.getUserDir(userid) + form.getvalue('gbkfileloc')
     if os.path.isfile(gbkfileloc):
-      cnt += 1
-      copyfile(gbkfileloc, 'input/' + str(cnt) + '.gbk')
+      copyfile(gbkfileloc, 'input/' + os.path.splitext(os.path.basename(gbkfileloc))[0] + '.gbk')
   
   configs = {}
   configs['jobtype'] = 'roary'
