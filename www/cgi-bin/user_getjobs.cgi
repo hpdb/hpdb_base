@@ -56,6 +56,7 @@ def main():
       proj['percent'] = '100'
       if configs['jobtype'] == 'rast':
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
+        proj['jbrowse'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
       elif os.path.isfile(projects_dir + id + '/report.html'):
         proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
       proj['downloadjob'] = '/cgi-bin/user_downloadjob.cgi?jobid=%s&sid=%s' % (id, sid)

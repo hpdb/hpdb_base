@@ -6,8 +6,10 @@ from Bio import SeqIO
 import regex, errno, os, zipfile, csv
 
 def zip(path, output):
+  excludes_dir = ['JBrowse'] # specify which folders to ignore
   zipf = zipfile.ZipFile(output, 'w', zipfile.ZIP_DEFLATED)
   for root, dirs, files in os.walk(path):
+    dirs[:] = [d for d in dirs if d not in excludes_dir]
     for file in files:
       if file != 'running' and file != 'queued':
         zipf.write(os.path.join(root, file))

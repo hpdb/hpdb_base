@@ -3,6 +3,7 @@
 
 from __future__ import division
 from ConfigParser import ConfigParser
+from subprocess import call
 import os, glob
 import time
 import utils
@@ -26,4 +27,8 @@ def check(configs):
     rast.download_RAST_job(rast_username, rast_password, configs['rast_id'])
     configs['rast_genome_id'] = os.path.splitext(glob.glob("*.txt")[0])[0]
     utils.tsv2csv(configs['rast_genome_id'] + '.txt', configs['rast_genome_id'] + '.csv')
+    
+    # prepare JBrowse data
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.fasta --out JBrowse', shell = True)
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff ' + configs['rast_genome_id'] + '.gff --trackLabel gff --trackType CanvasFeatures --JBrowse', shell = True)
     return True, configs

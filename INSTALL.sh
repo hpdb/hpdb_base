@@ -411,6 +411,8 @@ else
   mkdir -p -m 775 data
 fi
 
+ln -s $rootdir/data userdata
+
 cd $rootdir/thirdParty
 #ln -sf $rootdir/thirdParty/JBrowse-1.16.6 $rootdir/www/JBrowse
 echo "
