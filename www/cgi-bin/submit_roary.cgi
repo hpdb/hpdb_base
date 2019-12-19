@@ -14,7 +14,7 @@ db = um.newDBConnection()
 
 def main():
   form = cgi.FieldStorage()
-  if (not 'seqfile' in form and not 'seqfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
+  if (not 'gbkfile' in form and not 'gbkfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
     print('Content-Type:text/html')
     print('')
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
@@ -27,16 +27,16 @@ def main():
   projname = form.getvalue('projname')
   
   cnt = 0
-  if 'seqfile' in form:
-    filefield = form['seqfile']
+  if 'gbkfile' in form:
+    filefield = form['gbkfile']
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
       if upfile.filename != '':
         cnt += 1
-  if 'seqfileloc' in form:
-    seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
-    if os.path.isfile(seqfileloc):
+  if 'gbkfileloc' in form:
+    gbkfileloc = um.getUserDir(userid) + form.getvalue('gbkfileloc')
+    if os.path.isfile(gbkfileloc):
       cnt += 1
   
   if cnt < 2:
@@ -57,21 +57,21 @@ def main():
   
   cnt = 0
   
-  if 'seqfile' in form:
-    filefield = form['seqfile']
+  if 'gbkfile' in form:
+    filefield = form['gbkfile']
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
       if upfile.filename != '':
         cnt += 1
-        with open('input/' + str(cnt) + '.fasta', 'wb') as f:
+        with open('input/' + str(cnt) + '.gbk', 'wb') as f:
           f.write(upfile.file.read())
   
-  if 'seqfileloc' in form:
-    seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
-    if os.path.isfile(seqfileloc):
+  if 'gbkfileloc' in form:
+    gbkfileloc = um.getUserDir(userid) + form.getvalue('gbkfileloc')
+    if os.path.isfile(gbkfileloc):
       cnt += 1
-      copyfile(seqfileloc, 'input/' + str(cnt) + '.fasta')
+      copyfile(gbkfileloc, 'input/' + str(cnt) + '.gbk')
   
   configs = {}
   configs['jobtype'] = 'roary'

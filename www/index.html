@@ -442,20 +442,21 @@
         <p>Roary is a high speed stand alone pan genome pipeline, which takes annotated assemblies in GFF3 format (produced by Prokka (Seemann, 2014)) and calculates the pan genome.</p>
         <form class="tool_form" id="roary_form" action="/cgi-bin/submit_roary.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
-            <legend>STEP 1 - Upload Sequence</legend>
+            <legend>STEP 1 - Upload GenBank</legend>
             <div class="form-group">
-              <label for="roary_seqfile">Upload 2 or more sequence files:</label>
-              <input type="file" id="roary_seqfile" name="seqfile" aria-describedby="roary_seqfilehelp" multiple>
+              <label for="roary_gbkfile">Upload 2 or more GenBank files:</label>
+              <input type="file" id="roary_gbkfile" name="gbkfile" aria-describedby="roary_gbkfilehelp" multiple>
+              <small id="roary_gbkfilehelp" class="form-text text-muted">Output files from RAST are supported</small>
             </div>
             <div class="form-group">
-              <label for="roary_seqfile">Or choose uploaded files:</label>
+              <label for="roary_gbkfileloc">Or choose uploaded files:</label>
               <div class="input-group mb-3">
-                <input id="roary_seqfileloc" name="seqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <input id="roary_gbkfileloc" name="gbkfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
                 </div>
               </div>
-              <small id="roary_seqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
+              <small id="roary_gbkfilehelp" class="form-text text-muted">Supported format: GenBank</small>
             </div>
           </fieldset>
           <fieldset>
