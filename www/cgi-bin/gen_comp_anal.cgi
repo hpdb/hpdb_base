@@ -3,7 +3,7 @@
 
 from __future__ import division
 from Bio import SeqIO
-import os, regex, yaml, cgi
+import os, yaml, cgi, jinja2
 import user_management as um
 
 db = um.newDBConnection()

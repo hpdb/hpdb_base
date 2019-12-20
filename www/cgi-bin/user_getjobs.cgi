@@ -2,7 +2,7 @@
 
 from __future__ import division
 from Bio import SeqIO
-import cgi, os, regex, yaml
+import cgi, os, yaml
 import jinja2, urllib
 import user_management as um
 
