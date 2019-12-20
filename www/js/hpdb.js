@@ -10,7 +10,7 @@ function getsid() {
 function fileTree(sid) {
   $('#fileTree').fileTree({
     root: '',
-    script: 'http://hpdb.tk/cgi-bin/jqueryFileTree.cgi?sid=' + sid
+    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid
   }, function(file) {
     $('#' + inputFileID ).val(file);
     $('#fileTree_modal').modal('hide');
@@ -96,7 +96,7 @@ function showLoggedin(sid, username) {
   fileTree(sid);
   $("#uploader").pluploadQueue({
     runtimes: 'html5,flash,silverlight,html4',
-    url: 'http://hpdb.tk/upload.php?sid=' + getsid(),
+    url: '/upload.php?sid=' + getsid(),
     chunk_size: '1mb',
     rename: true,
     sortable: true,
@@ -195,6 +195,17 @@ function load_pubmed_data() {
     } else {
       $('#pubmed').html('<ul><li>No recent articles found.</li></ul>');
     }
+  });
+}
+
+function load_strains_list() {
+  let dropdown = $('#strains_list');
+  dropdown.empty();
+
+  $.getJSON('/cgi-bin/list_strains.cgi', function (data) {
+    $.each(data, function (key, entry) {
+      dropdown.append($('<option></option>').attr('value', entry.ncbi_id).text(entry.name));
+    })
   });
 }
 
@@ -374,7 +385,7 @@ $(document).ready(function () {
     $('#p_spinner').removeClass('d-none');
     $.ajax({
       type: 'POST',
-      url: 'http://hpdb.tk/cgi-bin/user_getjobs.cgi',
+      url: '/cgi-bin/user_getjobs.cgi',
       cache: false,
       data: $.param({'sid': getsid()}), // FIX-ME: Check when sid is null
       success: function(data) {
@@ -414,8 +425,7 @@ $(document).ready(function () {
   $('.file-selector').on('click', function() {
     inputFileID = $(this).parent().prev('input').attr('id');
   });
-
+  load_strains_list();
   load_pubmed_data();
-
   checkSession();
 });
