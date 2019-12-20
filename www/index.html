@@ -299,6 +299,25 @@
       <div class="tab-pane fade" id="gen_comp_anal">
         <h2 class="text-muted">Genome Comparative Analysis</h2>
         <form class="tool_form" id="amr_form" action="/cgi-bin/submit_gen_comp_anal.cgi" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <legend>STEP 1 - Choose strains</legend>
+            <p><strong>You may control-click (Windows) or command-click (Mac) to select more than one.</strong></p>
+            <select multiple size="10" style="width: 500px;">
+              <option value="American">American flamingo</option>
+              <option value="Andean">Andean flamingo</option>
+              <option value="Chilean">Chilean flamingo</option>
+              <option value="Greater">Greater flamingo</option>
+              <option value="James's">James's flamingo</option>
+              <option value="Lesser">Lesser flamingo</option>
+              <option value="Lesser">Lesser flamingo</option>
+              <option value="Lesser">Lesser flamingo</option>
+              <option value="Lesser">Lesser flamingo</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 2 - Submit</legend>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </fieldset>
         </form>
       </div>
       <div class="tab-pane fade" id="rast">

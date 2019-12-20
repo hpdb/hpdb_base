@@ -18,20 +18,25 @@ def process():
   sid = form.getvalue('sid')
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
+  strains = sid = form.getvalue('strains').split(',')
   
   data = {}
-  data['keys'] = ['Genome Length', 'GC%', 'Isolation Country', 'Genes', 'Proteins', 'PEG', 'tRNA', 'rRNA', 'Repeat Regions']
+  data['keys'] = ['Genome Length', 'GC%', 'Isolation Country', 'Proteins', 'PEG', 'tRNA', 'rRNA', 'Repeat Regions']
   data['strains'] = []
-  data['strains'].append({'name': 'H. pylori 26695',
-                          'Genome Length': 101,
-                          'GC%': 39.5,
-                          'Isolation Country': 'Vietnam ze bezt',
-                          'Genes': 106,
-                          'Proteins': 105,
-                          'PEG': 104,
-                          'tRNA': 103,
-                          'rRNA': 102,
-                          'Repeat Regions': 101})
+  
+  with open(os.environ['HPDB_BASE'] + '/database/hpdb_data-master/strains_list.csv') as f:
+    reader = csv.reader(f)
+    for row in reader:
+      if row[1] in strains:
+        data['strains'].append({'name': row[0].replace('Helicobacter pylori', 'H. pylori'),
+                                'Genome Length': row[11],
+                                'GC%': row[10],
+                                'Isolation Country': row[13],
+                                'Proteins': row[12],
+                                'PEG': row[5],
+                                'tRNA': row[8],
+                                'rRNA': row[7],
+                                'Repeat Regions': row[6]})
   
   j2_env = jinja2.Environment(loader = jinja2.FileSystemLoader(os.environ['HPDB_BASE'] + '/scripts/template'), trim_blocks = True)
   j2_temp = j2_env.get_template('gen_comp_anal.html')

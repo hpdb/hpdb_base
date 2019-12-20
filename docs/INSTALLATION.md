@@ -16,14 +16,22 @@ git clone https://github.com/hieplpvip/HPDB.git base
 
 3. Create directories for projects and create symlinks for them:
 ```
-mkdir data queue queue/external
+mkdir data queue queue/external database
 ln -s `pwd`/data base/data
 ln -s `pwd`/queue base/queue
+ln -s `pwd`/database base/database
 ```
 
-4. Install HPDB:
+4. Download database:
 ```
-cd base
+cd database
+wget https://github.com/hpdb/hpdb_data/archive/master.zip
+unzip master.zip
+```
+
+5. Install HPDB:
+```
+cd ~/base
 ./INSTALL.sh
 ```
 
