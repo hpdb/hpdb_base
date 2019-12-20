@@ -260,7 +260,7 @@ def download_RAST_job(username, password, jobid, verbose = False):
     with requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers, stream = True) as r:
       r.raise_for_status()
       with open(file, 'wb') as f:
-        for chunk in r.iter_content(chunk_size = 8192): 
+        for chunk in r.iter_content(chunk_size = 8192):
           if chunk:
             f.write(chunk)
   
@@ -285,7 +285,7 @@ def parse_RAST(tsvfile):
   peg    = list(filter(lambda f: f[2] == 'peg', features))
   repeat = list(filter(lambda f: f[2] == 'repeat', features))
   rna    = list(filter(lambda f: f[2] == 'rna', features))
-  tRNA   = list(filter(lambda f: 'tRNA' in f[7], features))
-  rRNA   = list(filter(lambda f: 'rRNA' in f[7], features))
+  tRNA   = list(filter(lambda f: 'tRNA' in f[7], rna))
+  rRNA   = list(filter(lambda f: 'rRNA' in f[7], rna))
   
-  return peg, repeat, tRNA, rRNA
+  return peg, repeat, rna, tRNA, rRNA

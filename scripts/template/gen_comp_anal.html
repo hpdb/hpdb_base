@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPDB - PTNK</title>
+</head>
+<body>
+  <table border="1">
+    <tr>
+      <th style="text-align:left;"></th>
+{% for strain in strains %}
+      <th style="text-align:center;">{{ strain.name }}</th>
+{% endfor %}
+    </tr>
+{% for key in keys %}
+    <tr>
+      <th style="text-align:left;">{{ key }}</th>
+  {% for strain in strains %}
+      <td style="text-align:center;">strain.key</td>
+  {% endfor %}
+    </tr>
+{% endfor %}
+  </table>
+</body>
+</html>
