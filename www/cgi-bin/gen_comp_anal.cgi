@@ -10,7 +10,7 @@ db = um.newDBConnection()
 
 def process():
   form = cgi.FieldStorage()
-  if not 'sid' in form or not strains in form:
+  if not 'sid' in form or not 'strains' in form:
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
       html = f.read()
     return html
