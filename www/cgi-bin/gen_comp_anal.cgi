@@ -1,12 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-from __future__ import division
+from Bio import SeqIO
 import os, csv, cgi, jinja2, yaml
 import RAST_sdk as rast
 import user_management as um
 
 db = um.newDBConnection()
+
+def calcGenLen(fasta):
+  res = 0
+  with open(fasta) as f:
+    for rec in SeqIO.parse(f, 'fasta'):
+      res += len(rec)
+  return res
 
 def process():
   form = cgi.FieldStorage()
@@ -54,7 +60,7 @@ def process():
         if configs['jobtype'] == 'rast':
           peg, repeat, rna, tRNA, rRNA = rast.parse_TSV(data_dir + job[1] + '/' + configs['rast_genome_id'] + '.txt')
           data['strains'].append({'name': job[0],
-                                  'Genome Length': 'N/A',
+                                  'Genome Length': calcGenLen(data_dir + job[1] + '/input.fasta'),
                                   'GC%': 'N/A',
                                   'Isolation Country': 'N/A',
                                   'Proteins': 'N/A',
