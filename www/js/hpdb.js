@@ -91,6 +91,7 @@ function showLoggedin(sid, username) {
   $('.loggedin-item').show();
   $('.loggedout-item').hide();
   $('.tool_form').append('<input type="hidden" name="sid" value="' + sid + '">');
+  $('#gen_comp_anal_form').append('<input type="hidden" name="sid" value="' + sid + '">');
   $('#username_label').text('Hi, ' + username);
   $('#export_table').attr("href", '/cgi-bin/export_html.cgi?sid=' + sid);
   fileTree(sid);
