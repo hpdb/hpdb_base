@@ -35,7 +35,7 @@ def process():
                                   'Proteins': row[12],
                                   'PEG': row[5],
                                   'tRNA': row[8],
-                                  'rRNA': row[7],
+                                  'rRNA': row[9],
                                   'Repeat Regions': row[6]})
   
   if 'jobs' in form and 'sid' in form:
