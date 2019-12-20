@@ -14,6 +14,13 @@ def calcGenLen(fasta):
       res += len(rec)
   return res
 
+def calcGC(fasta):
+  seq = ''
+  with open(fasta) as f:
+    for rec in SeqIO.parse(f, 'fasta'):
+      seq += str(rec.seq)
+  return "%.1f" % ((sum([1.0 for nucl in seq if nucl in ['G', 'C']]) / len(seq)) * 100)
+
 def process():
   form = cgi.FieldStorage()
   if not 'strains' in form and not 'jobs' in form:
@@ -61,7 +68,7 @@ def process():
           peg, repeat, rna, tRNA, rRNA = rast.parse_TSV(data_dir + job[1] + '/' + configs['rast_genome_id'] + '.txt')
           data['strains'].append({'name': job[0],
                                   'Genome Length': calcGenLen(data_dir + job[1] + '/input.fasta'),
-                                  'GC%': 'N/A',
+                                  'GC%': calcGC(data_dir + job[1] + '/input.fasta'),
                                   'Isolation Country': 'N/A',
                                   'Proteins': 'N/A',
                                   'PEG': len(peg),
