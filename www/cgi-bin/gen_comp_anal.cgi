@@ -2,22 +2,15 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import division
-from Bio import SeqIO
-import os, yaml, cgi, jinja2
-import user_management as um
-
-db = um.newDBConnection()
+import os, csv, cgi, jinja2
 
 def process():
   form = cgi.FieldStorage()
-  if not 'sid' in form or not 'strains' in form:
+  if not 'strains' in form:
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
       html = f.read()
     return html
   
-  sid = form.getvalue('sid')
-  username = um.sidtouser(db, sid)
-  userid = um.usertoid(db, username)
   strains = sid = form.getvalue('strains')
   if type(strains) == str:
     strains = strains.split(',')
@@ -48,4 +41,3 @@ if __name__ == "__main__":
   print('Content-type:text/html')
   print('')
   print(process())
-  db.close()
