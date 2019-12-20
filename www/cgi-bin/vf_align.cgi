@@ -43,18 +43,18 @@ def main():
   
   for job in jobs:
     job = job.split(',')
-    if not os.path.isfile(data_dir + job[1] + '/queued'):
+    if not os.path.isfile(data_dir + job[1] + '/queued') and not os.path.isfile(data_dir + job[1] + '/running'):
       with open(data_dir + job[1] + '/configs.yaml') as f:
         configs = yaml.full_load(f)
-    
-    if configs['found_caga']:
-      cag.write('>' + job[0] +'\n')
-      cag.write(configs['caga_prot']['raw'] + '\n')
-      cnt_cag += 1
-    if configs['found_vaca']:
-      vac.write('>' + job[0] +'\n')
-      vac.write(configs['vaca_prot']['raw'] + '\n')
-      cnt_vac += 1
+      
+      if configs['found_caga']:
+        cag.write('>' + job[0] +'\n')
+        cag.write(configs['caga_prot']['raw'] + '\n')
+        cnt_cag += 1
+      if configs['found_vaca']:
+        vac.write('>' + job[0] +'\n')
+        vac.write(configs['vaca_prot']['raw'] + '\n')
+        cnt_vac += 1
   
   cag.close()
   vac.close()

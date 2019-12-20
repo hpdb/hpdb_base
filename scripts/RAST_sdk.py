@@ -278,7 +278,7 @@ def download_RAST_job(username, password, jobid, verbose = False):
   
   logout_RAST(cookies)
 
-def parse_RAST(tsvfile):
+def parse_TSV(tsvfile):
   with open(tsvfile, 'r') as tsv:
     features = [line for line in csv.reader(tsv, dialect = 'excel-tab')][1:]
   
