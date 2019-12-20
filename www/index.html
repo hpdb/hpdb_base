@@ -298,11 +298,11 @@
       </div>
       <div class="tab-pane fade" id="gen_comp_anal">
         <h2 class="text-muted">Genome Comparative Analysis</h2>
-        <form class="tool_form" id="amr_form" action="/cgi-bin/submit_gen_comp_anal.cgi" method="post" enctype="multipart/form-data">
+        <form class="tool_form" id="amr_form" action="/cgi-bin/gen_comp_anal.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>STEP 1 - Choose strains</legend>
             <p><strong>You may control-click (Windows) or command-click (Mac) to select more than one.</strong></p>
-            <select id="strains_list" size="10" style="width: 500px;" multiple>
+            <select id="strains_list" name="strains" size="10" style="width: 500px;" multiple>
             </select>
           </fieldset>
           <fieldset>

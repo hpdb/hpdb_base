@@ -18,7 +18,9 @@ def process():
   sid = form.getvalue('sid')
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
-  strains = sid = form.getvalue('strains').split(',')
+  strains = sid = form.getvalue('strains')
+  if type(strains) == str:
+    strains = strains.split(',')
   
   data = {}
   data['keys'] = ['Genome Length', 'GC%', 'Isolation Country', 'Proteins', 'PEG', 'tRNA', 'rRNA', 'Repeat Regions']
