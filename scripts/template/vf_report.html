@@ -28,6 +28,9 @@
     <p><b>End position in genome:</b> {{ vf.end_pos }}</p>
     <p><b>Length:</b> {{ vf.len }}</p>
     <div contenteditable="false">{{ vf.formatted }}</div>
+    {% if 'notes' in vf %}
+    {{ vf.notes }}
+    {% endif}
   </div>
     {% endfor %}
   {% else %}

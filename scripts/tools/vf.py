@@ -90,14 +90,14 @@ def formatColor(str, seg, color = 'red'):
     pos = str.find(seg, pos + 1)
     if pos == -1:
       break
-    elif str[pos - 1] != '>':
+    elif (pos == 0) or (str[pos - 1] != '>'):
       ok = True
       break
   
   if not ok:
-    return str
+    return str, False
   
-  return str[: pos] + addColor(seg, color) + str[pos + len(seg) :]
+  return str[: pos] + addColor(seg, color) + str[pos + len(seg) :], True
 
 def run(configs):
   start_time = time.time()
@@ -137,49 +137,65 @@ def run(configs):
   if configs['found_caga']:
     configs['caga_analysis'] = analyzecagA(caga_prot)
     configs['caga_nu'] = {'name': 'cagA DNA', \
-                'raw': caga_nu, \
-                'formatted': caga_nu, \
-                'len': len(caga_nu), \
-                'start_pos': caga_pos[1].strip(), \
-                'end_pos': caga_pos[2].strip()}
+            'raw': caga_nu, \
+            'formatted': caga_nu, \
+            'len': len(caga_nu), \
+            'start_pos': caga_pos[1].strip(), \
+            'end_pos': caga_pos[2].strip()}
     formatted = caga_prot
     if configs['caga_analysis']['EPIYA-A']:
       configs['caga_analysis']['EPIYA-A_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-A_seq'], 'red')
-      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-A_seq'], 'red')
+      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-A_seq'], 'red')[0]
     if configs['caga_analysis']['EPIYA-B']:
       configs['caga_analysis']['EPIYA-B_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-B_seq'], 'blue')
-      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-B_seq'], 'blue')
+      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-B_seq'], 'blue')[0]
     if configs['caga_analysis']['EPIYA-C']:
       configs['caga_analysis']['EPIYA-C_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-C_seq'], 'green')
-      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-C_seq'], 'green')
+      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-C_seq'], 'green')[0]
     if configs['caga_analysis']['EPIYA-CC']:
       configs['caga_analysis']['EPIYA-CC_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-CC_seq'], 'orange')
-      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-CC_seq'], 'orange')
+      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-CC_seq'], 'orange')[0]
     if configs['caga_analysis']['EPIYA-D']:
       configs['caga_analysis']['EPIYA-D_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-D_seq'], 'purple')
-      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-D_seq'], 'purple')
+      formatted = formatColor(formatted, configs['caga_analysis']['EPIYA-D_seq'], 'purple')[0]
+    
+    show_unknown_color = False
+    while True:
+      formatted, tmp = formatColor(formatted, 'EPIYA', 'brown')
+      if tmp:
+        show_unknown_color = True
+      else:
+        break
+    while True:
+      formatted, tmp = formatColor(formatted, 'EPIYT', 'brown')
+      if tmp:
+        show_unknown_color = True
+      else:
+        break
+    
     configs['caga_prot'] = {'name': 'cagA Protein', \
-                'raw': caga_prot, \
-                'formatted': formatted, \
-                'len': len(caga_prot), \
-                'start_pos': caga_pos[1].strip(), \
-                'end_pos': caga_pos[2].strip()}
+            'raw': caga_prot, \
+            'formatted': formatted, \
+            'len': len(caga_prot), \
+            'start_pos': caga_pos[1].strip(), \
+            'end_pos': caga_pos[2].strip(), \
+            'notes': '<span style="color: brown; font-weight: bold; font-style: italic;">* Unknown</span>'}
   
   # vacA
   if configs['found_vaca']:
     configs['vaca_analysis'] = analyzevacA(vaca_prot)
     configs['vaca_nu'] = {'name': 'vacA DNA', \
-                'raw': vaca_nu, \
-                'formatted': vaca_nu, \
-                'len': len(vaca_nu), \
-                'start_pos': vaca_pos[1].strip(), \
-                'end_pos': vaca_pos[2].strip()}
+            'raw': vaca_nu, \
+            'formatted': vaca_nu, \
+            'len': len(vaca_nu), \
+            'start_pos': vaca_pos[1].strip(), \
+            'end_pos': vaca_pos[2].strip()}
     configs['vaca_prot'] = {'name': 'vacA Protein', \
-                'raw': vaca_prot, \
-                'formatted': vaca_prot, \
-                'len': len(vaca_prot), \
-                'start_pos': vaca_pos[1].strip(), \
-                'end_pos': vaca_pos[2].strip()}
+            'raw': vaca_prot, \
+            'formatted': vaca_prot, \
+            'len': len(vaca_prot), \
+            'start_pos': vaca_pos[1].strip(), \
+            'end_pos': vaca_pos[2].strip()}
     
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
