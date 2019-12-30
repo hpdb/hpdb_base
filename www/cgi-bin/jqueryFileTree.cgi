@@ -1,9 +1,14 @@
 #!/usr/bin/env python
-import cgi
-import os
+import cgi, os, yaml
 import user_management as um
 
 db = um.newDBConnection()
+
+def getJobInfo(config_file, dirname):
+  with open(config_file) as f:
+    configs = yaml.full_load(f)
+  
+  return '%s (%s, %s)' % (dirname, configs['jobtype'], configs['daysubmit'])
 
 def listdir():
   form = cgi.FieldStorage()
@@ -24,13 +29,20 @@ def listdir():
     dir = ''
   real_dir = os.path.join(safe_dir + dir)
   
+  show_job_info = False
+  if os.path.realpath(real_dir) == os.path.realpath(um.getUserProjectDir(userid)):
+    show_job_info = True
+  
   r = ['<ul class="jqueryFileTree" style="display: none;">']
   lst = sorted(os.listdir(real_dir))
   for f in lst:
     ff = os.path.join(real_dir, f)
     fff = os.path.join(dir, f)
     if os.path.isdir(ff):
-      r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, f))
+      if show_job_info:
+        r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, getJobInfo(ff + '/configs.yaml', f))
+      else:
+        r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, f))
   for f in lst:
     ff = os.path.join(real_dir, f)
     fff = os.path.join(dir, f)
