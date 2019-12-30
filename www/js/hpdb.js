@@ -15,6 +15,10 @@ function fileTree(sid) {
     $('#' + inputFileID ).val(file);
     $('#fileTree_modal').modal('hide');
   });
+  $('#fileTree2').fileTree({
+    root: '',
+    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid
+  }, function(file) {});
 }
 
 function signup(input) {

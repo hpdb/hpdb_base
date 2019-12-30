@@ -576,7 +576,7 @@
         <h2 class="text-muted">Your Files</h2>
         <div class="accordion" id="files_accordion">
           <div class="card">
-            <div class="card-header">
+            <div class="card-header" id="headingOne">
               <h4 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Upload files
               </h4>
@@ -599,6 +599,18 @@
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#files_accordion">
               <div class="card-body">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h4 class="mb-0" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                Output files
+              </h4>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#files_accordion">
+              <div class="card-body">
+                <div id="fileTree2"></div>
               </div>
             </div>
           </div>
