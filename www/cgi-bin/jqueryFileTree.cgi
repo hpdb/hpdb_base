@@ -40,7 +40,7 @@ def listdir():
     fff = os.path.join(dir, f)
     if os.path.isdir(ff):
       if show_job_info:
-        r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, getJobInfo(ff + '/configs.yaml', f))
+        r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, getJobInfo(ff + '/configs.yaml', f)))
       else:
         r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, f))
   for f in lst:
