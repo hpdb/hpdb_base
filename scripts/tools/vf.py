@@ -178,8 +178,10 @@ def run(configs):
             'formatted': formatted, \
             'len': len(caga_prot), \
             'start_pos': caga_pos[1].strip(), \
-            'end_pos': caga_pos[2].strip(), \
-            'notes': '<span style="color: brown; font-weight: bold; font-style: italic;">* Unknown</span>'}
+            'end_pos': caga_pos[2].strip()}
+    
+    if show_unknown_color:
+      configs['caga_prot']['notes'] = '<span style="color: brown; font-weight: bold; font-style: italic;">* Unknown</span>'
   
   # vacA
   if configs['found_vaca']:
