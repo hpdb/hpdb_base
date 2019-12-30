@@ -7,6 +7,7 @@ import os
 import regex
 import subprocess
 import sys
+import commands
 
 def run(command):
   try:
