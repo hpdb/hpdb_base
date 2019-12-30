@@ -5,10 +5,13 @@ import user_management as um
 db = um.newDBConnection()
 
 def getJobInfo(config_file, dirname):
-  with open(config_file) as f:
-    configs = yaml.full_load(f)
-  
-  return '%s (%s, %s)' % (dirname, configs['jobtype'], configs['daysubmit'])
+  if os.path.isfile(config_file):
+    with open(config_file) as f:
+      configs = yaml.full_load(f)
+    
+    return '%s (%s, %s)' % (dirname, configs['jobtype'], configs['daysubmit'])
+  else:
+    return dirname
 
 def listdir():
   form = cgi.FieldStorage()
