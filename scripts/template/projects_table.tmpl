@@ -29,7 +29,7 @@
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-download"></i> Download</a>
 {% endif %}
 {% if proj.deletejob != '' %}
-                      <a href="#" onclick="delete_job({{ proj.deletejob }})" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                      <a href="#" onclick="delete_job('{{ proj.deletejob }}')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
 {% else %}
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-trash"></i> Delete</a>
 {% endif %}
