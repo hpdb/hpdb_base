@@ -214,6 +214,15 @@ function load_strains_list() {
   });
 }
 
+function delete_job(link) {
+  $.get({
+    url: link,
+    success: function(responseText, statusText, xhr) {
+      alert(responseText);
+    }
+  });
+}
+
 $(document).ready(function () {
   /* SIDEBAR */
   $('#sidebarCollapse').on('click', function() {
