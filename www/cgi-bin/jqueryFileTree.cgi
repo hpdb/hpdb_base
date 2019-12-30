@@ -9,7 +9,7 @@ def getJobInfo(config_file, dirname):
     with open(config_file) as f:
       configs = yaml.full_load(f)
     
-    return '%s (%s, %s)' % (dirname, configs['jobtype'], configs['daysubmit'])
+    return '%s (%s, %s, %s)' % (dirname, configs['projname'], configs['jobtype'], configs['daysubmit'])
   else:
     return dirname
 
