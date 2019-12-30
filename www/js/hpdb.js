@@ -221,6 +221,7 @@ function delete_job(link) {
       alert(responseText);
     }
   });
+  $('#projects_btn').click();
 }
 
 $(document).ready(function () {
