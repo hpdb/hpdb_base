@@ -22,8 +22,16 @@ def main():
   if os.path.isfile(job_dir + 'configs.yaml'):
     with open(job_dir + 'configs.yaml') as f:
       configs = yaml.full_load(f)
-    if configs['username'] == username and os.path.isfile(job_dir + '/report.html'):
-      html_path = job_dir + '/report.html'
+    if configs['username'] == username:
+      if os.path.isfile(job_dir + '/report.pdf'):
+        print('X-Sendfile: ' + job_dir + '/report.pdf')
+        print('Content-Type: application/pdf')
+        print('Content-Disposition: attachment; filename=report.pdf')
+        print('Pragma: no-cache')
+        print('')
+        return True
+      if os.path.isfile(job_dir + '/report.html'):
+        html_path = job_dir + '/report.html'
   
   print('Content-Type:text/html')
   print('')
