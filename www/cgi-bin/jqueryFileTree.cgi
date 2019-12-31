@@ -56,7 +56,7 @@ def listdir():
     ff = os.path.join(real_dir, f)
     fff = os.path.join(dir, f)
     if os.path.isfile(ff):
-      jobid = os.path.splitext(f)[1][0]
+      jobid = os.path.splitext(f)[0]
       e = os.path.splitext(f)[1][1:]
       if show_job_info:
         r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, getJobInfo(projectdir + jobid + '/configs.yaml', f)))
