@@ -26,7 +26,7 @@ def main():
       if os.path.isfile(job_dir + '/report.pdf'):
         print('X-Sendfile: ' + job_dir + '/report.pdf')
         print('Content-Type: application/pdf')
-        print('Content-Disposition: attachment; filename=report.pdf')
+        print('Content-Disposition: inline')
         print('Pragma: no-cache')
         print('')
         return True
