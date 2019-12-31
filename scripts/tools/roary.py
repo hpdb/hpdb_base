@@ -173,6 +173,33 @@ def run(configs):
     createRtabPlot()
   os.chdir('../../')
   
+  os.chdir('output/plots')
+  if os.path.isfile('pangenome_frequency.png'):
+    from PIL import Image
+    
+    image1 = Image.open('pangenome_frequency.png')
+    image2 = Image.open('pangenome_matrix.png')
+    image3 = Image.open('pangenome_pie.png')
+    
+    im1 = image1.convert('RGB')
+    im2 = image2.convert('RGB')
+    im3 = image3.convert('RGB')
+    
+    im1.save('pangenome.pdf', save_all = True, append_images = [im2, im3])
+  
+  from PyPDF2 import PdfFileMerger
+  pdfs = ['Rplots.pdf']
+  if os.path.isfile('pangenome.pdf'):
+    pdfs.append('pangenome.pdf')
+  
+  merger = PdfFileMerger()
+  for pdf in pdfs:
+    merger.append(pdf)
+  merger.write("../../report.pdf")
+  merger.close()
+  
+  os.chdir('../../')
+  
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
   return configs
