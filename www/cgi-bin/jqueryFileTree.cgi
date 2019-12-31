@@ -46,12 +46,22 @@ def listdir():
         r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, getJobInfo(ff + '/configs.yaml', f)))
       else:
         r.append('<li class="directory collapsed"><a rel="%s/">%s</a></li>' % (fff, f))
+  
+  show_job_info = False
+  if os.path.realpath(real_dir) == os.path.realpath(um.getUserDownloadDir(userid)):
+    show_job_info = True
+  
+  projectdir = um.getUserProjectDir(userid)
   for f in lst:
     ff = os.path.join(real_dir, f)
     fff = os.path.join(dir, f)
     if os.path.isfile(ff):
+      jobid = os.path.splitext(f)[1][0]
       e = os.path.splitext(f)[1][1:]
-      r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, f))
+      if show_job_info:
+        r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, getJobInfo(projectdir + jobid + '/configs.yaml', f)))
+      else:
+        r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, f))
   r.append('</ul>')
   return ''.join(r)
 
