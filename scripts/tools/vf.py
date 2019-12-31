@@ -198,7 +198,7 @@ def run(configs):
             'len': len(vaca_prot), \
             'start_pos': vaca_pos[1].strip(), \
             'end_pos': vaca_pos[2].strip()}
-    
+  
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
   # ----- Output HTML -----
