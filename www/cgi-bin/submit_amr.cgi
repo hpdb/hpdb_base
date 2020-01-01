@@ -67,7 +67,7 @@ def main():
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
-      if upfile.file:
+      if upfile.filename:
         newJob(1, projname, userid, username, upfile)
   
   if 'seqfileloc' in form:
