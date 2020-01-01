@@ -16,7 +16,7 @@ def check(configs):
   rast_username = sys_config._sections['RAST Account']['username']
   rast_password = sys_config._sections['RAST Account']['password']
   res = yaml.safe_load(rast.status_of_RAST_job(rast_username, rast_password, configs['rast_id']).text)
-  if not configs['rast_id'] in res:
+  if not str(configs['rast_id']) in res:
     return False, configs
   elif not 'status' in res[configs['rast_id']]:
     return False, configs
