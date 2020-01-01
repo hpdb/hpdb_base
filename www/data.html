@@ -73,7 +73,7 @@
         return 'N/A';
     }
     function format_rast_zip_link(id) {
-      if (id)
+      if (id != 'N/A')
         return '<a href="https://github.com/hpdb/hpdb_data/raw/master/' + id + '/RAST.zip" target="_blank">' + id +'</a>';
       else
         return 'N/A';
