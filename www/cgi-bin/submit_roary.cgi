@@ -62,7 +62,7 @@ def main():
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
-      if upfile.filename != '':
+      if upfile.filename:
         with open('input/' + os.path.splitext(upfile.filename)[0] + '.gbk', 'wb') as f:
           f.write(upfile.file.read())
   

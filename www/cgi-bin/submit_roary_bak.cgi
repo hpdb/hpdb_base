@@ -62,7 +62,7 @@ def main():
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
-      if upfile.filename != '':
+      if upfile.filename:
         cnt += 1
         with open('input/' + str(cnt) + '.fasta', 'wb') as f:
           f.write(upfile.file.read())

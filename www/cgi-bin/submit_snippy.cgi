@@ -34,7 +34,7 @@ def main():
   ok = False
   if 'seqfile' in form:
     upfile = form['seqfile']
-    if upfile.filename != '':
+    if upfile.filename:
       ok = True
       with open('input.fasta', 'wb') as f:
         f.write(upfile.file.read())
@@ -47,7 +47,7 @@ def main():
   ok = False
   if 'refseqfile' in form:
     upfile = form['refseqfile']
-    if upfile.filename != '':
+    if upfile.filename:
       ok = True
       with open('ref.fasta', 'wb') as f:
         f.write(upfile.file.read())
