@@ -1,6 +1,8 @@
 allowLoggedinlocalhost = true;
 localsid = 'a3c8a198e3133f4a83fc0ab382a37ee20d9496360edcc0f9f65274cca8bcd0f6';
 
+var comboTreeObj;
+
 function getsid() {
   sid = localStorage.getItem('sid');
   if (sid == null) sid = sessionStorage.getItem('sid');
@@ -215,7 +217,7 @@ function load_strains_list() {
   });
 
   $.getJSON('/cgi-bin/list_database.cgi', function (data) {
-    $('#import_combo_tree').comboTree({
+    comboTreeObj = $('#import_combo_tree').comboTree({
 			source : data,
 			isMultiple: true,
 			cascadeSelect: true,
@@ -239,7 +241,7 @@ function submit_import() {
     url: '/cgi-bin/user_importdb.cgi',
     data: {
       sid: getsid(),
-      ids: $('#import_combo_tree').getSelectedIds()
+      ids: comboTreeObj.getSelectedIds()
     }
   });
 }
