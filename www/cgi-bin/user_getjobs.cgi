@@ -57,8 +57,8 @@ def main():
       if configs['jobtype'] == 'rast':
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
         proj['jbrowse'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
-      elif configs['jobtype'] == 'snippy':
-        proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
+      #elif configs['jobtype'] == 'snippy':
+      #  proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
       elif os.path.isfile(projects_dir + id + '/report.html') or os.path.isfile(projects_dir + id + '/report.pdf'):
         proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
       proj['downloadjob'] = '/cgi-bin/user_downloadjob.cgi?jobid=%s&sid=%s' % (id, sid)
