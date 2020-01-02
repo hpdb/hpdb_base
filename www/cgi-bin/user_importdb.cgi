@@ -15,7 +15,7 @@ def process():
   sid = form.getvalue('sid')
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
-  useruploaddir = getUserUploadDir(userid)
+  useruploaddir = um.getUserUploadDir(userid)
   
   ids = json.loads(form.getvalue('ids'))
   ids = [x for x in ids if len(x) == 7]
