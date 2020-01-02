@@ -13,6 +13,7 @@ if __name__ == "__main__":
         cur['subs'] = []
         cur['subs'].append({'id': 10 * int(row[1]) + 1, 'title': 'Genome file (FASTA)'})
         cur['subs'].append({'id': 10 * int(row[1]) + 2, 'title': 'GenBank file (GBK)'})
+        strains.append(cur)
   
   print('Content-Type:text/json')
   print('')
