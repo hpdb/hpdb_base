@@ -16,7 +16,7 @@ def process():
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
   
-  ids = json.loads(form.getvalue('filename'))
+  ids = json.loads(form.getvalue('ids'))
   ids = [x for x in ids if len(x) == 7]
   
   print('Content-Type:text/plain')
