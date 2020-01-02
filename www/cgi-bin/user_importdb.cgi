@@ -18,7 +18,7 @@ def process():
   useruploaddir = um.getUserUploadDir(userid)
   
   ids = json.loads(form.getvalue('ids'))
-  ids = [x for x in ids if len(x) == 7]
+  ids = [x for x in ids if len(x) == 7] # It's a hack, I know, but for now it works well
   
   data_dir = os.environ['HPDB_BASE'] + '/database/hpdb_data-master/'
   with open(data_dir + 'strains_list.csv') as f:
