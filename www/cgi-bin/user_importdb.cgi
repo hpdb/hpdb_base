@@ -4,18 +4,25 @@ import user_management as um
 
 db = um.newDBConnection()
 
-if __name__ == "__main__":
+def process():
   form = cgi.FieldStorage()
   if not 'sid' in form or not 'ids' in form:
-    return False
+    print('Content-Type:text/plain')
+    print('')
+    print('Erorr!')
+    return
   
   sid = form.getvalue('sid')
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
-  ids = form.getvalue('filename')
+  
+  ids = json.loads(form.getvalue('filename'))
+  ids = [x for x in ids if len(x) == 7]
   
   print('Content-Type:text/plain')
   print('')
-  print('Done!')
-  
+  print(ids)
+
+if __name__ == "__main__":
+  process()
   db.close()
