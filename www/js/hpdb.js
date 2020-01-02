@@ -242,6 +242,9 @@ function submit_import() {
     data: {
       sid: getsid(),
       ids: JSON.stringify(comboTreeObj.getSelectedIds())
+    },
+    success: function(responseText, statusText, xhr) {
+      alert(responseText);
     }
   });
 }
