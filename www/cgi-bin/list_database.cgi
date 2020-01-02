@@ -7,7 +7,12 @@ if __name__ == "__main__":
     reader = csv.reader(f)
     for row in reader:
       if row[0] != 'Name':
-        strains.append({'name': row[0], 'ncbi_id': row[1]})
+        cur = {}
+        cur['id'] = row[1]
+        cur['title'] = row[0]
+        cur['subs'] = []
+        cur['subs'].append({'id': 10 * int(row[1]) + 1, 'title': 'Genome file (FASTA)'})
+        cur['subs'].append({'id': 10 * int(row[1]) + 2, 'title': 'GenBank file (GBK)'})
   
   print('Content-Type:text/json')
   print('')
