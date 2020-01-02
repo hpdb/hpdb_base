@@ -211,8 +211,19 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item loggedin-item" style="display: none;">
-          <a href="#yourfiles" data-toggle="tab" class="nav-link">Your Files</a>
+        <li class="loggedin-item">
+          <a href="#submenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Your Files</a>
+          <ul class="collapse list-unstyled submenu" id="submenu4">
+            <li class="nav-item">
+              <a href="#uploadfiles" data-toggle="tab" class="nav-link">Upload Files</a>
+            </li>
+            <li class="nav-item">
+              <a href="#importdb" data-toggle="tab" class="nav-link">Import from Database</a>
+            </li>
+            <li class="nav-item">
+              <a href="#filebrowser" data-toggle="tab" class="nav-link">File Browser</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item loggedin-item" style="display: none;">
           <a href="#yourprojects" data-toggle="tab" class="nav-link" id="projects_btn">Your Projects</a>
@@ -571,50 +582,21 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane fade" id="yourfiles">
-        <h2 class="text-muted">Your Files</h2>
-        <div class="accordion" id="files_accordion">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h4 class="mb-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Upload files
-              </h4>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#files_accordion">
-              <div class="card-body">
-                <form id="hpdb-uploadfile-form" data-ajax="false" enctype="multipart/form-data">
-	                <div id="uploader">
-		                <p>You are not logged in or your browser doesn't have Flash, Silverlight or HTML5 support.</p>
-	                </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h4 class="mb-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Import from Database (Complete Genomes only)
-              </h4>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#files_accordion">
-              <div class="card-body">
-                <input type="text" id="justAnInputBox" placeholder="Select"/>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h4 class="mb-0" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
-                Output files
-              </h4>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#files_accordion">
-              <div class="card-body">
-                <div id="fileTree2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="tab-pane fade" id="uploadfiles">
+        <h2 class="text-muted">Upload Files</h2>
+        <form id="hpdb-uploadfile-form" data-ajax="false" enctype="multipart/form-data">
+          <div id="uploader">
+		        <p>You are not logged in or your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+	        </div>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="importdb">
+        <h2 class="text-muted">Import from Database (Complete Genomes only)</h2>
+        <input type="text" id="justAnInputBox" placeholder="Select"/>
+      </div>
+      <div class="tab-pane fade" id="filebrowser">
+        <h2 class="text-muted">File Browser</h2>
+        <div id="fileTree2"></div>
       </div>
     </div>
   </div>
