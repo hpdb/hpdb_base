@@ -592,11 +592,9 @@
       </div>
       <div class="tab-pane fade" id="importdb">
         <h2 class="text-muted">Import from Database (Complete Genomes only)</h2>
-        <form id="importdb_form" action="/cgi-bin/user_importdb.cgi" method="post" enctype="multipart/form-data">
-          <input type="text" id="justAnInputBox" name="files" placeholder="Select"/>
-          <br><br>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <input type="text" id="import_combo_tree" name="files" placeholder="Select"/>
+        <br><br>
+        <button class="btn btn-primary" onclick="submit_import();">Submit</button>
       </div>
       <div class="tab-pane fade" id="filebrowser">
         <h2 class="text-muted">File Browser</h2>

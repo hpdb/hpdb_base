@@ -215,7 +215,7 @@ function load_strains_list() {
   });
 
   $.getJSON('/cgi-bin/list_database.cgi', function (data) {
-    $('#justAnInputBox').comboTree({
+    $('#import_combo_tree').comboTree({
 			source : data,
 			isMultiple: true,
 			cascadeSelect: true,
@@ -230,6 +230,16 @@ function delete_job(link) {
     success: function(responseText, statusText, xhr) {
       alert(responseText);
       $('#projects_btn').click();
+    }
+  });
+}
+
+function submit_import() {
+  $.post({
+    url: '/cgi-bin/user_importdb.cgi',
+    data: {
+      sid: getsid(),
+      ids: $('#import_combo_tree').getSelectedIds()
     }
   });
 }
