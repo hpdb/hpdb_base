@@ -241,7 +241,7 @@ function submit_import() {
     url: '/cgi-bin/user_importdb.cgi',
     data: {
       sid: getsid(),
-      ids: comboTreeObj.getSelectedIds()
+      ids: JSON.stringify(comboTreeObj.getSelectedIds())
     }
   });
 }
