@@ -47,7 +47,8 @@ def run(configs):
     configs['amr_analysis'][x['name']] = []
     for y in x['subs']:
       configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
-    #configs['amr_analysis'][x['name']] = formatAMR2HTML(configs['amr_analysis'][x['name']]) + '    ' + part[x['subs'][0]['pos'] : x['subs'][0]['pos'] + 20] # Uncomment this to output 20 characters at that pos
+    configs['amr_analysis'][x['name']] = formatAMR2HTML(configs['amr_analysis'][x['name']])
+    # + '    ' + part[x['subs'][0]['pos'] : x['subs'][0]['pos'] + 20] # Uncomment this to output 20 characters at that pos
   
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
