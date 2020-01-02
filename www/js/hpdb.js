@@ -212,6 +212,15 @@ function load_strains_list() {
       dropdown.append($('<option></option>').attr('value', entry.ncbi_id).text(entry.name));
     })
   });
+
+  $.getJSON('/cgi-bin/list_database.cgi', function (data) {
+    $('#justAnInputBox').comboTree({
+			source : data,
+			isMultiple: true,
+			cascadeSelect: false,
+			collapse: true
+		});
+  });
 }
 
 function delete_job(link) {
