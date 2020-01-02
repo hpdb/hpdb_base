@@ -217,7 +217,7 @@ function load_strains_list() {
     $('#justAnInputBox').comboTree({
 			source : data,
 			isMultiple: true,
-			cascadeSelect: false,
+			cascadeSelect: true,
 			collapse: true
 		});
   });
