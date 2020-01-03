@@ -70,7 +70,7 @@ def listdir():
       if show_job_info:
         r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, getJobInfo(projectdir + filename + '/configs.yaml', f)))
       elif show_file_info:
-        tmp = [r for r in rows if r[1] == filename]
+        tmp = [row for row in rows if row[1] == filename]
         if len(tmp) > 0:
           r.append('<li class="file ext_%s"><a rel="%s">%s</a></li>' % (e, fff, f + ' (%s (Imported))' % tmp[0][0]))
         else:
