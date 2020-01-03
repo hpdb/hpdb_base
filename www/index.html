@@ -177,6 +177,9 @@
             <li class="nav-item">
               <a href="#snippy" data-toggle="tab" class="nav-link">Snippy</a>
             </li>
+            <li class="nav-item">
+              <a href="#jbrowse" data-toggle="tab" class="nav-link">JBrowse</a>
+            </li>
             <li class="nav-item" style="display: none;">
               <a href="#vf_align" data-toggle="tab" class="nav-link">cagA/vacA alignment</a>
             </li>
@@ -505,6 +508,51 @@
         <h2 class="text-muted">Snippy</h2>
         <p>Snippy finds SNPs between a haploid reference genome and your NGS sequence reads. It will find both substitutions (snps) and insertions/deletions (indels).</p>
         <form class="tool_form" id="snippy_form" action="/cgi-bin/submit_snippy.cgi" method="post" enctype="multipart/form-data">
+          <fieldset>
+            <legend>STEP 1 - Upload Sequence</legend>
+            <div class="form-group">
+              <label for="snippy_seqfile">Upload a sequence file:</label>
+              <input type="file" id="snippy_seqfile" name="seqfile" aria-describedby="snippy_seqfilehelp" accept=".fasta,.fa">
+            </div>
+            <div class="form-group">
+              <label for="snippy_seqfileloc">Or choose an uploaded file:</label>
+              <div class="input-group mb-3">
+                <input id="snippy_seqfileloc" name="seqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
+                </div>
+              </div>
+              <small id="snippy_seqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 2 - Upload Reference Sequence</legend>
+            <div class="form-group">
+              <label for="snippy_refseqfile">Upload a sequence file:</label>
+              <input type="file" id="snippy_refseqfile" name="refseqfile" aria-describedby="snippy_refseqfilehelp" accept=".fasta,.fa,.gbk">
+            </div>
+            <div class="form-group">
+              <label for="snippy_refseqfileloc">Or choose an uploaded file:</label>
+              <div class="input-group mb-3">
+                <input id="snippy_refseqfileloc" name="refseqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
+                </div>
+              </div>
+              <small id="snippy_refseqfilehelp" class="form-text text-muted">Supported format: FASTA, GenBank</small>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 3 - Submit your job</legend>
+            <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="jbrowse">
+        <h2 class="text-muted">JBrowse</h2>
+        <form id="jbrowse_form" action="/cgi-bin/submit_jbrowse.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>STEP 1 - Upload Sequence</legend>
             <div class="form-group">
