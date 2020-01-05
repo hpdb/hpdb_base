@@ -27,7 +27,7 @@ def newJob(type, projname, userid, username, upfile, seqfileloc = ''):
   configs['username'] = username
   configs['dirpath'] = dirpath
   configs['filename'] = ''
-  configs['amr_analysis'] = {}
+  configs['amr_analysis'] = []
   
   if type == 1:
     configs['filename'] = upfile.filename

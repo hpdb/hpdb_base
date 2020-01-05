@@ -12,13 +12,15 @@ from ref_AMR import AMR
 import utils
 
 def formatAMR2HTML(inp):
+  mutant = False
   out = []
   for x in inp:
     if x[0] != x[-1]:
       out.append('<span style="font-weight:bold; color:red">' + x + '</span>')
+      mutant = True
     else:
       out.append(x)
-  return ' '.join(out)
+  return ' '.join(out), mutant
 
 def run(configs):
   start_time = time.time()
@@ -44,11 +46,21 @@ def run(configs):
     elif x['type'] == 'prot':
       part = utils.fuzzyFindInList(protein_seqs, x['ref'])
     
-    configs['amr_analysis'][x['name']] = []
+    tmp = {}
+    tmp['antibiotic'] = x['antibiotic']
+    tmp['typing method'] = x['typing method']
+    tmp['resistant gene'] = x['resistant gene']
+    
     for y in x['subs']:
-      configs['amr_analysis'][x['name']].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
-    configs['amr_analysis'][x['name']] = formatAMR2HTML(configs['amr_analysis'][x['name']])
-    # + '    ' + part[x['subs'][0]['pos'] : x['subs'][0]['pos'] + 20] # Uncomment this to output 20 characters at that pos
+      tmp['mutations'].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
+    
+    tmp['mutations'],  mutant = formatAMR2HTML(tmp['mutations'])
+    # + '    ' + part[x['subs'][0]['pos'] : x['subs'][0]['pos'] + 20]
+    
+    if mutant:
+      tmp['resistant phenotype'] = 'Resistant'
+    else:
+      tmp['resistant phenotype'] = 'Susceptible'
   
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   

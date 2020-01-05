@@ -8,6 +8,24 @@
 <body>
   <h3>Filename: {{ filename }}</h3>
   <h3>Job ID: {{ jobid }}</h3>
+  <table border="1">
+    <tr>
+      <th style="text-align:center;">Antibiotic</th>
+      <th style="text-align:center;">Resistant Phenotype</th>
+      <th style="text-align:center;">Typing method</th>
+      <th style="text-align:center;">Resistances gene</th>
+      <th style="text-align:center;">Mutations</th>
+    </tr>
+{% for key in amr_analysis %}
+    <tr>
+      <th style="text-align:left;">{{ key['antibiotic'] }}</th>
+      <th style="text-align:left;">{{ key['resistant phenotype'] }}</th>
+      <th style="text-align:left;">{{ key['typing method'] }}</th>
+      <th style="text-align:left;">{{ key['resistances gene'] }}</th>
+      <th style="text-align:left;">{{ key['mutations'] }}</th>
+    </tr>
+{% endfor %}
+  </table>
   <ul>
     {% for key, value in amr_analysis.items() %}
     <li><b>{{ key }}:</b> {{ value }}</li>

@@ -10,7 +10,7 @@ import RAST_sdk as rast
 from shutil import copyfile
 from ConfigParser import ConfigParser
 
-db = um.newDBConnection()    
+db = um.newDBConnection()
 
 def process():
   form = cgi.FieldStorage()
