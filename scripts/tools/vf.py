@@ -69,6 +69,8 @@ def analyzevacA(pro):
     else:
       slen = end[1].start() - start[1].start() - len('MEIQQTHRKINRP')
       res['s1s2'] = 's1' if slen <= 25 else 's2'
+      res['s1s2_seq1'] = start[1][0]
+      res['s1s2_seq2'] = end[1][0]
   
   # m1/m2
   matched = regex.search('LGKAVNL(?:R){s<=1}VDAHT(A[YN]FNGNIYLG){s<=10}', pro)
@@ -77,6 +79,7 @@ def analyzevacA(pro):
   else:
     percent = 1 - matched.fuzzy_counts[0] / len(matched[0])
     res['m1m2'] = 'm2' if percent >= 0.85 else 'Lai m1/m2'
+    res['m1m2_seq'] = matched[0]
   
   return res
 
@@ -142,6 +145,7 @@ def run(configs):
             'len': len(caga_nu), \
             'start_pos': caga_pos[1].strip(), \
             'end_pos': caga_pos[2].strip()}
+    
     formatted = caga_prot
     if configs['caga_analysis']['EPIYA-A']:
       configs['caga_analysis']['EPIYA-A_seq_formatted'] = addColor(configs['caga_analysis']['EPIYA-A_seq'], 'red')
@@ -192,9 +196,18 @@ def run(configs):
             'len': len(vaca_nu), \
             'start_pos': vaca_pos[1].strip(), \
             'end_pos': vaca_pos[2].strip()}
+    
+    formatted = vaca_prot
+    if 's1s2_seq1' in configs['vaca_analysis']:
+      formatted = formatColor(formatted, configs['vaca_analysis']['s1s2_seq1'], 'red')[0]
+      formatted = formatColor(formatted, configs['vaca_analysis']['s1s2_seq2'], 'blue')[0]
+    
+    if 'm1m2_seq' in configs['vaca_analysis']:
+      formatted = formatColor(formatted, configs['vaca_analysis']['m1m2_seq'], 'green')[0]
+    
     configs['vaca_prot'] = {'name': 'vacA Protein', \
             'raw': vaca_prot, \
-            'formatted': vaca_prot, \
+            'formatted': formatted, \
             'len': len(vaca_prot), \
             'start_pos': vaca_pos[1].strip(), \
             'end_pos': vaca_pos[2].strip()}
