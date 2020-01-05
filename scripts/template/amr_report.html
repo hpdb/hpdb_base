@@ -18,11 +18,11 @@
     </tr>
 {% for key in amr_analysis %}
     <tr>
-      <th style="text-align:left;">{{ key['antibiotic'] }}</th>
-      <th style="text-align:left;">{{ key['resistant phenotype'] }}</th>
-      <th style="text-align:left;">{{ key['typing method'] }}</th>
-      <th style="text-align:left;">{{ key['resistances gene'] }}</th>
-      <th style="text-align:left;">{{ key['mutations'] }}</th>
+      <td style="text-align:left;">{{ key['antibiotic'] }}</td>
+      <td style="text-align:left;">{{ key['resistant phenotype'] }}</td>
+      <td style="text-align:left;">{{ key['typing method'] }}</td>
+      <td style="text-align:left;">{{ key['resistances gene'] }}</td>
+      <td style="text-align:left;">{{ key['mutations'] }}</td>
     </tr>
 {% endfor %}
   </table>

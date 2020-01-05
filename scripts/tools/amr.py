@@ -49,7 +49,7 @@ def run(configs):
     tmp = {}
     tmp['antibiotic'] = x['antibiotic']
     tmp['typing method'] = x['typing method']
-    tmp['resistant gene'] = x['resistant gene']
+    tmp['resistances gene'] = x['resistances gene']
     tmp['mutations'] = []
     
     for y in x['subs']:
