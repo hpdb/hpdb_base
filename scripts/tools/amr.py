@@ -62,6 +62,8 @@ def run(configs):
       tmp['resistant phenotype'] = 'Resistant'
     else:
       tmp['resistant phenotype'] = 'Susceptible'
+    
+    configs['amr_analysis'].append(tmp)
   
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
