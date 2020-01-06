@@ -29,7 +29,7 @@ def process():
     return html
   
   data = {}
-  data['keys'] = ['Genome Length', 'GC%', 'Isolation Country', 'Proteins', 'PEG', 'tRNA', 'rRNA', 'Repeat Regions']
+  data['keys'] = ['Genome Length', 'GC%', 'Isolation Country', 'Proteins', 'PEG', 'tRNA', 'rRNA', 'Repeat Regions', 'cagA Analysis', 'vacA Analysis']
   data['strains'] = []
   
   if 'strains' in form:
@@ -49,7 +49,9 @@ def process():
                                   'PEG': row[5],
                                   'tRNA': row[8],
                                   'rRNA': row[9],
-                                  'Repeat Regions': row[6]})
+                                  'Repeat Regions': row[6],
+                                  'cagA Analysis': row[14],
+                                  'vacA Analysis': row[15]})
   
   if 'jobs' in form and 'sid' in form:
     sid = form.getvalue('sid')
@@ -74,7 +76,9 @@ def process():
                                   'PEG': len(peg),
                                   'tRNA': len(tRNA),
                                   'rRNA': len(rRNA),
-                                  'Repeat Regions': len(repeat)})
+                                  'Repeat Regions': len(repeat),
+                                  'cagA Analysis': 'N/A',
+                                  'vacA Analysis': 'N/A'})
 
   j2_env = jinja2.Environment(loader = jinja2.FileSystemLoader(os.environ['HPDB_BASE'] + '/scripts/template'), trim_blocks = True)
   j2_temp = j2_env.get_template('gen_comp_anal.html')

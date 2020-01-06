@@ -35,7 +35,7 @@ def newJob(type, projname, userid, username, upfile, seqfileloc = ''):
   configs['caga_prot'] = {}
   configs['vaca_nu'] = {}
   configs['vaca_prot'] = {}
-  configs['caga_analysis'] = {'EPIYA-A': False, 'EPIYA-B': False, 'EPIYA-C': False, 'EPIYA-D': False}
+  configs['caga_analysis'] = {'EPIYA-A': False, 'EPIYA-B': False, 'EPIYA-C': False, 'EPIYA-CC': False, 'EPIYA-D': False}
   configs['vaca_analysis'] = {'s1s2': '', 'm1m2': ''}
   
   if type == 1:
