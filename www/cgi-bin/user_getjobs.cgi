@@ -59,7 +59,7 @@ def main():
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
         proj['jbrowse'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
       elif configs['jobtype'] == 'jbrowse':
-        proj['reportjob'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
+        proj['jbrowse'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
       elif configs['jobtype'] == 'roary':
         proj['summary'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=output/roary/summary_statistics.txt&text=true' % (id, sid)
       #elif configs['jobtype'] == 'snippy':
