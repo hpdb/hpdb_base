@@ -231,7 +231,7 @@ function delete_job(link) {
     url: link,
     success: function(responseText, statusText, xhr) {
       alert(responseText);
-      $('#projects_btn').click();
+      //$('#projects_btn').click();
     }
   });
 }
