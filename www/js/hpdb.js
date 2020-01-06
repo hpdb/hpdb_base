@@ -12,6 +12,7 @@ function getsid() {
 function fileTree(sid) {
   $('#fileTree').fileTree({
     root: '',
+    multiSelect: true,
     script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid
   }, function(file) {
     $('#' + inputFileID ).val(file);
