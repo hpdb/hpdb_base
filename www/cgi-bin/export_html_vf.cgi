@@ -62,11 +62,12 @@ def main():
       cols.append(u'có' if configs['found_caga'] else (u'đbmđ' if configs['mutant_caga'] else 'ko'))
       cols.append(u'có' if configs['found_vaca'] else (u'đbmđ' if configs['mutant_vaca'] else 'ko'))
       EPIYA = ''
-      if configs['caga_analysis']['EPIYA-A']: EPIYA += 'A'
-      if configs['caga_analysis']['EPIYA-B']: EPIYA += 'B'
-      if configs['caga_analysis']['EPIYA-C']: EPIYA += 'C'
-      if configs['caga_analysis']['EPIYA-CC']: EPIYA += 'C'
-      if configs['caga_analysis']['EPIYA-D']: EPIYA += 'D'
+      if configs['found_caga']:
+        if configs['caga_analysis']['EPIYA-A']: EPIYA += 'A'
+        if configs['caga_analysis']['EPIYA-B']: EPIYA += 'B'
+        if configs['caga_analysis']['EPIYA-C']: EPIYA += 'C'
+        if configs['caga_analysis']['EPIYA-CC']: EPIYA += 'C'
+        if configs['caga_analysis']['EPIYA-D']: EPIYA += 'D'
       cols.append(EPIYA)
       cols.append(configs['vaca_analysis']['s1s2'])
       cols.append(configs['vaca_analysis']['m1m2'])
