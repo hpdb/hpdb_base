@@ -33,7 +33,7 @@ def main():
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
-      if upfile.filename != '':
+      if upfile.filename:
         cnt += 1
   if 'gbkfileloc' in form:
     gbkfileloc = um.getUserDir(userid) + form.getvalue('gbkfileloc')

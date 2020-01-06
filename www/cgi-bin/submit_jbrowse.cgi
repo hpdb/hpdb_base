@@ -36,7 +36,7 @@ def process():
   ok = False
   if 'seqfile' in form:
     upfile = form['seqfile']
-    if upfile.filename != '':
+    if upfile.filename:
       ok = True
       with open('input.fasta', 'wb') as f:
         f.write(upfile.file.read())

@@ -32,7 +32,7 @@ def main():
     if not isinstance(filefield, list):
       filefield = [filefield]
     for upfile in filefield:
-      if upfile.filename != '':
+      if upfile.filename:
         cnt += 1
   if 'seqfileloc' in form:
     seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
