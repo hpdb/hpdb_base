@@ -11,16 +11,16 @@ function getsid() {
 
 function fileTree(sid) {
   $('#fileTree').fileTree({
+    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid,
     root: '',
-    multiSelect: true,
-    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid
+    multiSelect: true
   }, function(file) {
     $('#' + inputFileID ).val(file);
     $('#fileTree_modal').modal('hide');
   });
   $('#fileTree2').fileTree({
-    root: '',
-    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid
+    script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid,
+    root: ''
   }, function(file) {});
 }
 
