@@ -18,10 +18,16 @@
                       <small>{{ proj.status }}</small>
                     </td>
                     <td>
+{% if proj.summary != '' %}
+                      <a href="{{ proj.summary }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-comment"></i> Summary</a>
+{% endif %}
 {% if proj.reportjob != '' %}
                       <a href="{{ proj.reportjob }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-folder"></i> View</a>
 {% else %}
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-folder"></i> View</a>
+{% endif %}
+{% if 'jbrowse' in proj %}
+                      <a href="{{ proj.jbrowse }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-dna"></i> JBrowse</a>
 {% endif %}
 {% if proj.downloadjob != '' %}
                       <a href="{{ proj.downloadjob }}" class="btn btn-info btn-xs" target="_blank"><i class="fa fa-download"></i> Download</a>
@@ -32,9 +38,6 @@
                       <a href="#" onclick="delete_job('{{ proj.deletejob }}')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
 {% else %}
                       <a href="#" class="btn btn-secondary btn-xs disabled"><i class="fa fa-trash"></i> Delete</a>
-{% endif %}
-{% if 'jbrowse' in proj %}
-                      <a href="{{ proj.jbrowse }}" class="btn btn-primary btn-xs" target="_blank"><i class="fa fa-dna"></i> JBrowse</a>
 {% endif %}
                     </td>
                   </tr>
