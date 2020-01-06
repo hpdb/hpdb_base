@@ -22,12 +22,18 @@ def main():
   if not os.path.isfile(filepath):
     return False
   
-  print('X-Sendfile: ' + filepath)
-  print('Content-Type: application/octet-stream')
-  if not 'view' in form:
+  if 'text' in form:
+    print('Content-Type: text/plain')
+    print('')
+    with open(filepath, 'r') as f:
+      print(f.read())
+  else:
+    print('X-Sendfile: ' + filepath)
+    print('Content-Type: application/octet-stream')
     print('Content-Disposition: attachment; filename=' + filename)
-  print('Pragma: no-cache')
-  print('')
+    print('Pragma: no-cache')
+    print('')
+  
   return True
 
 if __name__ == "__main__":
