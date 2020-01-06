@@ -497,7 +497,14 @@
             </div>
           </fieldset>
           <fieldset>
-            <legend>STEP 2 - Submit your job</legend>
+            <legend>STEP 2 - Set your parameters</legend>
+            <div class="form-group">
+              <label for="minidentity">Minimum percentage identity for blastp:</label>
+              <input class="form-control" type="number" name="minidentity" min="1" max="100" value="80">
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>STEP 3 - Submit your job</legend>
             <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>

@@ -14,7 +14,7 @@ db = um.newDBConnection()
 
 def main():
   form = cgi.FieldStorage()
-  if (not 'gbkfile' in form and not 'gbkfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
+  if (not 'gbkfile' in form and not 'gbkfileloc' in form) or (not 'sid' in form) or (not 'projname' in form) or (not 'minidentity' in form):
     print('Content-Type:text/html')
     print('')
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
@@ -25,6 +25,7 @@ def main():
   username = um.sidtouser(db, sid)
   userid = um.usertoid(db, username)
   projname = form.getvalue('projname')
+  minidentity = form.getvalue('minidentity')
   
   cnt = 0
   if 'gbkfile' in form:
@@ -45,7 +46,6 @@ def main():
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
       print(f.read())
     return
-  
   
   jobid = str(int(round(time.time() * 1000)))
   
@@ -80,6 +80,7 @@ def main():
   configs['username'] = username
   configs['dirpath'] = dirpath
   configs['filename'] = ''
+  configs['minidentity'] = minidentity
 
   with open('configs.yaml', 'w') as f:
     yaml.dump(configs, f)
