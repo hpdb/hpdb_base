@@ -55,7 +55,7 @@ def run(configs):
     for y in x['subs']:
       tmp['mutations'].append(y['orig'] + str(y['pos'] + 1) + part[y['pos']])
     
-    tmp['mutations'],  mutant = formatAMR2HTML(tmp['mutations'])
+    tmp['mutations'], mutant = formatAMR2HTML(tmp['mutations'])
     # + '    ' + part[x['subs'][0]['pos'] : x['subs'][0]['pos'] + 20]
     
     if mutant:
