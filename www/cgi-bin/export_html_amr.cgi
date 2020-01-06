@@ -56,7 +56,7 @@ def main():
       cols = []
       #cols.append('<b><a href="/cgi-bin/getbyid.cgi?jobid=%s">%s</a></b>' % (id, configs['filename']))
       cols.append('<b>%s</b>' % os.path.basename(configs['filename']))
-      cols.append(configs['amr_analysis']['23S rRNA (1)'])
+      cols.append(configs['amr_analysis']['23S rRNA'])
       cols.append(configs['amr_analysis']['gyrA'])
       
       print('<tr>')
