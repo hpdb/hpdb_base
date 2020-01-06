@@ -24,7 +24,8 @@ def main():
   
   print('X-Sendfile: ' + filepath)
   print('Content-Type: application/octet-stream')
-  print('Content-Disposition: attachment; filename=' + filename)
+  if not 'view' in form:
+    print('Content-Disposition: attachment; filename=' + filename)
   print('Pragma: no-cache')
   print('')
   return True
