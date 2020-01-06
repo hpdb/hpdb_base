@@ -1,14 +1,14 @@
 AMR = []
 AMR.append({'antibiotic': 'Clarithromycin', \
             'typing method': 'In silico prediction', \
-            'resistances gene': '23S rRNA', \
+            'resistance gene': '23S rRNA', \
             'start': 0, 'end': 2974, 'type': 'nu', \
             'subs': [{'pos': 2145, 'orig': 'A'}, \
                      {'pos': 2146, 'orig': 'A'}]})
 
 AMR.append({'antibiotic': 'Quinolone', \
             'typing method': 'In silico prediction', \
-            'resistances gene': 'gyrA', \
+            'resistance gene': 'gyrA', \
             'type': 'prot', \
             'subs': [{'pos': 86, 'orig': 'N'}, \
                      {'pos': 90, 'orig': 'D'}], \

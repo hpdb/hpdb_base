@@ -13,7 +13,7 @@
       <th style="text-align:center;">Antibiotic</th>
       <th style="text-align:center;">Resistant Phenotype</th>
       <th style="text-align:center;">Typing method</th>
-      <th style="text-align:center;">Resistances gene</th>
+      <th style="text-align:center;">Resistance gene</th>
       <th style="text-align:center;">Mutations</th>
     </tr>
 {% for key in amr_analysis %}
@@ -21,7 +21,7 @@
       <td style="text-align:left;">{{ key['antibiotic'] }}</td>
       <td style="text-align:left;">{{ key['resistant phenotype'] }}</td>
       <td style="text-align:left;">{{ key['typing method'] }}</td>
-      <td style="text-align:left;">{{ key['resistances gene'] }}</td>
+      <td style="text-align:left;">{{ key['resistance gene'] }}</td>
       <td style="text-align:left;">{{ key['mutations'] }}</td>
     </tr>
 {% endfor %}
