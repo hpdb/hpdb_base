@@ -40,36 +40,23 @@ def main():
   # column headers
   print('<tr>')
   print('<th>Filename</th>')
-  print('<th>cagA</th>')
-  print('<th>vacA</th>')
-  print('<th>EPIYA</th>')
-  print('<th>s1/s2</th>')
-  print('<th>m1/m2</th>')
-  print('<th>23S rRNA (1)</th>')
-  print('<th>23S rRNA (2)</th>')
+  print('<th>23S rRNA</th>')
   print('<th>gyrA</th>')
   print('</tr>')
   
   for id in jobids:
-    if (start and int(id) < int(start)) or (end and int(id) > int(end)): continue
+    if (start and int(id) < int(start)) or (end and int(id) > int(end)):
+      continue
+    if not os.path.isfile(data_dir + id + '/configs.yaml'):
+      continue
+    
     with open(data_dir + id + '/configs.yaml') as f:
       configs = yaml.full_load(f)
     if not os.path.isfile(data_dir + id + '/queued') and configs['jobtype'] == 'hpdb':
       cols = []
       #cols.append('<b><a href="/cgi-bin/getbyid.cgi?jobid=%s">%s</a></b>' % (id, configs['filename']))
       cols.append('<b>%s</b>' % os.path.basename(configs['filename']))
-      cols.append(u'có' if configs['found_caga'] else (u'đbmđ' if configs['mutant_caga'] else 'ko'))
-      cols.append(u'có' if configs['found_vaca'] else (u'đbmđ' if configs['mutant_vaca'] else 'ko'))
-      EPIYA = ''
-      if configs['caga_analysis']['EPIYA-A']: EPIYA += 'A'
-      if configs['caga_analysis']['EPIYA-B']: EPIYA += 'B'
-      if configs['caga_analysis']['EPIYA-C']: EPIYA += 'C'
-      if configs['caga_analysis']['EPIYA-D']: EPIYA += 'D'
-      cols.append(EPIYA)
-      cols.append(configs['vaca_analysis']['s1s2'])
-      cols.append(configs['vaca_analysis']['m1m2'])
       cols.append(configs['amr_analysis']['23S rRNA (1)'])
-      cols.append(configs['amr_analysis']['23S rRNA (2)'])
       cols.append(configs['amr_analysis']['gyrA'])
       
       print('<tr>')
