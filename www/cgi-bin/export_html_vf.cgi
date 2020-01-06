@@ -65,6 +65,7 @@ def main():
       if configs['caga_analysis']['EPIYA-A']: EPIYA += 'A'
       if configs['caga_analysis']['EPIYA-B']: EPIYA += 'B'
       if configs['caga_analysis']['EPIYA-C']: EPIYA += 'C'
+      if configs['caga_analysis']['EPIYA-CC']: EPIYA += 'C'
       if configs['caga_analysis']['EPIYA-D']: EPIYA += 'D'
       cols.append(EPIYA)
       cols.append(configs['vaca_analysis']['s1s2'])
