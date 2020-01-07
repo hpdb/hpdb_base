@@ -38,13 +38,17 @@ def process():
     upfile = form['seqfile']
     if upfile.filename:
       ok = True
-      with open('input.fasta', 'wb') as f:
+      filename = upfile.filename
+      ext = os.path.splitext(filename)[1][1:]
+      with open('input.' + ext, 'wb') as f:
         f.write(upfile.file.read())
   if not ok and 'seqfileloc' in form:
     seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
     if os.path.isfile(seqfileloc):
       ok = True
-      copyfile(seqfileloc, 'input.fasta')
+      filename = os.path.basename(seqfileloc)
+      ext = os.path.splitext(filename)[1][1:]
+      copyfile(seqfileloc, 'input.' + ext)
   
   if not ok:
     return 'No sequence file found'
@@ -57,10 +61,15 @@ def process():
   configs['userid'] = userid
   configs['username'] = username
   configs['dirpath'] = dirpath
-  configs['filename'] = ''
+  configs['filename'] = filename
   
   # prepare JBrowse data
-  call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.fasta --out JBrowse', shell = True)
+  if ext == 'fasta' or ext == 'fna':
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.%s --out JBrowse' % ext, shell = True)
+  elif ext == 'gbk':
+    call('bp_genbank2gff3.pl input.gbk', shell = True)
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --gff input.gbk.gff --out JBrowse' % ext, shell = True)
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff input.gbk.gff --trackLabel gff --trackType CanvasFeatures --out JBrowse', shell = True)
   
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
   
