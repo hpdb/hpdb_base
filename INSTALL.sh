@@ -27,7 +27,7 @@ echo "--------------------------------------------------------------------------
 ------------------------------------------------------------------------------
 "
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/python ]; then
-    wget -c -q https://repo.anaconda.com/archive/Anaconda2-2019.10-Linux-x86_64.sh
+    wget -c https://repo.anaconda.com/archive/Anaconda2-2019.10-Linux-x86_64.sh
     bash Anaconda2-2019.10-Linux-x86_64.sh -b -p $rootdir/thirdParty/Anaconda2/
 fi
 anacondabin=$rootdir/thirdParty/Anaconda2/bin/
@@ -57,7 +57,7 @@ echo "--------------------------------------------------------------------------
                            Installing ncbi-blast-2.9.0+-x64
 ------------------------------------------------------------------------------
 "
-wget -c -q ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.9.0/ncbi-blast-2.9.0+-x64-linux.tar.gz
+wget -c ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.9.0/ncbi-blast-2.9.0+-x64-linux.tar.gz
 tar -xzf ncbi-blast-2.9.0+-x64-linux.tar.gz
 cd ncbi-blast-2.9.0+
 cp -fR bin/* $rootdir/bin/.
@@ -75,7 +75,7 @@ echo "--------------------------------------------------------------------------
                            Install blast-2.2.26-x64-linux
 ------------------------------------------------------------------------------
 "
-wget -c -q ftp://ftp.ncbi.nlm.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.26/blast-2.2.26-x64-linux.tar.gz
+wget -c ftp://ftp.ncbi.nlm.nih.gov/blast/executables/legacy.NOTSUPPORTED/2.2.26/blast-2.2.26-x64-linux.tar.gz
 tar -xzf blast-2.2.26-x64-linux.tar.gz
 cd blast-2.2.26
 cp -fR bin/* $rootdir/bin/.
@@ -93,7 +93,7 @@ echo "--------------------------------------------------------------------------
                            Compiling aragorn1.2.38
 ------------------------------------------------------------------------------
 "
-wget -c -q http://130.235.244.92/ARAGORN/Downloads/aragorn1.2.38.tgz
+wget -c http://130.235.244.92/ARAGORN/Downloads/aragorn1.2.38.tgz
 tar -xzf aragorn1.2.38.tgz
 cd aragorn1.2.38
 gcc -O3 -ffast-math -finline-functions -o aragorn aragorn1.2.38.c
@@ -111,7 +111,7 @@ echo "--------------------------------------------------------------------------
                            Installing prodigal v2.6.3
 ------------------------------------------------------------------------------
 "
-wget -c -q https://github.com/hyattpd/Prodigal/releases/download/v2.6.3/prodigal.linux -O prodigal-v2.6.3
+wget -c https://github.com/hyattpd/Prodigal/releases/download/v2.6.3/prodigal.linux -O prodigal-v2.6.3
 chmod +x prodigal-v2.6.3
 cp prodigal-v2.6.3 $rootdir/bin/prodigal
 cd $rootdir/thirdParty
@@ -142,7 +142,7 @@ echo "--------------------------------------------------------------------------
                            Installing tRNAscan-SE 2.0.4
 ------------------------------------------------------------------------------
 "
-wget -c -q http://trna.ucsc.edu/software/trnascan-se-2.0.4.tar.gz
+wget -c http://trna.ucsc.edu/software/trnascan-se-2.0.4.tar.gz
 tar -xzf trnascan-se-2.0.4.tar.gz
 cd tRNAscan-SE-2.0
 ./configure --prefix=$rootdir && make && make install
@@ -159,7 +159,7 @@ echo "--------------------------------------------------------------------------
                            Installing Clustal Omega
 ------------------------------------------------------------------------------
 "
-wget -c -q http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz
+wget -c http://www.clustal.org/omega/clustal-omega-1.2.4.tar.gz
 tar -xzf clustal-omega-1.2.4.tar.gz
 cd clustal-omega-1.2.4
 ./configure --prefix=$rootdir && make && make install
@@ -190,7 +190,7 @@ echo "--------------------------------------------------------------------------
                            Installing mafft
 ------------------------------------------------------------------------------
 "
-wget -c -q https://mafft.cbrc.jp/alignment/software/mafft-7.429-with-extensions-src.tgz
+wget -c https://mafft.cbrc.jp/alignment/software/mafft-7.429-with-extensions-src.tgz
 tar -xzf mafft-7.429-with-extensions-src.tgz
 cd mafft-7.429-with-extensions/core
 sed -i.bak 's,PREFIX = /usr/local,PREFIX = '"$rootdir"',' Makefile
@@ -207,7 +207,7 @@ echo "--------------------------------------------------------------------------
                            Installing kma
 ------------------------------------------------------------------------------
 "
-wget -c -q https://bitbucket.org/genomicepidemiology/kma/get/1.2.19.tar.gz
+wget -c https://bitbucket.org/genomicepidemiology/kma/get/1.2.19.tar.gz
 tar -xzf 1.2.19.tar.gz
 cd genomicepidemiology-kma-*
 make
@@ -227,7 +227,7 @@ echo "--------------------------------------------------------------------------
                            Installing muscle
 ------------------------------------------------------------------------------
 "
-wget -c -q https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz
+wget -c https://www.drive5.com/muscle/downloads3.8.31/muscle3.8.31_i86linux64.tar.gz
 tar -xzf muscle3.8.31_i86linux64.tar.gz
 mv muscle3.8.31_i86linux64 muscle
 chmod +x muscle
@@ -246,7 +246,7 @@ echo "--------------------------------------------------------------------------
                            Compiling MUMmer3.23 64bit
 ------------------------------------------------------------------------------
 "
-wget -c -q https://nchc.dl.sourceforge.net/project/mummer/mummer/3.23/MUMmer3.23.tar.gz
+wget -c https://nchc.dl.sourceforge.net/project/mummer/mummer/3.23/MUMmer3.23.tar.gz
 tar -xzf MUMmer3.23.tar.gz
 cd MUMmer3.23
 #for 64bit MUMmer complie
@@ -297,7 +297,7 @@ echo "--------------------------------------------------------------------------
                            Installing phage_finder
 ------------------------------------------------------------------------------
 "
-wget -c -q https://liquidtelecom.dl.sourceforge.net/project/phage-finder/phage_finder_v2.1/phage_finder_v2.1.tar.gz
+wget -c https://liquidtelecom.dl.sourceforge.net/project/phage-finder/phage_finder_v2.1/phage_finder_v2.1.tar.gz
 tar -xzf phage_finder_v2.1.tar.gz
 cd $rootdir/thirdParty
 chmod -R +x phage_finder_v2.1
@@ -317,7 +317,7 @@ echo "--------------------------------------------------------------------------
 #conda run -n py37 pip install -U biopython tabulate cgecore==1.3.6
 #conda run -n py37 python $HPDB_BASE/thirdParty/plasmidfinder-2.1/plasmidfinder.py
 #conda run -n py37 python INSTALL.py kma_index
-wget -c -q https://bitbucket.org/genomicepidemiology/plasmidfinder/get/2.1.tar.gz
+wget -c https://bitbucket.org/genomicepidemiology/plasmidfinder/get/2.1.tar.gz
 tar -xzf 2.1.tar.gz
 mv genomicepidemiology-plasmidfinder* plasmidfinder-2.1
 cd plasmidfinder-2.1
@@ -334,7 +334,7 @@ echo "--------------------------------------------------------------------------
                            Installing phylip
 ------------------------------------------------------------------------------
 "
-wget -c -q http://evolution.gs.washington.edu/phylip/download/phylip-3.697.tar.gz
+wget -c http://evolution.gs.washington.edu/phylip/download/phylip-3.697.tar.gz
 tar -xzf phylip-3.697.tar.gz
 cd phylip-3.697/src
 make -f Makefile.unx install
@@ -358,7 +358,7 @@ $rootdir/thirdParty/Anaconda2/bin/conda install -y gxx_linux-64
 $rootdir/thirdParty/Anaconda2/bin/cpan install Getopt::Euclid List::Util Math::Random::MT version
 $rootdir/thirdParty/Anaconda2/bin/cpan install cpan
 $rootdir/thirdParty/Anaconda2/bin/cpan reload cpan
-wget -c -q https://liquidtelecom.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz
+wget -c https://liquidtelecom.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz
 tar -xzf Grinder-0.5.4.tar.gz
 cd Grinder-0.5.4
 make && make install
@@ -391,7 +391,7 @@ echo "--------------------------------------------------------------------------
                            Installing JBrowse-1.16.6
 ------------------------------------------------------------------------------
 "
-wget -c -q https://github.com/GMOD/jbrowse/releases/download/1.16.6-release/JBrowse-1.16.6.zip
+wget -c https://github.com/GMOD/jbrowse/releases/download/1.16.6-release/JBrowse-1.16.6.zip
 unzip -q JBrowse-1.16.6.zip
 if [ -e $rootdir/www/JBrowse/data ]
 then
@@ -429,7 +429,7 @@ echo "--------------------------------------------------------------------------
                            Installing circos-0.69-9
 ------------------------------------------------------------------------------
 "
-wget -c -q http://circos.ca/distribution/circos-0.69-9.tgz
+wget -c http://circos.ca/distribution/circos-0.69-9.tgz
 tar -xzf circos-0.69-9.tgz
 circosbin=$rootdir/thirdParty/circos-0.69-9/bin/
 ln -fs $circosbin/circos $rootdir/bin
