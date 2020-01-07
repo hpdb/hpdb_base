@@ -14,7 +14,7 @@ import traceback
 import user_management as um
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
-import hpdb, blast, clustalo, roary, snippy, amr, vf, rast
+import blast, clustalo, roary, snippy, amr, vf, rast
 
 def forcedelete(file):
   while os.path.isfile(file):
