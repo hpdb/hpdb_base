@@ -162,7 +162,7 @@ def run(configs):
     call('bp_genbank2gff3.pl input/' + f + ' --outdir output/gff', shell = True)
     time.sleep(2)
   
-  call('roary -f ./output/roary -i %s -e -n ./output/gff/*.gff' % configs['minidentity'], shell = True)
+  call('roary -f ./output/roary -i %s -e -mafft -p 8 ./output/gff/*.gff' % configs['minidentity'], shell = True)
   
   os.chdir('output/roary')
   accessory_plot_files = ['accessory_binary_genes.fa.newick', 'gene_presence_absence.csv']

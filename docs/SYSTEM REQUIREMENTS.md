@@ -19,8 +19,8 @@ sudo yum -y upgrade
 
 2. Add required repositories:
 ```
-sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 sudo yum -y install epel-release
+sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 ```
 
 Run `sudo vi /etc/yum.repos.d/MariaDB.repo` and paste this:
@@ -103,7 +103,7 @@ If you're using Google Cloud:
 sudo usermod -g google-sudoers hpdb
 ```
 
-If you're using Digital Ocean:
+If you're using Digital Ocean or Linode:
 ```
 sudo usermod -g wheel hpdb
 ```
