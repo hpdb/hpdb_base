@@ -68,7 +68,7 @@ def process():
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.%s --out JBrowse' % ext, shell = True)
   elif ext == 'gbk':
     call('bp_genbank2gff3.pl input.gbk', shell = True)
-    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --gff input.gbk.gff --out JBrowse' % ext, shell = True)
+    call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --gff input.gbk.gff --out JBrowse', shell = True)
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff input.gbk.gff --trackLabel gff --trackType CanvasFeatures --out JBrowse', shell = True)
   
   configs['exec_time'] = '%.2f' % (time.time() - start_time)
