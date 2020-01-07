@@ -178,7 +178,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda -c defaults snippy samtools openssl=1.0
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda snippy samtools
 echo "------------------------------------------------------------------------------
                            snippy installed
 ------------------------------------------------------------------------------
