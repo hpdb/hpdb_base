@@ -178,7 +178,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c conda-forge -c bioconda -c defaults snippy samtools openssl=1.0
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda -c defaults snippy samtools openssl=1.0
 echo "------------------------------------------------------------------------------
                            snippy installed
 ------------------------------------------------------------------------------
@@ -268,7 +268,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c conda-forge -c bioconda -c defaults roary
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda roary
 echo "------------------------------------------------------------------------------
                            roary installed
 ------------------------------------------------------------------------------
