@@ -18,7 +18,7 @@ annotation_tools=( BLAST+ blastall phage_finder plasmidfinder aragorn prodigal p
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
 sequence_simulators=( grinder )
-utility_tools=( Anaconda2 mysqlclient jbrowse circos )
+utility_tools=( Anaconda2 mysqlclient JBrowse circos )
 all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
 install_Anaconda2() {
@@ -128,7 +128,7 @@ echo "--------------------------------------------------------------------------
                            Installing prokka
 ------------------------------------------------------------------------------
 "
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c conda-forge -c bioconda -c defaults prokka
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda prokka
 echo "
 ------------------------------------------------------------------------------
                            prokka installed
