@@ -207,8 +207,8 @@ echo "--------------------------------------------------------------------------
                            Installing kma
 ------------------------------------------------------------------------------
 "
-wget -c -q https://bitbucket.org/genomicepidemiology/kma/get/1.2.12.tar.gz -o kma-1.2.12.tar.gz
-tar -xzf kma-1.2.12.tar.gz
+wget -c -q https://bitbucket.org/genomicepidemiology/kma/get/1.2.19.tar.gz -o kma-1.2.19.tar.gz
+tar -xzf kma-1.2.19.tar.gz
 cd genomicepidemiology-kma-*
 make
 cp kma $rootdir/bin
