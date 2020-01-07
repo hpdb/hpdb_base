@@ -591,7 +591,7 @@ then
         done
         ;;
       *)
-        if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${sequence_simulators[@]}" || containsElement "$f" "${utility_tools[@]}" )
+        if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${analysis_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${sequence_simulators[@]}" || containsElement "$f" "${utility_tools[@]}" )
         then
             install_$f
         else
