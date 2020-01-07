@@ -207,8 +207,8 @@ echo "--------------------------------------------------------------------------
                            Installing kma
 ------------------------------------------------------------------------------
 "
-wget -c https://bitbucket.org/genomicepidemiology/kma/get/1.2.19.tar.gz
-tar -xzf 1.2.19.tar.gz
+wget -c https://bitbucket.org/genomicepidemiology/kma/get/1.2.19.tar.gz -O kma-1.2.19.tar.gz
+tar -xzf kma-1.2.19.tar.gz
 cd genomicepidemiology-kma-*
 make
 cp kma $rootdir/bin
@@ -280,7 +280,7 @@ echo "--------------------------------------------------------------------------
                            Installing centrifuge
 ------------------------------------------------------------------------------
 "
-wget -c https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz -o centrifuge-v1.0.4-beta.tar.gz
+wget -c https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz -O centrifuge-v1.0.4-beta.tar.gz
 tar -xzf centrifuge-v1.0.4-beta.tar.gz
 cd centrifuge-1.0.4-beta
 sed -i.bak 's,prefix=/usr/local,prefix='"$rootdir"',' Makefile
@@ -317,8 +317,8 @@ echo "--------------------------------------------------------------------------
 #conda run -n py37 pip install -U biopython tabulate cgecore==1.3.6
 #conda run -n py37 python $HPDB_BASE/thirdParty/plasmidfinder-2.1/plasmidfinder.py
 #conda run -n py37 python INSTALL.py kma_index
-wget -c https://bitbucket.org/genomicepidemiology/plasmidfinder/get/2.1.tar.gz
-tar -xzf 2.1.tar.gz
+wget -c https://bitbucket.org/genomicepidemiology/plasmidfinder/get/2.1.tar.gz -O plasmidfinder-2.1.tar.gz
+tar -xzf plasmidfinder-2.1.tar.gz
 mv genomicepidemiology-plasmidfinder* plasmidfinder-2.1
 cd plasmidfinder-2.1
 git clone https://bitbucket.org/genomicepidemiology/plasmidfinder_db.git
