@@ -280,7 +280,7 @@ echo "--------------------------------------------------------------------------
                            Installing centrifuge
 ------------------------------------------------------------------------------
 "
-wget -c -q https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz
+wget -c https://github.com/DaehwanKimLab/centrifuge/archive/v1.0.4-beta.tar.gz
 tar -xzf v1.0.4-beta.tar.gz
 cd centrifuge-1.0.4-beta
 sed -i.bak 's,prefix=/usr/local,prefix='"$rootdir"',' Makefile
