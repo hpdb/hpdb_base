@@ -56,10 +56,9 @@ def main():
       configs = yaml.full_load(f)
     if not os.path.isfile(data_dir + id + '/queued') and configs['jobtype'] == 'amr detection':
       cols = []
-      #cols.append('<b><a href="/cgi-bin/getbyid.cgi?jobid=%s">%s</a></b>' % (id, configs['filename']))
-      cols.append('<b>%s</b>' % os.path.basename(configs['filename']))
-      cols.append(configs['amr_analysis']['23S rRNA'])
-      cols.append(configs['amr_analysis']['gyrA'])
+      cols.append('<b><a href="/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s">%s</a></b>' % (id, sid, os.path.basename(configs['filename'])))
+      cols.append(configs['amr_analysis'][0]['mutations'])
+      cols.append(configs['amr_analysis'][1]['mutations'])
       
       print('<tr>')
       for col in cols:

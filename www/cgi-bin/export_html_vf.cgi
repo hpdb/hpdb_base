@@ -59,8 +59,7 @@ def main():
       configs = yaml.full_load(f)
     if not os.path.isfile(data_dir + id + '/queued') and configs['jobtype'] == 'caga/vaca':
       cols = []
-      #cols.append('<b><a href="/cgi-bin/getbyid.cgi?jobid=%s">%s</a></b>' % (id, configs['filename']))
-      cols.append('<b>%s</b>' % os.path.basename(configs['filename']))
+      cols.append('<b><a href="/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s">%s</a></b>' % (id, sid, os.path.basename(configs['filename'])))
       cols.append(u'có' if configs['found_caga'] else (u'đbmđ' if configs['mutant_caga'] else 'ko'))
       cols.append(u'có' if configs['found_vaca'] else (u'đbmđ' if configs['mutant_vaca'] else 'ko'))
       EPIYA = ''
