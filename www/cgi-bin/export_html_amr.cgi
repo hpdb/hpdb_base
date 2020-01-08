@@ -47,6 +47,8 @@ def main():
   for id in jobids:
     if (start and int(id) < int(start)) or (end and int(id) > int(end)):
       continue
+    if os.path.isfile(data_dir + id + '/running') or os.path.isfile(data_dir + id + '/error'):
+      continue
     if not os.path.isfile(data_dir + id + '/configs.yaml'):
       continue
     
