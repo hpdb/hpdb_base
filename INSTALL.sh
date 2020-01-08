@@ -37,13 +37,13 @@ ln -fs $anacondabin/conda $rootdir/bin
 $anacondabin/conda install -y biopython gxx_linux
 $anacondabin/conda install -c bioconda -y perl perl-app-cpanminus
 $anacondabin/pip install regex htmldom PyPDF2
-$anacondabin/cpanm -f Bio::Perl Net::Ping
-$anacondabin/cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
-$anacondabin/cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
-$anacondabin/cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
-$anacondabin/cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
-$anacondabin/cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
-$anacondabin/cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
+#$anacondabin/cpanm -f Bio::Perl Net::Ping
+#$anacondabin/cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
+#$anacondabin/cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
+#$anacondabin/cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
+#$anacondabin/cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
+#$anacondabin/cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
+#$anacondabin/cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
 
 echo "
 ------------------------------------------------------------------------------
