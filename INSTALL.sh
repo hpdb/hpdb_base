@@ -178,7 +178,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda snippy=4.4.3 samtools
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda snippy=4.4.3
 echo "------------------------------------------------------------------------------
                            snippy installed
 ------------------------------------------------------------------------------
@@ -611,20 +611,20 @@ else
   install_Anaconda2
 fi
 
-if ( checkSystemInstallation clustalo )
-then
-  echo "clustalo is found"
-else
-  echo "clustalo is not found"
-  install_clustalo
-fi
-
 if ( checkSystemInstallation snippy )
 then
   echo "snippy is found"
 else
   echo "snippy is not found"
   install_snippy
+fi
+
+if ( checkSystemInstallation clustalo )
+then
+  echo "clustalo is found"
+else
+  echo "clustalo is not found"
+  install_clustalo
 fi
 
 if ( checkSystemInstallation mafft )
