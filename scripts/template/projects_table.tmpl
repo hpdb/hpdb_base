@@ -6,7 +6,7 @@
                     <td>
                       <label>{{ proj.name }}</label>
                       <br>
-                      <small>Job ID: {{ proj.jobid }}{% if proj.filename != '' %}<br>Filename: {{ proj.filename }}{% endif %}<br>Created on {{ proj.daysubmit }}{% if proj.exec_time != '' %}<br>Execution time: {{ proj.exec_time }}{% endif %}</small>
+                      <small>Job ID: {{ proj.jobid }}{% if proj.filename != '' %}<br>Filename: {{ proj.filename }}{% endif %}<br>Created on {{ proj.daysubmit }}{% if proj.exec_time != '' %}<br>Execution time: {{ proj.exec_time }}s{% endif %}</small>
                     </td>
                     <td>
                       <span class="badge badge-success">{{ proj.type }}</span>
