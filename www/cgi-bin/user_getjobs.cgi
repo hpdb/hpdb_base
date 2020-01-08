@@ -38,6 +38,7 @@ def main():
     proj['reportjob'] = ''
     proj['downloadjob'] = ''
     proj['deletejob'] = ''
+    proj['exec_time'] = ''
     if os.path.isfile(projects_dir + id + '/error'):
       proj['done'] = False
       proj['status'] = 'Error'
@@ -55,6 +56,9 @@ def main():
       proj['done'] = True
       proj['status'] = 'Complete'
       proj['percent'] = '100'
+      if configs['jobtype'] != 'rast':
+        proj['exec_time'] = configs['exec_time']
+      
       if configs['jobtype'] == 'rast':
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
         proj['jbrowse'] = '/JBrowse/?data=userdata/%s/MyProjects/%s/JBrowse' % (userid, configs['jobid'])
