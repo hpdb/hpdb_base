@@ -158,6 +158,7 @@ function checkSession() {
         showLoggedin(sid, data.username);
       }  else {
         localStorage.removeItem('sid');
+        sessionStorage.removeItem('sid');
         location.reload(true);
       }
     }

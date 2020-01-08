@@ -34,7 +34,7 @@ anacondabin=$rootdir/thirdParty/Anaconda2/bin/
 ln -fs $anacondabin/python $rootdir/bin
 ln -fs $anacondabin/pip $rootdir/bin
 ln -fs $anacondabin/conda $rootdir/bin
-$anacondabin/conda install -y biopython
+$anacondabin/conda install -y biopython gxx_linux
 $anacondabin/conda install -c bioconda -y perl perl-app-cpanminus
 $anacondabin/pip install regex htmldom PyPDF2
 $anacondabin/cpanm -f Bio::Perl Net::Ping
