@@ -67,7 +67,8 @@ def main():
       elif configs['jobtype'] == 'roary':
         proj['summary'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=output/roary/summary_statistics.txt&text=true' % (id, sid)
       elif configs['jobtype'] == 'gene extractor':
-        proj['reportjob'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=result.txt&text=true' % (id, sid)
+        proj['summary'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=result.txt&text=true' % (id, sid)
+        proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
       #elif configs['jobtype'] == 'snippy':
       #  proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
       if os.path.isfile(projects_dir + id + '/report.html') or os.path.isfile(projects_dir + id + '/report.pdf'):
