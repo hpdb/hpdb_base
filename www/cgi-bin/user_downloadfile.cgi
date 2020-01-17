@@ -16,7 +16,7 @@ def process():
   safe_dir = os.path.realpath(um.getUserDir(userid)) + '/'
   
   # prevent directory traversal attack
-  if os.path.commonprefix(os.path.realpath(os.path.join(safe_dir + file)), safe_dir) != safe_dir:
+  if os.path.commonprefix((os.path.realpath(os.path.join(safe_dir + file)), safe_dir)) != safe_dir:
     return ''
   
   return os.path.join(safe_dir + file)

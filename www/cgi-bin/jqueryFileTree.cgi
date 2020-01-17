@@ -28,7 +28,7 @@ def listdir():
   safe_dir = os.path.realpath(um.getUserDir(userid)) + '/'
   
   # prevent directory traversal attack
-  if os.path.commonprefix(os.path.realpath(os.path.join(safe_dir + dir)), safe_dir) != safe_dir:
+  if os.path.commonprefix((os.path.realpath(os.path.join(safe_dir + dir)), safe_dir)) != safe_dir:
     dir = ''
   real_dir = os.path.join(safe_dir + dir)
   
