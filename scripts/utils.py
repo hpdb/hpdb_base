@@ -40,7 +40,7 @@ def runblast(prog, query, subject, evalue = '10', outfmt = '0'):
   return check_output('%s -query %s -subject %s -evalue %s -outfmt "%s"' % (prog, query, subject, evalue, outfmt), shell = True)
 
 def runsnippy(ref, ctgs, outdir = 'snippy'):
-  call('snippy --mapqual 0 --outdir %s --ref %s --ctgs %s >/dev/null 2>&1' % (outdir, ref, ctgs), shell = True)
+  call('snippy --mapqual 0 --force --outdir %s --ref %s --ctgs %s >/dev/null 2>&1' % (outdir, ref, ctgs), shell = True)
 
 def fuzzyFind(s1, s2, start = 0):
   fuzzy = regex.search('(?:%s){s<=%d}' % (s2, len(s2)), s1[start:], flags=regex.BESTMATCH)
