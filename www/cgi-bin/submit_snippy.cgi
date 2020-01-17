@@ -12,7 +12,7 @@ from shutil import copyfile
 
 db = um.newDBConnection()    
 
-def newJob(type, projname, userid, username, upfile, seqfileloc = '', form):
+def newJob(type, projname, userid, username, upfile, form, seqfileloc = ''):
   jobid = str(int(round(time.time() * 1000)))
   dirpath = um.getUserProjectDir(userid) + jobid
   utils.mkdir(dirpath)
@@ -93,7 +93,7 @@ def main():
   if 'seqfileloc' in form:
     seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
     if os.path.isfile(seqfileloc):
-      newJob(2, projname, userid, username, '', seqfileloc, form)
+      newJob(2, projname, userid, username, '', form, seqfileloc)
   
   print('Content-Type:text/plain')
   print('')
