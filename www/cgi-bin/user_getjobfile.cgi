@@ -27,6 +27,11 @@ def main():
     print('')
     with open(filepath, 'r') as f:
       print(f.read())
+  elif if 'html' in form:
+    print('Content-Type:text/html')
+    print('')
+    with open(filepath, 'r') as f:
+      print(f.read())
   else:
     print('X-Sendfile: ' + filepath)
     print('Content-Type: application/octet-stream')
