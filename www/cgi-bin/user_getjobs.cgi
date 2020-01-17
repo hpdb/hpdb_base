@@ -69,7 +69,8 @@ def main():
       elif configs['jobtype'] == 'gene extractor':
         proj['summary'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=result.txt&text=true' % (id, sid)
         proj['reportjob'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.html&html=true' % (id, sid)
-      #elif configs['jobtype'] == 'snippy':
+      elif configs['jobtype'] == 'snippy':
+        proj['reportjob'] = 'http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.html&html=true' % (id, sid)
       #  proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('http://hpdb.tk/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
       if os.path.isfile(projects_dir + id + '/report.html') or os.path.isfile(projects_dir + id + '/report.pdf'):
         proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
