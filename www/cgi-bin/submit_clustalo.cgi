@@ -43,11 +43,16 @@ def main():
   configs['outfmt'] = form.getvalue('outfmt')
   
   # FIX-ME: check if seq file is valid
-  with open('input.fasta', 'wb') as f:
+  with open('input.fasta', 'w') as f:
     if form.getvalue('sequence') != '':
       f.write(form.getvalue('sequence'))
     else:
-      f.write(form['seqfile'].file.read())
+      filefield = form['seqfile']
+      if not isinstance(filefield, list):
+        filefield = [filefield]
+      for upfile in filefield:
+        if upfile.filename:
+          f.write(upfile.file.read() + '\n')
   
   with open('configs.yaml', 'w') as f:
     yaml.dump(configs, f)
