@@ -21,7 +21,9 @@ function fileTree(sid) {
   $('#fileTree2').fileTree({
     script: '/cgi-bin/jqueryFileTree.cgi?sid=' + sid,
     root: ''
-  }, function(file) {});
+  }, function(file) {
+    window.open('/cgi-bin/user_downloadfile.cgi?sid=' + getsid() + '&file=' + encodeURIComponent(file), '_blank');
+  });
 }
 
 function signup(input) {
