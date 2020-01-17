@@ -54,6 +54,6 @@ CsvToHtmlTable = {
       if (allow_download) {
         $containerElement.append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
       }
-    }).then(callback);
+    }).done(callback);
   }
 };

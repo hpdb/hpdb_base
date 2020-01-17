@@ -39,22 +39,20 @@
         }
       }
     }; 
-
-    $(document).ready(function () {
-      CsvToHtmlTable.init({
-        csv_path: getUrlParameter('file'),
-        element: 'data_table', 
-        allow_download: true,
-        csv_options: {separator: ',', delimiter: '"'},
-        custom_formatting: [],
-        datatables_options: {'paging': true,
-                             'fixedHeader': true,
-                             'order': [],
-                             'search': { 'smart': false },
-                             'columnDefs': [{'targets': [], 'visible': false}]}
-      }, function() {
-        $('#loading').hide();
-      });
+    
+    CsvToHtmlTable.init({
+      csv_path: getUrlParameter('file'),
+      element: 'data_table',
+      allow_download: true,
+      csv_options: {separator: ',', delimiter: '"'},
+      custom_formatting: [],
+      datatables_options: {'paging': true,
+                           'fixedHeader': true,
+                           'order': [],
+                           'search': { 'smart': false },
+                           'columnDefs': [{'targets': [], 'visible': false}]}
+    }, function() {
+      $('#loading').hide();
     });
   </script>
 </body>
