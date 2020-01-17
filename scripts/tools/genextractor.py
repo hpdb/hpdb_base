@@ -10,7 +10,7 @@ def run(configs):
   
   start = int(raw[0])
   end = int(raw[1])
-  if start < end:
+  if start > end:
     start, end = end, start
   length = end - start + 1
   
