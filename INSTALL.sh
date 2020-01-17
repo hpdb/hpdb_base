@@ -35,13 +35,14 @@ ln -fs $anacondabin/python $rootdir/bin
 ln -fs $anacondabin/pip $rootdir/bin
 ln -fs $anacondabin/conda $rootdir/bin
 $anacondabin/conda install -y biopython gcc_linux-64
-$anacondabin/conda install -c bioconda -y perl perl-app-cpanminus
+$anacondabin/conda install -c bioconda -y perl perl-app-cpanminus perl-xml-parser
+$anacondabin/conda install -c conda-forge -y expat-devel-cos7-aarch64
 $anacondabin/conda install -y -c bioconda perl-db-file
 $anacondabin/pip install regex htmldom PyPDF2
 sed -i -E 's%/tmp/build/[a-zA-Z0-9]+/perl_[0-9]+/_build_env%/home/hpdb/base/thirdParty/Anaconda2%g' /home/hpdb/base/thirdParty/Anaconda2/lib/5.26.2/x86_64-linux-thread-multi/Config_heavy.pl
 sed -i -E 's%/tmp/build/[a-zA-Z0-9]+/perl_[0-9]+/_build_env%/home/hpdb/base/thirdParty/Anaconda2%g' /home/hpdb/base/thirdParty/Anaconda2/lib/5.26.2/x86_64-linux-thread-multi/CORE/config.h
 sed -i -E 's%/tmp/build/[a-zA-Z0-9]+/perl_[0-9]+/_build_env%/home/hpdb/base/thirdParty/Anaconda2%g' /home/hpdb/base/thirdParty/Anaconda2/lib/5.26.2/x86_64-linux-thread-multi/Config.pm
-#$anacondabin/cpanm -f Bio::Perl Net::Ping
+#$anacondabin/cpanm Bio::Perl Net::Ping
 #$anacondabin/cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
 #$anacondabin/cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
 #$anacondabin/cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
@@ -182,7 +183,7 @@ echo "--------------------------------------------------------------------------
 if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
     install_Anaconda2
 fi
-$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda -c defaults snippy=4.4.3 samtools openssl=1.0
+$rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda -c defaults snippy=4.4.3
 echo "------------------------------------------------------------------------------
                            snippy installed
 ------------------------------------------------------------------------------
