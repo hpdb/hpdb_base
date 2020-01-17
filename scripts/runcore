@@ -14,7 +14,7 @@ import traceback
 import user_management as um
 
 sys.path.insert(1, os.environ['HPDB_BASE'] + '/scripts/tools')
-import blast, clustalo, roary, snippy, amr, vf, rast
+import blast, clustalo, roary, snippy, amr, vf, rast, genextractor
 
 def forcedelete(file):
   while os.path.isfile(file):
@@ -57,6 +57,8 @@ def check_queue():
       configs = roary.run(configs)
     elif configs['jobtype'] == 'snippy':
       configs = snippy.run(configs)
+    elif configs['jobtype'] == 'gene extractor':
+      configs = genextractor.run(configs)
     
     # ----- Save job config -----
     os.chdir(job_dir)

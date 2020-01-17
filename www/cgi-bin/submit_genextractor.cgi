@@ -27,7 +27,6 @@ def newJob(type, projname, userid, username, upfile, queryseq, seqfileloc = ''):
   configs['username'] = username
   configs['dirpath'] = dirpath
   configs['filename'] = ''
-  configs['amr_analysis'] = []
   
   if type == 1:
     configs['filename'] = upfile.filename
@@ -36,6 +35,9 @@ def newJob(type, projname, userid, username, upfile, queryseq, seqfileloc = ''):
   else:
     configs['filename'] = os.path.basename(seqfileloc)
     copyfile(seqfileloc, 'input.fasta')
+  
+  with open('ref.fasta', 'w') as f:
+    f.write(queryseq)
   
   with open('configs.yaml', 'w') as f:
     yaml.dump(configs, f)
