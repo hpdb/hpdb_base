@@ -52,7 +52,7 @@ def newJob(type, projname, userid, username, upfile, queryseq, seqfileloc = ''):
 
 def main():
   form = cgi.FieldStorage()
-  if (not 'seqfile' in form and not 'seqfileloc' in form) or (not 'queryseq' in form) or (not 'sid' in form) or (not 'projname' in form):
+  if (not 'seqfile' in form and not 'seqfileloc' in form) or (not 'queryseq' in form and not not 'queryseqfile' in form and not 'queryseqfileloc' in form) or (not 'sid' in form) or (not 'projname' in form):
     print('Content-Type:text/html')
     print('')
     with open(os.environ['HPDB_BASE'] + '/scripts/template/invalid.html', 'r') as f:
@@ -65,18 +65,32 @@ def main():
   projname = form.getvalue('projname')
   queryseq = form.getvalue('queryseq')
   
-  if 'seqfile' in form:
-    filefield = form['seqfile']
-    if not isinstance(filefield, list):
-      filefield = [filefield]
-    for upfile in filefield:
+  if queryseq == '':
+    if 'queryseqfile' in form:
+      upfile = form['queryseqfile']
       if upfile.filename:
-        newJob(1, projname, userid, username, upfile, queryseq)
+        queryseq = upfile.file.read()
   
-  if 'seqfileloc' in form:
-    seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
-    if os.path.isfile(seqfileloc):
-      newJob(2, projname, userid, username, '', queryseq, seqfileloc)
+  if queryseq == '':
+    if 'queryseqfileloc' in form:
+      queryseqfileloc = um.getUserDir(userid) + form.getvalue('queryseqfileloc')
+      if os.path.isfile(queryseqfileloc):
+        with open(queryseqfileloc) as f:
+          queryseq = f.read()
+  
+  if queryseq != '':
+    if 'seqfile' in form:
+      filefield = form['seqfile']
+      if not isinstance(filefield, list):
+        filefield = [filefield]
+      for upfile in filefield:
+        if upfile.filename:
+          newJob(1, projname, userid, username, upfile, queryseq)
+    
+    if 'seqfileloc' in form:
+      seqfileloc = um.getUserDir(userid) + form.getvalue('seqfileloc')
+      if os.path.isfile(seqfileloc):
+        newJob(2, projname, userid, username, '', queryseq, seqfileloc)
   
   print('Content-Type:text/plain')
   print('')

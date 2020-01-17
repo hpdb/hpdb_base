@@ -585,8 +585,22 @@
           <fieldset>
             <legend>STEP 2 - Enter Query Sequence</legend>
             <div class="form-group">
-              <label for="genextractor_queryseq">Enter FASTA sequence(s)</label>
+              <label for="genextractor_queryseq">Enter FASTA sequence</label>
               <textarea class="form-control" id="queryseq" name="queryseq" rows="7"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="genextractor_queryseqfile">Or upload a sequence file:</label>
+              <input type="file" id="genextractor_queryseqfile" name="queryseqfile" aria-describedby="genextractor_queryseqfilehelp" accept=".fasta,.fa,.fna,.ffn,.faa,.frn,.gbk">
+            </div>
+            <div class="form-group">
+              <label for="genextractor_queryseqfileloc">Or choose an uploaded file:</label>
+              <div class="input-group mb-3">
+                <input id="genextractor_queryseqfileloc" name="queryseqfileloc" type="text" class="form-control" placeholder="Choose a sequence file" readonly>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary file-selector" type="button" data-toggle="modal" data-target="#fileTree_modal">...</button>
+                </div>
+              </div>
+              <small id="genextractor_queryseqfilehelp" class="form-text text-muted">Supported format: FASTA</small>
             </div>
           </fieldset>
           <fieldset>
