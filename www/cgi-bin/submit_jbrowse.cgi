@@ -64,7 +64,7 @@ def process():
   configs['filename'] = filename
   
   # prepare JBrowse data
-  if ext in ['.fasta', '.fna', '.ffn', '.faa', '.frn']:
+  if ext in ['.fasta', '.fa', '.fna', '.ffn', '.faa', '.frn']:
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.%s --out JBrowse >/dev/null 2>&1' % ext, shell = True)
   elif ext == 'gbk':
     call('bp_genbank2gff3.pl input.gbk >/dev/null 2>&1', shell = True)
