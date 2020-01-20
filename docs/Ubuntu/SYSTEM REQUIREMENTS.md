@@ -19,13 +19,23 @@ sudo apt-get -y update
 
 2. Install build essential libraries and dependancies:
 ```
-sudo apt-get install -y build-essential cpanminus default-libmysqlclient-dev
+sudo apt-get install -y build-essential libreadline-gplv2-dev libx11-dev \
+  libxt-dev libgsl-dev libfreetype6-dev libncurses5-dev gfortran \
+  inkscape libwww-perl libxml-libxml-perl libperlio-gzip-perl \
+  zlib1g-dev zip unzip libjson-perl libpng-dev cpanminus default-jre \
+  wget curl csh liblapack-dev libblas-dev libatlas-base-dev \
+  libcairo2-dev libssh2-1-dev libssl-dev libcurl4-openssl-dev bzip2 \
+  bioperl rsync libbz2-dev liblzma-dev time libterm-readkey-perl \
+  liblwp-protocol-https-perl gnuplot libjson-xs-perl libio-socket-ip-perl \
+  vim php texinfo zlib1g-dev openjdk-11-jdk texlive default-libmysqlclient-dev \
+  texlive-fonts-extra libboost-all-dev cron less libxml2-dev \
+  libdatetime-perl libxml-simple-perl libdigest-md5-perl git
 ```
 
 3. Install Apache2:
 ```
 sudo apt-get install -y apache2 apache2-dev
-sudo a2enmod cgid proxy proxy_http headers
+sudo a2enmod cgid proxy proxy_http headers file_cache cache_disk
 ```
 
 Install `mod_xsendfile` for Apache:
@@ -49,13 +59,13 @@ Please refer to [this](https://downloads.mariadb.org/mariadb/repositories/ "Sett
 
 5. Install Perl modules:
 ```
-cpanm Bio::Perl Net::Ping
-cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
-cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
-cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
-cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
-cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
-cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
+sudo cpanm Bio::Perl Net::Ping
+sudo cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
+sudo cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
+sudo cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
+sudo cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
+sudo cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
+sudo cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
 ```
 
 6. Create dedicated user for Apache:
