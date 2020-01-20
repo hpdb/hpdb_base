@@ -11,7 +11,7 @@
 2. Download the codebase:
 ```
 cd ~
-git clone https://github.com/hieplpvip/HPDB.git base
+git clone https://github.com/hieplpvip/hpdb_base.git -b ubuntu base
 ```
 
 3. Create directories for projects and create symlinks for them:

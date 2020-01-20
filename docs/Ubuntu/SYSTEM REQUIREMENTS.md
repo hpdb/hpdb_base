@@ -34,6 +34,11 @@ wget https://raw.githubusercontent.com/nmaier/mod_xsendfile/master/mod_xsendfile
 sudo apxs -cia mod_xsendfile.c
 ```
 
+Install PHP:
+```
+sudo apt-get install -y php libapache2-mod-php
+```
+
 Restart Apache:
 ```
 sudo systemctl restart apache2
