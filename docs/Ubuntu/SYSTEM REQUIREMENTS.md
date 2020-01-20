@@ -19,7 +19,7 @@ sudo apt-get -y update
 
 2. Install build essential libraries and dependancies:
 ```
-sudo apt-get install -y build-essential
+sudo apt-get install -y build-essential cpanminus default-libmysqlclient-dev
 ```
 
 3. Install Apache2:
@@ -47,7 +47,18 @@ sudo systemctl restart apache2
 4. Install MariaDB:
 Please refer to [this](https://downloads.mariadb.org/mariadb/repositories/ "Setting up MariaDB repositories") for instruction on how to install MariaDB 10.4.
 
-5. Create dedicated user for Apache:
+5. Install Perl modules:
+```
+cpanm Bio::Perl Net::Ping
+cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
+cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
+cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
+cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
+cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
+cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
+```
+
+6. Create dedicated user for Apache:
 ```
 sudo adduser hpdb
 ```
@@ -59,4 +70,4 @@ sudo usermod -aG sudo hpdb
 
 We need to give `hpdb` sudo permission.
 
-6. Reboot.
+7. Reboot.

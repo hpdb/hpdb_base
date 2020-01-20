@@ -124,8 +124,9 @@ sudo chgrp -R hpdb $HPDB_BASE/www
 
 3. Copy configuration files to the appropriate directories:
 ```
-sudo cp $HPDB_BASE/apache_conf/hpdb_httpd.conf /etc/httpd/conf.d/
-sudo cp $HPDB_BASE/apache_conf/httpd.conf /etc/httpd/conf/httpd.conf
+sudo cp $HPDB_BASE/apache_conf/hpdb_apache.conf /etc/apache2/conf-available/
+sudo cp $HPDB_BASE/apache_conf/apache2.conf /etc/apache2/apache2.conf
+ln -s /etc/apache2/conf-available/hpdb_apache.conf /etc/apache2/conf-enabled/
 ```
 
 4. Restart Apache to activate the new configuration:
