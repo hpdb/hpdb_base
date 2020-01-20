@@ -119,7 +119,7 @@ function access($attr, $path, $data, $volume, $isDir, $relpath) {
 // Documentation for connector options:
 // https://github.com/Studio-42/elFinder/wiki/Connector-configuration-options
 $opts = array(
-	// 'debug' => true,
+	 'debug' => true,
 	'roots' => array(
 		// Items volume
 		array(
