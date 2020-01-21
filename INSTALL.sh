@@ -16,9 +16,8 @@ analysis_tools=( roary )
 annotation_tools=( BLAST+ blastall phage_finder aragorn prodigal prokka tRNAscan )
 classification_tools=( centrifuge )
 phylogeny_tools=( phylip )
-sequence_simulators=( grinder )
 utility_tools=( Anaconda2 JBrowse circos )
-all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${sequence_simulators[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
+all_tools=( "${alignments_tools[@]}" "${analysis_tools[@]}" "${annotation_tools[@]}" "${classification_tools[@]}" "${phylogeny_tools[@]}" "${utility_tools[@]}" )
 
 install_Anaconda2() {
   echo "------------------------------------------------------------------------------
@@ -534,29 +533,6 @@ install_phylip() {
   "
 }
 
-install_grinder() {
-  echo "------------------------------------------------------------------------------
-                            Installing grinder
-  ------------------------------------------------------------------------------
-  "
-  if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
-    install_Anaconda2
-  fi
-  $rootdir/thirdParty/Anaconda2/bin/conda install -y gxx_linux-64
-  $rootdir/thirdParty/Anaconda2/bin/cpan install Getopt::Euclid List::Util Math::Random::MT version
-  $rootdir/thirdParty/Anaconda2/bin/cpan install cpan
-  $rootdir/thirdParty/Anaconda2/bin/cpan reload cpan
-  wget -c https://liquidtelecom.dl.sourceforge.net/project/biogrinder/biogrinder/Grinder-0.5.4/Grinder-0.5.4.tar.gz
-  tar -xzf Grinder-0.5.4.tar.gz
-  cd Grinder-0.5.4
-  make && make install
-  cd $rootdir/thirdParty
-  echo "------------------------------------------------------------------------------
-                            grinder installed
-  ------------------------------------------------------------------------------
-  "
-}
-
 install_JBrowse() {
   echo "------------------------------------------------------------------------------
                             Installing JBrowse-1.16.6
@@ -680,11 +656,6 @@ print_tools_list() {
   do
     echo "* $i"
   done
-  echo -e "\nSequence simulators"
-  for i in "${sequence_simulators[@]}"
-  do
-    echo "* $i"
-  done
   echo -e "\nUtility"
   for i in "${utility_tools[@]}"
   do
@@ -732,13 +703,6 @@ then
         done
         echo -e "Classification tools installed.\n"
         exit 0;; 
-      Sequence_simulators)
-        for tool in "${sequence_simulators[@]}"
-        do
-          install_$tool
-        done
-        echo -e "Sequence simulators installed.\n"
-        exit 0;; 
       Phylogeny)
         for tool in "${phylogeny_tools[@]}"
         do
@@ -760,7 +724,7 @@ then
         done
         ;;
       *)
-        if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${analysis_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${sequence_simulators[@]}" || containsElement "$f" "${phylogeny_tools[@]}" || containsElement "$f" "${utility_tools[@]}" )
+        if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${analysis_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${phylogeny_tools[@]}" || containsElement "$f" "${utility_tools[@]}" )
         then
           install_$f
         else
