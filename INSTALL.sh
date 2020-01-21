@@ -310,23 +310,6 @@ install_snippy() {
   "
 }
 
-install_mafft() {
-  echo "------------------------------------------------------------------------------
-                            Installing mafft
-  ------------------------------------------------------------------------------
-  "
-  wget -c https://mafft.cbrc.jp/alignment/software/mafft-7.429-with-extensions-src.tgz
-  tar -xzf mafft-7.429-with-extensions-src.tgz
-  cd mafft-7.429-with-extensions/core
-  sed -i.bak 's,PREFIX = /usr/local,PREFIX = '"$rootdir"',' Makefile
-  make && make install
-  cd $rootdir/thirdParty
-  echo "------------------------------------------------------------------------------
-                            mafft installed
-  ------------------------------------------------------------------------------
-  "
-}
-
 install_kma() {
   echo "------------------------------------------------------------------------------
                             Installing kma
@@ -336,10 +319,10 @@ install_kma() {
   tar -xzf kma-1.2.19.tar.gz
   cd genomicepidemiology-kma-*
   make
-  cp kma $rootdir/bin
-  cp kma_index $rootdir/bin
-  cp kma_shm $rootdir/bin
-  cp kma_update $rootdir/bin
+  cp kma $rootdir/bin/
+  cp kma_index $rootdir/bin/
+  cp kma_shm $rootdir/bin/
+  cp kma_update $rootdir/bin/
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
                             kma installed
@@ -356,7 +339,7 @@ install_muscle() {
   tar -xzf muscle3.8.31_i86linux64.tar.gz
   mv muscle3.8.31_i86linux64 muscle
   chmod +x muscle
-  cp muscle $rootdir/bin
+  cp muscle $rootdir/bin/
   cd $rootdir/thirdParty
   echo "
   ------------------------------------------------------------------------------
@@ -384,15 +367,117 @@ install_mummer() {
   "
 }
 
+install_bedtools() {
+  echo "------------------------------------------------------------------------------
+                            Installing bedtools
+  ------------------------------------------------------------------------------
+  "
+  wget -c https://github.com/arq5x/bedtools2/releases/download/v2.29.2/bedtools.static.binary -O bedtools
+  cp bedtools $rootdir/bin
+  chmod +x $rootdir/bin/bedtools
+  echo "------------------------------------------------------------------------------
+                            bedtools installed
+  ------------------------------------------------------------------------------
+  "
+}
+
+install_cdhit() {
+  echo "------------------------------------------------------------------------------
+                            Installing cdhit
+  ------------------------------------------------------------------------------
+  "
+  wget -c https://github.com/weizhongli/cdhit/releases/download/V4.8.1/cd-hit-v4.8.1-2019-0228.tar.gz
+  tar -xzf cd-hit-v4.8.1-2019-0228.tar.gz
+  cd cd-hit-v4.8.1-2019-0228
+  sed -i.bak 's,PREFIX ?= /usr/local,PREFIX ?= '"$rootdir"',' Makefile
+  make && make install
+  cd $rootdir/thirdParty
+  echo "------------------------------------------------------------------------------
+                            cdhit installed
+  ------------------------------------------------------------------------------
+  "
+}
+
+install_mcl() {
+  echo "------------------------------------------------------------------------------
+                            Installing mcl
+  ------------------------------------------------------------------------------
+  "
+  wget -c https://micans.org/mcl/src/mcl-14-137.tar.gz
+  tar -xzf mcl-14-137.tar.gz
+  cd mcl-14-137
+  ./configure --prefix=$rootdir && make && make install
+  cd $rootdir/thirdParty
+  echo "------------------------------------------------------------------------------
+                            mcl installed
+  ------------------------------------------------------------------------------
+  "
+}
+
+install_prank() {
+  echo "------------------------------------------------------------------------------
+                            Installing prank
+  ------------------------------------------------------------------------------
+  "
+  wget -c http://wasabiapp.org/download/prank/prank.source.170427.tgz
+  tar -xzf prank.source.170427.tgz
+  cd prank-msa/src && make
+  cp prank $rootdir/bin/
+  cd $rootdir/thirdParty
+  echo "------------------------------------------------------------------------------
+                            prank installed
+  ------------------------------------------------------------------------------
+  "
+}
+
+install_mafft() {
+  echo "------------------------------------------------------------------------------
+                            Installing mafft
+  ------------------------------------------------------------------------------
+  "
+  wget -c https://mafft.cbrc.jp/alignment/software/mafft-7.453-with-extensions-src.tgz
+  tar -xzf mafft-7.453-with-extensions-src.tgz
+  cd mafft-7.453-with-extensions/core
+  sed -i.bak 's,PREFIX = /usr/local,PREFIX = '"$rootdir"',' Makefile
+  make && make install
+  cd $rootdir/thirdParty
+  echo "------------------------------------------------------------------------------
+                            mafft installed
+  ------------------------------------------------------------------------------
+  "
+}
+
+install_fasttree() {
+  echo "------------------------------------------------------------------------------
+                            Installing fasttree
+  ------------------------------------------------------------------------------
+  "
+  wget -c http://www.microbesonline.org/fasttree/FastTree.c
+  gcc -DUSE_DOUBLE -O3 -finline-functions -funroll-loops -Wall -o FastTree FastTree.c -lm
+  gcc -DOPENMP -DUSE_DOUBLE -fopenmp -O3 -finline-functions -funroll-loops -Wall -o FastTreeMP FastTree.c -lm
+  cp FastTree $rootdir/bin/
+  cp FastTreeMP $rootdir/bin/
+  echo "------------------------------------------------------------------------------
+                            fasttree installed
+  ------------------------------------------------------------------------------
+  "
+}
+
 install_roary() {
   echo "------------------------------------------------------------------------------
                             Installing roary
   ------------------------------------------------------------------------------
   "
-  if [ ! -f $rootdir/thirdParty/Anaconda2/bin/conda ]; then
-    install_Anaconda2
+  install_bedtools
+  install_cdhit
+  install_mcl
+  install_prank
+  install_mafft
+  install_fasttree
+  if [ ( checkSystemInstallation blastn ) -eq 0]
+  then
+    install_BLAST+
   fi
-  $rootdir/thirdParty/Anaconda2/bin/conda install -y -c bioconda roary
   echo "------------------------------------------------------------------------------
                             roary installed
   ------------------------------------------------------------------------------
@@ -721,13 +806,7 @@ fi
 
 if ( checkSystemInstallation blastn )
 then
-  BLAST_VER=`blastn -version | grep blastn | perl -nle 'print $& if m{\d\.\d\.\d}'`;
-  if ( echo $BLAST_VER | awk '{if($1>="2.4.0") exit 0; else exit 1}' )
-  then
-    echo "BLAST+ $BLAST_VER found"
-  else
-    install_BLAST+
-  fi
+  echo "BLAST+ is found"
 else
   echo "BLAST+ is not found"
   install_BLAST+
