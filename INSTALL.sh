@@ -474,7 +474,7 @@ install_roary() {
   install_prank
   install_mafft
   install_fasttree
-  if [ ( checkSystemInstallation blastn ) -eq 0]
+  if [ ! checkSystemInstallation blastn ]
   then
     install_BLAST+
   fi
