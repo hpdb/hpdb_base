@@ -809,30 +809,36 @@ fi
 cd $rootdir
 
 if [ -f $HOME/.bashrc ]; then {
-  echo "# Added by HPDB pipeline installation" >> $HOME/.bashrc
-  echo "export HPDB_BASE=$rootdir" >> $HOME/.bashrc
-  echo "export PATH=$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin:\$PATH:" >> $HOME/.bashrc
-  echo "export PYTHONPATH=$rootdir/scripts:\$PYTHONPATH:" >> $HOME/.bashrc
-  if [[ $os == "ubuntu" ]]; then {
-    echo "alias httperr='sudo cat /var/log/apache2/error.log'" >> $HOME/.bashrc
-    echo "alias httperrclear='sudo sh -c "'"'"echo '' > /var/log/apache2/error.log"'"'"'" >> $HOME/.bashrc
-  } else {
-    echo "alias httperr='sudo cat /etc/httpd/logs/error_log'" >> $HOME/.bashrc
-    echo "alias httperrclear='sudo sh -c "'"'"echo '' > /etc/httpd/logs/error_log"'"'"'" >> $HOME/.bashrc
-  }
+  if [ ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bashrc ]
+  then
+    echo "# Added by HPDB pipeline installation - Do not remove this line" >> $HOME/.bashrc
+    echo "export HPDB_BASE=$rootdir" >> $HOME/.bashrc
+    echo "export PATH=$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin:\$PATH:" >> $HOME/.bashrc
+    echo "export PYTHONPATH=$rootdir/scripts:\$PYTHONPATH:" >> $HOME/.bashrc
+    if [[ $os == "ubuntu" ]]; then {
+      echo "alias httperr='sudo cat /var/log/apache2/error.log'" >> $HOME/.bashrc
+      echo "alias httperrclear='sudo sh -c "'"'"echo '' > /var/log/apache2/error.log"'"'"'" >> $HOME/.bashrc
+    } else {
+      echo "alias httperr='sudo cat /etc/httpd/logs/error_log'" >> $HOME/.bashrc
+      echo "alias httperrclear='sudo sh -c "'"'"echo '' > /etc/httpd/logs/error_log"'"'"'" >> $HOME/.bashrc
+    }
+    fi
   fi
 } else {
-  echo "# Added by HPDB pipeline installation" >> $HOME/.bash_profile
-  echo "export HPDB_BASE=$rootdir" >> $HOME/.bash_profile
-  echo "export PATH=$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin:\$PATH:" >> $HOME/.bash_profile
-  echo "export PYTHONPATH=$rootdir/scripts:\$PYTHONPATH:" >> $HOME/.bash_profile
-  if [[ $os == "ubuntu" ]]; then {
-    echo "alias httperr='sudo cat /var/log/apache2/error.log'" >> $HOME/.bash_profile
-    echo "alias httperrclear='sudo sh -c "'"'"echo '' > /var/log/apache2/error.log"'"'"'" >> $HOME/.bash_profile
-  } else {
-    echo "alias httperr='sudo cat /etc/httpd/logs/error_log'" >> $HOME/.bash_profile
-    echo "alias httperrclear='sudo sh -c "'"'"echo '' > /etc/httpd/logs/error_log"'"'"'" >> $HOME/.bash_profile
-  }
+  if [ ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bash_profile ]
+  then
+    echo "# Added by HPDB pipeline installation - Do not remove this line" >> $HOME/.bash_profile
+    echo "export HPDB_BASE=$rootdir" >> $HOME/.bash_profile
+    echo "export PATH=$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin:\$PATH:" >> $HOME/.bash_profile
+    echo "export PYTHONPATH=$rootdir/scripts:\$PYTHONPATH:" >> $HOME/.bash_profile
+    if [[ $os == "ubuntu" ]]; then {
+      echo "alias httperr='sudo cat /var/log/apache2/error.log'" >> $HOME/.bash_profile
+      echo "alias httperrclear='sudo sh -c "'"'"echo '' > /var/log/apache2/error.log"'"'"'" >> $HOME/.bash_profile
+    } else {
+      echo "alias httperr='sudo cat /etc/httpd/logs/error_log'" >> $HOME/.bash_profile
+      echo "alias httperrclear='sudo sh -c "'"'"echo '' > /etc/httpd/logs/error_log"'"'"'" >> $HOME/.bash_profile
+    }
+    fi
   fi
 }
 fi
