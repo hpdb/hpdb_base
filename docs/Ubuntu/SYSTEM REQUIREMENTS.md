@@ -14,7 +14,7 @@
 
 1. Update software:
 ```
-sudo apt-get -y update
+sudo apt-get -y update && sudo apt-get -y upgrade
 ```
 
 2. Install build essential libraries and dependancies:
@@ -52,6 +52,7 @@ sudo apt-get install -y php libapache2-mod-php
 Restart Apache:
 ```
 sudo systemctl restart apache2
+systemctl start apache-htcacheclean
 ```
 
 4. Install MariaDB:
@@ -59,14 +60,18 @@ Please refer to [this](https://downloads.mariadb.org/mariadb/repositories/ "Sett
 
 5. Install Perl modules:
 ```
-sudo cpanm Bio::Perl Bio::Roary Net::Ping
-sudo cpanm Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next
-sudo cpanm Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C
-sudo cpanm HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock
-sudo cpanm SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel
-sudo cpanm CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey
-sudo cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
-sudo cpanm Array::Utils Exception::Class File::Basename File::Copy File::Find::Rule File::Grep File::Path File::Slurper File::Spec File::Temp File::Which FindBin Getopt::Long Graph Graph::Writer::Dot List::Util Log::Log4perl Moose Moose::Role Text::CSV PerlIO::utf8_strict Devel::OverloadInfo Digest::MD5::File
+sudo cpanm Bio::Perl Bio::Roary Net::Ping \
+           Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next \
+           Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C \
+           HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock \
+           SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel \
+           CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey Clone \
+           Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round \
+           Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan \
+           Statistics::Basic Text::Format Array::Utils Exception::Class File::Basename \
+           File::Copy File::Find::Rule File::Grep File::Path File::Slurper File::Spec \
+           File::Temp File::Which FindBin Getopt::Long Graph Graph::Writer::Dot List::Util \
+           Log::Log4perl Moose Moose::Role Text::CSV PerlIO::utf8_strict Devel::OverloadInfo Digest::MD5::File
 ```
 
 6. Create dedicated user for Apache:
@@ -78,7 +83,5 @@ And give it sudo permission:
 ```
 sudo usermod -aG sudo hpdb
 ```
-
-We need to give `hpdb` sudo permission.
 
 7. Reboot.
