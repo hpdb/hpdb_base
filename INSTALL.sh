@@ -809,7 +809,7 @@ fi
 cd $rootdir
 
 if [ -f $HOME/.bashrc ]; then {
-  if [ ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bashrc ]
+  if ( ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bashrc )
   then
     echo "# Added by HPDB pipeline installation - Do not remove this line" >> $HOME/.bashrc
     echo "export HPDB_BASE=$rootdir" >> $HOME/.bashrc
@@ -825,7 +825,7 @@ if [ -f $HOME/.bashrc ]; then {
     fi
   fi
 } else {
-  if [ ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bash_profile ]
+  if ( ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this line" $HOME/.bash_profile )
   then
     echo "# Added by HPDB pipeline installation - Do not remove this line" >> $HOME/.bash_profile
     echo "export HPDB_BASE=$rootdir" >> $HOME/.bash_profile
