@@ -468,6 +468,12 @@ install_roary() {
                             Installing roary
   ------------------------------------------------------------------------------
   "
+  install_bedtools
+  install_cdhit
+  install_mcl
+  install_prank
+  install_mafft
+  install_fasttree
   if ( ! checkSystemInstallation blastn )
   then
     install_BLAST+
