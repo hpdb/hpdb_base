@@ -133,7 +133,7 @@ def printVersion():
   print(findVersion('clustalo', 'clustalo --version', r'([\d.]+)'))
   print(findVersion('prodigal', 'prodigal -v', r'Prodigal\sV*([\d.]+)'))
   print(findVersion('snippy', 'snippy --version', r'snippy\s*([\d.]+)'))
-  print(findVersion('roary', 'roary --version', r'([\d.]+)'))
+  print(findVersion('roary', 'roary --version', r'([\d]+).([\d]+).([\d]+)'))
   print(findVersion('samtools', 'samtools --version', r'samtools\s*([\d.]+)'))
   print(findVersion('bcftools', 'bcftools --version', r'bcftools\s*([\d.]+)'))
   print(findVersion('htslib', 'bcftools --version', r'htslib\s*([\d.]+)'))
