@@ -11,7 +11,7 @@
 2. Download the codebase:
 ```
 cd ~
-git clone https://github.com/hieplpvip/hpdb_base.git -b ubuntu base
+git clone https://github.com/hieplpvip/hpdb_base.git base
 ```
 
 3. Create directories for projects and create symlinks for them:
@@ -42,8 +42,6 @@ The following tools will be installed:
 - Annotation:
     + BLAST+
     + Prodigal
-- Classification:
-    + Centrifuge
 - Utility:
     + Anaconda
 

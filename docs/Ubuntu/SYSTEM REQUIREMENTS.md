@@ -60,7 +60,7 @@ Please refer to [this](https://downloads.mariadb.org/mariadb/repositories/ "Sett
 
 5. Install Perl modules:
 ```
-sudo cpanm Bio::Perl Bio::Roary Net::Ping \
+sudo cpanm Bio::Perl Net::Ping \
            Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next \
            Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C \
            HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock \
@@ -72,6 +72,7 @@ sudo cpanm Bio::Perl Bio::Roary Net::Ping \
            File::Copy File::Find::Rule File::Grep File::Path File::Slurper File::Spec \
            File::Temp File::Which FindBin Getopt::Long Graph Graph::Writer::Dot List::Util \
            Log::Log4perl Moose Moose::Role Text::CSV PerlIO::utf8_strict Devel::OverloadInfo Digest::MD5::File
+sudo cpanm Bio::Roary
 ```
 
 6. Create dedicated user for Apache:
