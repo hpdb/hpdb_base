@@ -43,7 +43,7 @@ function read_config($configFile) {
   return $array;
 }
 
-$hpdb_config = read_config(__DIR__ . "/../../../sys.properties");
+$hpdb_config = read_config(__DIR__ . "/../../sys.properties");
 
 $conn = new mysqli('localhost', 'root', 'hpdb2019', 'hpdb');
 if ($conn->connect_error) {
