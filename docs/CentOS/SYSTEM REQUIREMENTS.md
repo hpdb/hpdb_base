@@ -37,8 +37,9 @@ gpgcheck=1
 3. Install required packages:
 ```
 sudo yum -y groupinstall 'development tools'
-sudo yum -y install python-devel python3-devel wget argtable argtable-devel xz-devel ncurses-devel zlib-devel libdb-devel expat-devel perl-ExtUtils-MakeMaker R
-sudo yum install -y libX11-devel readline-devel libXt-devel ncurses-devel inkscape \
+sudo yum -y install python-devel python3-devel wget argtable argtable-devel \
+    xz-devel ncurses-devel zlib-devel libdb-devel expat-devel perl-ExtUtils-MakeMaker R \
+    parallel libX11-devel readline-devel libXt-devel ncurses-devel inkscape \
     expat expat-devel freetype freetype-devel zlib zlib-devel perl-App-cpanminus \
     perl-Test-Most blas-devel atlas-devel lapack-devel libpng12 libpng12-devel \
     perl-XML-Simple perl-JSON csh gcc gcc-c++ make binutils gd gsl-devel git graphviz \
