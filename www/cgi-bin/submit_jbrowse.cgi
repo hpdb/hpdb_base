@@ -67,7 +67,7 @@ def process():
   if ext in ['.fasta', '.fa', '.fna', '.ffn', '.faa', '.frn']:
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.%s --out JBrowse >/dev/null 2>&1' % ext, shell = True)
   elif ext == 'gbk':
-    call('bp_genbank2gff3.pl input.gbk >/dev/null 2>&1', shell = True)
+    call('bp_genbank2gff3 input.gbk >/dev/null 2>&1', shell = True)
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/scripts/gbk2fasta.pl input.gbk input.fasta >/dev/null 2>&1', shell = True)
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/prepare-refseqs.pl --fasta input.fasta --out JBrowse >/dev/null 2>&1', shell = True)
     call('/usr/bin/perl ' + os.environ['HPDB_BASE'] + '/www/JBrowse/bin/flatfile-to-json.pl --gff input.gbk.gff --trackLabel gff --trackType CanvasFeatures --out JBrowse >/dev/null 2>&1', shell = True)
