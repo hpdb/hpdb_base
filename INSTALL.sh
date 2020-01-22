@@ -750,7 +750,7 @@ else
   install_Anaconda2
 fi
 
-if ( checkSystemInstallation snippy )
+if ( checkLocalInstallation snippy )
 then
   echo "snippy is found"
 else
@@ -758,7 +758,7 @@ else
   install_snippy
 fi
 
-if ( checkSystemInstallation clustalo )
+if ( checkLocalInstallation clustalo )
 then
   echo "clustalo is found"
 else
@@ -766,7 +766,7 @@ else
   install_clustalo
 fi
 
-if ( checkSystemInstallation roary )
+if ( checkLocalInstallation roary )
 then
   echo "roary is found"
 else
@@ -774,7 +774,7 @@ else
   install_roary
 fi
 
-if ( checkSystemInstallation blastn )
+if ( checkLocalInstallation blastn )
 then
   echo "BLAST+ is found"
 else
@@ -782,7 +782,7 @@ else
   install_BLAST+
 fi
 
-if ( checkSystemInstallation blastall )
+if ( checkLocalInstallation blastall )
 then
   echo "blastall is found"
 else
@@ -790,7 +790,7 @@ else
   install_blastall
 fi
 
-if ( checkSystemInstallation prodigal )
+if ( checkLocalInstallation prodigal )
 then
   echo "prodigal is found"
 else
