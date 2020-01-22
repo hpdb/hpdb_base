@@ -46,7 +46,7 @@ sudo apxs -cia mod_xsendfile.c
 
 Install PHP:
 ```
-sudo apt-get install -y php libapache2-mod-php
+sudo apt-get install -y php libapache2-mod-php php-mbstring
 ```
 
 Restart Apache:
