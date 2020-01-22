@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+		<title>elFinder 2.1.x source version with PHP connector</title>
+
+		<!-- Section CSS -->
+		<!-- jQuery UI (REQUIRED) -->
+		<link rel="stylesheet" href="css/jquery-ui.min.css" >
+		<link rel="stylesheet" href="css/elfinder.min.css" >
+		<link rel="stylesheet" href="css/theme.css" >
+
+		<!-- Section JavaScript -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+
+		<!-- elFinder JS (REQUIRED) -->
+		<script src="js/elfinder.min.js"></script>
+
+		<!-- elFinder initialization (REQUIRED) -->
+		<script type="text/javascript" charset="utf-8">
+			// Documentation for client options:
+			// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+			$(document).ready(function() {
+				$('#elfinder').elfinder(
+					// 1st Arg - options
+					{
+						cssAutoLoad : false,               // Disable CSS auto loading
+						baseUrl : './',                    // Base URL to css/*, js/*
+            url : './php/connector.minimal.php?sid=5d81ed033e6aaf21b0b5d96626affe9b4b44bc2dee3f199504623a1478f65acd' // connector URL (REQUIRED)
+					},
+					// 2nd Arg - before boot up function
+					function(fm, extraObj) {
+						// Optional for set document.title dynamically.
+						var title = document.title;
+						fm.bind('open', function() {
+							var path = '',
+								cwd  = fm.cwd();
+							if (cwd) {
+								path = fm.path(cwd.hash) || null;
+							}
+							document.title = path? path + ':' + title : title;
+						}).bind('destroy', function() {
+							document.title = title;
+						});
+					}
+				);
+			});
+		</script>
+	</head>
+	<body>
+
+		<!-- Element where elFinder will be created (REQUIRED) -->
+		<div id="elfinder"></div>
+
+	</body>
+</html>
