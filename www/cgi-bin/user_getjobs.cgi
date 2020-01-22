@@ -8,6 +8,25 @@ import user_management as um
 
 db = um.newDBConnection()
 
+intervals = (
+  ('weeks', 604800),  # 60 * 60 * 24 * 7
+  ('days', 86400),    # 60 * 60 * 24
+  ('hours', 3600),    # 60 * 60
+  ('minutes', 60),
+  ('seconds', 1),
+)
+
+def display_time(seconds, granularity = 2):
+  result = []
+  for name, count in intervals:
+    value = seconds // count
+    if value:
+      seconds -= value * count
+      if value == 1:
+        name = name.rstrip('s')
+      result.append("{} {}".format(value, name))
+  return ', '.join(result[:granularity])
+
 def main():
   form = cgi.FieldStorage()
   if not 'sid' in form:
@@ -38,7 +57,7 @@ def main():
     proj['reportjob'] = ''
     proj['downloadjob'] = ''
     proj['deletejob'] = ''
-    proj['exec_time'] = ''
+    proj['parsed_exec_time'] = ''
     if os.path.isfile(projects_dir + id + '/error'):
       proj['done'] = False
       proj['status'] = 'Error'
@@ -57,7 +76,7 @@ def main():
       proj['status'] = 'Complete'
       proj['percent'] = '100'
       if configs['jobtype'] != 'rast':
-        proj['exec_time'] = configs['exec_time']
+        proj['parsed_exec_time'] = display_time((int)configs['exec_time'])
       
       if configs['jobtype'] == 'rast':
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
