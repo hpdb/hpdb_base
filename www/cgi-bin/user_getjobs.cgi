@@ -71,7 +71,9 @@ def main():
         proj['reportjob'] = '/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.html&html=true' % (id, sid)
       elif configs['jobtype'] == 'snippy':
         proj['reportjob'] = '/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.html&html=true' % (id, sid)
-        proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
+      #  proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=snippy/snps.csv' % (id, sid))
+      elif configs['jobtype'] == 'blast':
+        proj['view'] = '/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=output.txt&text=true' % (id, sid)
       if os.path.isfile(projects_dir + id + '/report.html') or os.path.isfile(projects_dir + id + '/report.pdf'):
         proj['reportjob'] = '/cgi-bin/user_getjobreport.cgi?jobid=%s&sid=%s' % (id, sid)
       proj['downloadjob'] = '/cgi-bin/user_downloadjob.cgi?jobid=%s&sid=%s' % (id, sid)
