@@ -66,7 +66,7 @@ wget https://raw.githubusercontent.com/nmaier/mod_xsendfile/master/mod_xsendfile
 sudo apxs -cia mod_xsendfile.c
 ```
 
-Install R packages:
+Install ggplot2:
 ```
 sudo su - -c "R -q -e \"install.packages('ggplot2', repos='http://cran.rstudio.com/')\""
 ```

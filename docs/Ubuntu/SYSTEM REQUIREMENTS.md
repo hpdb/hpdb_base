@@ -29,7 +29,7 @@ sudo apt-get install -y build-essential libreadline-gplv2-dev libx11-dev \
   liblwp-protocol-https-perl gnuplot libjson-xs-perl libio-socket-ip-perl \
   vim php texinfo zlib1g-dev openjdk-11-jdk texlive default-libmysqlclient-dev \
   texlive-fonts-extra libboost-all-dev cron less libxml2-dev libargtable2-dev \
-  libdatetime-perl libxml-simple-perl libdigest-md5-perl git parallel
+  libdatetime-perl libxml-simple-perl libdigest-md5-perl git parallel r-base
 ```
 
 3. Install Apache2:
@@ -75,7 +75,12 @@ sudo cpanm -f Bio::Perl Net::Ping \
 sudo cpanm -f Bio::Roary
 ```
 
-6. Create dedicated user for Apache:
+6. Install ggplot2:
+```
+sudo su - -c "R -q -e \"install.packages('ggplot2', repos='http://cran.rstudio.com/')\""
+```
+
+7. Create dedicated user for Apache:
 ```
 sudo adduser hpdb
 ```
@@ -85,4 +90,4 @@ And give it sudo permission:
 sudo usermod -aG sudo hpdb
 ```
 
-7. Reboot.
+8. Reboot.
