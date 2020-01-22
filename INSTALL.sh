@@ -406,7 +406,7 @@ install_mcl() {
   wget -c https://micans.org/mcl/src/mcl-14-137.tar.gz
   tar -xzf mcl-14-137.tar.gz
   cd mcl-14-137
-  ./configure --prefix=$rootdir && make && make install
+  ./configure --enable-blast --prefix=$rootdir && make && make install
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
                             mcl installed
