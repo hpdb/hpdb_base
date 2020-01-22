@@ -60,19 +60,19 @@ Please refer to [this](https://downloads.mariadb.org/mariadb/repositories/ "Sett
 
 5. Install Perl modules:
 ```
-sudo cpanm Bio::Perl Net::Ping \
-           Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next \
-           Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C \
-           HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock \
-           SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel \
-           CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey Clone \
-           Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round \
-           Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan \
-           Statistics::Basic Text::Format Array::Utils Exception::Class File::Basename \
-           File::Copy File::Find::Rule File::Grep File::Path File::Slurper File::Spec \
-           File::Temp File::Which FindBin Getopt::Long Graph Graph::Writer::Dot List::Util \
-           Log::Log4perl Moose Moose::Role Text::CSV PerlIO::utf8_strict Devel::OverloadInfo Digest::MD5::File
-sudo cpanm Bio::Roary
+sudo cpanm -f Bio::Perl Net::Ping \
+              Graph Time::Piece Hash::Merge PerlIO::gzip Heap::Simple::XS File::Next \
+              Algorithm::Munkres Archive::Tar Array::Compare Clone Convert::Binary::C \
+              HTML::Template HTML::TableExtract List::MoreUtils PostScript::TextBlock \
+              SOAP::Lite SVG SVG::Graph Set::Scalar Sort::Naturally Spreadsheet::ParseExcel \
+              CGI::Simple GraphViz XML::Parser::PerlSAX XML::Simple Term::ReadKey Clone \
+              Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round \
+              Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan \
+              Statistics::Basic Text::Format Array::Utils Exception::Class File::Basename \
+              File::Copy File::Find::Rule File::Grep File::Path File::Slurper File::Spec \
+              File::Temp File::Which FindBin Getopt::Long Graph Graph::Writer::Dot List::Util \
+              Log::Log4perl Moose Moose::Role Text::CSV PerlIO::utf8_strict Devel::OverloadInfo Digest::MD5::File
+sudo cpanm -f Bio::Roary
 ```
 
 6. Create dedicated user for Apache:
