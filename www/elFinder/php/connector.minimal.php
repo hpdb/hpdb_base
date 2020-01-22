@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(0); // Set E_ALL for debuging
-
 // // elFinder autoload
 require './autoload.php';
 // ===============================================
