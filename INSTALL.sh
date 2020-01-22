@@ -843,6 +843,6 @@ if [ -f $HOME/.bashrc ]; then {
 }
 fi
 
-echo "* * * * * ( $rootdir/make-run.sh &>/dev/null & )" | crontab -
+(crontab -l ; echo "* * * * * bash $rootdir/make-run.sh &>/dev/null") | crontab -
 
 echo "All done! Run 'exec bash' to restart your terminal session."

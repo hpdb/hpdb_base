@@ -28,7 +28,7 @@ sudo apt-get install -y build-essential libreadline-gplv2-dev libx11-dev \
   bioperl rsync libbz2-dev liblzma-dev time libterm-readkey-perl \
   liblwp-protocol-https-perl gnuplot libjson-xs-perl libio-socket-ip-perl \
   vim php texinfo zlib1g-dev openjdk-11-jdk texlive default-libmysqlclient-dev \
-  texlive-fonts-extra libboost-all-dev cron less libxml2-dev \
+  texlive-fonts-extra libboost-all-dev cron less libxml2-dev libargtable2-dev \
   libdatetime-perl libxml-simple-perl libdigest-md5-perl git parallel
 ```
 
