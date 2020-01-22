@@ -76,7 +76,7 @@ def main():
       proj['status'] = 'Complete'
       proj['percent'] = '100'
       if configs['jobtype'] != 'rast':
-        proj['parsed_exec_time'] = display_time(int(configs['exec_time'] + 0.5))
+        proj['parsed_exec_time'] = display_time(int(float(configs['exec_time']) + 0.5))
       
       if configs['jobtype'] == 'rast':
         proj['reportjob'] = '/viewcsv.html?file=' + urllib.quote_plus('/cgi-bin/user_getjobfile.cgi?jobid=%s&sid=%s&filename=%s.csv' % (id, sid, configs['rast_genome_id']))
