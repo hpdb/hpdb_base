@@ -481,7 +481,7 @@ install_roary() {
   wget -c https://github.com/sanger-pathogens/Roary/archive/v3.13.0.tar.gz -O roary-v3.13.0.tar.gz
   tar -xzf roary-v3.13.0.tar.gz
   cd Roary-3.13.0/bin
-  find . -type f -executable -exec ln -fs {} $rootdir/bin/ \;
+  find . -type f -executable -exec ln -fs `pwd`/{} $rootdir/bin \;
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
                             roary installed
