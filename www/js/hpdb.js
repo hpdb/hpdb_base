@@ -1,5 +1,4 @@
 allowLoggedinlocalhost = true;
-localsid = 'a3c8a198e3133f4a83fc0ab382a37ee20d9496360edcc0f9f65274cca8bcd0f6';
 
 var comboTreeObj;
 
@@ -24,7 +23,8 @@ function fileTree(sid) {
       cssAutoLoad: false,                           // Disable CSS auto loading
       baseUrl: './',                                // Base URL to css/*, js/*
       url: '/php/connector.minimal.php?sid=' + sid, // connector URL (REQUIRED)
-      useBrowserHistory: false
+      useBrowserHistory: false,
+      height: '100%'
     },
     // 2nd Arg - before boot up function
     function(fm, extraObj) {}
@@ -142,8 +142,8 @@ function showLoggedout() {
 function checkSession() {
   if (allowLoggedinlocalhost && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
     console.log('Running on local server. Skipped checkSession!');
-    localStorage.setItem('sid', localsid);
-    showLoggedin(localsid, 'baohiep');
+    localStorage.setItem('sid', 'dummysid');
+    showLoggedin('dummysid', 'baohiep');
     return;
   }
   sid = getsid();
