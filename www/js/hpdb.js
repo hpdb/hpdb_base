@@ -24,7 +24,7 @@ function fileTree(sid) {
       baseUrl: './',                                // Base URL to css/*, js/*
       url: '/php/connector.minimal.php?sid=' + sid, // connector URL (REQUIRED)
       useBrowserHistory: false,
-      height: window.innerHeight - 200
+      height: window.innerHeight - 300
     },
     // 2nd Arg - before boot up function
     function(fm, extraObj) {}
