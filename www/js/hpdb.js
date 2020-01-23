@@ -23,8 +23,7 @@ function fileTree(sid) {
       cssAutoLoad: false,                           // Disable CSS auto loading
       baseUrl: './',                                // Base URL to css/*, js/*
       url: '/php/connector.minimal.php?sid=' + sid, // connector URL (REQUIRED)
-      useBrowserHistory: false,
-      resizable: false
+      useBrowserHistory: false
     },
     // 2nd Arg - before boot up function
     function(fm, extraObj) {}
