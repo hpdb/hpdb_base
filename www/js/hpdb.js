@@ -26,19 +26,7 @@ function fileTree(sid) {
       url : '/php/connector.minimal.php?sid=' + sid // connector URL (REQUIRED)
     },
     // 2nd Arg - before boot up function
-    function(fm, extraObj) {
-      // Optional for set document.title dynamically.
-      var title = document.title;
-      fm.bind('open', function() {
-        var path = '', cwd  = fm.cwd();
-        if (cwd) {
-          path = fm.path(cwd.hash) || null;
-        }
-        document.title = path? path + ':' + title : title;
-      }).bind('destroy', function() {
-        document.title = title;
-      });
-    }
+    function(fm, extraObj) {}
   );
 }
 
