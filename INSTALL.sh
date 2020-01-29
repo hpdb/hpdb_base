@@ -324,9 +324,9 @@ install_snippy() {
     install_freebayes
   fi
 
-  wget -c https://github.com/tseemann/snippy/archive/v4.4.3.tar.gz -O snippy-4.4.3.tar.gz
-  tar -xzf snippy-4.4.3.tar.gz
-  cd snippy-4.4.3/bin
+  wget -c https://github.com/tseemann/snippy/archive/v4.4.5.tar.gz -O snippy-4.4.5.tar.gz
+  tar -xzf snippy-4.4.5.tar.gz
+  cd snippy-4.4.5/bin
   sed -i.bak 's,vt normalize -r,vt normalize -n -r,' snippy # patch snippy to skip inconsistent reference bases
   ln -fs `pwd`/snippy $rootdir/bin
   cd $rootdir/thirdParty
