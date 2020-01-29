@@ -293,17 +293,43 @@ install_snippy() {
                             Installing snippy
   ------------------------------------------------------------------------------
   "
-  install_bcftools
   install_htslib
-  install_samtools
-  install_minimap2
-  install_snpsites
-  install_seqtk
-  install_vt
-  install_freebayes
+  if ( ! checkLocalInstallation bcftools )
+  then
+    install_bcftools
+  fi
+
+  if ( ! checkLocalInstallation samtools )
+  then
+    install_samtools
+  fi
+
+  if ( ! checkLocalInstallation minimap2 )
+  then
+    install_minimap2
+  fi
+
+  if ( ! checkLocalInstallation seqtk )
+  then
+    install_seqtk
+  fi
+
+  if ( ! checkLocalInstallation vt )
+  then
+    install_vt
+  fi
+
+  if ( ! checkLocalInstallation freebayes )
+  then
+    install_freebayes
+  fi
+
   wget -c https://github.com/tseemann/snippy/archive/v4.4.3.tar.gz -O snippy-4.4.3.tar.gz
   tar -xzf snippy-4.4.3.tar.gz
-  ln -fs `pwd`/snippy-4.4.3/bin/snippy $rootdir/bin
+  cd snippy-4.4.3/bin
+  sed -i.bak 's,vt normalize -r,vt normalize -n -r,' snippy # patch snippy to skip inconsistent reference bases
+  ln -fs `pwd`/snippy $rootdir/bin
+  cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
                             snippy installed
   ------------------------------------------------------------------------------
@@ -468,16 +494,41 @@ install_roary() {
                             Installing roary
   ------------------------------------------------------------------------------
   "
-  install_bedtools
-  install_cdhit
-  install_mcl
-  install_prank
-  install_mafft
-  install_fasttree
-  if ( ! checkSystemInstallation blastn )
+  if ( ! checkLocalInstallation bedtools )
+  then
+    install_bedtools
+  fi
+
+  if ( ! checkLocalInstallation cd-hit )
+  then
+    install_cdhit
+  fi
+
+  if ( ! checkLocalInstallation mcl )
+  then
+    install_mcl
+  fi
+
+  if ( ! checkLocalInstallation prank )
+  then
+    install_prank
+  fi
+
+  if ( ! checkLocalInstallation mafft )
+  then
+    install_mafft
+  fi
+
+  if ( ! checkLocalInstallation FastTree )
+  then
+    install_fasttree
+  fi
+
+  if ( ! checkLocalInstallation blastn )
   then
     install_BLAST+
   fi
+
   wget -c https://github.com/sanger-pathogens/Roary/archive/v3.13.0.tar.gz -O roary-v3.13.0.tar.gz
   tar -xzf roary-v3.13.0.tar.gz
   cd Roary-3.13.0/bin
