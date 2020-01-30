@@ -197,7 +197,7 @@ function load_pubmed_data() {
           var listItem = [];
           listItem.push('<li>');
           listItem.push('<div>' + pubmedSummary.result[value].pubdate + '</div>');
-          listItem.push('<a href="https://www.ncbi.nlm.nih.gov/pubmed/' +  value + '" target="_blank">' + pubmedSummary.result[value].title + '</a>');
+          listItem.push('<a href="https://www.ncbi.nlm.nih.gov/pubmed/' +  value + '" target="_blank">' + $('<textarea/>').html(pubmedSummary.result[value].title).text() + '</a>');
           listItem.push('<div>' + author + '</div>');
           listItem.push('<div>' + pubmedSummary.result[value].source + '</div>');
           listItem.push('</li>');
