@@ -125,11 +125,14 @@
                           [11, format_bioproject_link],
                           [12, format_assembly_link],
                           [19, format_protein_link]],
-      datatables_options: {'paging': true,
+      datatables_options: {'dom': 'Bfrtip',
+                           'paging': true,
                            'fixedHeader': true,
+                           'colReorder': true,
                            'order': [],
                            'search': { 'smart': false },
-                           'columnDefs': [{'targets': [2], 'visible': false}]}
+                           'columnDefs': [{'targets': [2], 'visible': false}],
+                           'buttons': [{'extend': 'colvis', 'columns': ':not(.noVis)'}]}
     }, function() {
       $('#loading').hide();
     });
