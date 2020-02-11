@@ -35,7 +35,7 @@ sudo apt-get install -y build-essential libreadline-gplv2-dev libx11-dev \
 3. Install Apache2:
 ```
 sudo apt-get install -y apache2 apache2-dev
-sudo a2enmod cgid proxy proxy_http headers file_cache cache_disk
+sudo a2enmod cgid proxy proxy_http headers file_cache cache_disk expires
 ```
 
 Install `mod_xsendfile` for Apache:
