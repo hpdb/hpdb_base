@@ -175,7 +175,7 @@
               <a href="#clustalo" data-toggle="tab" class="nav-link">Clustal Omega</a>
             </li>
             <li class="nav-item">
-              <a href="#roary" data-toggle="tab" class="nav-link">Roary</a>
+              <a href="#roary" data-toggle="tab" class="nav-link">Pan Genome Analysis</a>
             </li>
             <li class="nav-item">
               <a href="#snippy" data-toggle="tab" class="nav-link">Snippy</a>
@@ -262,6 +262,7 @@
 	    </div>
       <div class="tab-pane fade" id="vf_analysis">
         <h2 class="text-muted">cagA/vacA Analysis</h2>
+        <p>This tool can be used to predict the genotype of specific region in 2 virulence genes in H.pylori, EPIYA motif of CagA and (s1/s2) and (m1/m2) motifs of VacA from the genome sequence in FASTA format.</p>
         <form class="tool_form" id="vf_form" action="/cgi-bin/submit_vf.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>STEP 1 - Upload Sequence</legend>
@@ -282,7 +283,8 @@
           </fieldset>
           <fieldset>
             <legend>STEP 2 - Submit your job</legend>
-            <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
+            <label for="vf_projname">Enter the name of the project and press <b>Submit</b></label>
+            <input type="text" id="vf_projname" class="form-control" name="projname" placeholder="Project name...">
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
           </fieldset>
@@ -290,6 +292,7 @@
       </div>
       <div class="tab-pane fade" id="amr_detection">
         <h2 class="text-muted">AMR Detection</h2>
+        <p>This tool can be used to determine resistance of H.pylori strains to 2 antibiotics, Clarithromycin and Quinolone base on specific acknowledged mutations in 23s rRNA and gyrA genes in H.pylori from the genome sequence in FASTA format.</p>
         <form class="tool_form" id="amr_form" action="/cgi-bin/submit_amr.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>STEP 1 - Upload Sequence</legend>
@@ -310,7 +313,8 @@
           </fieldset>
           <fieldset>
             <legend>STEP 2 - Submit your job</legend>
-            <input type="text" class="form-control" name="projname" placeholder="Enter project name...">
+            <label for="amr_projname">Enter the name of the project and press <b>Submit</b></label>
+            <input type="text" id="amr_projname" class="form-control" name="projname" placeholder="Enter project name...">
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
           </fieldset>
@@ -481,8 +485,8 @@
         </form>
       </div>
       <div class="tab-pane fade" id="roary">
-        <h2 class="text-muted">Roary</h2>
-        <p>Roary is a high speed stand alone pan genome pipeline, which takes annotated assemblies in GFF3 format (produced by Prokka (Seemann, 2014)) and calculates the pan genome.</p>
+        <h2 class="text-muted">Pan Genome Analysis</h2>
+        <p>Pan Genome Analysis is a high speed stand alone pan genome pipeline, which takes annotated assemblies in GFF3 format (produced by Prokka (Seemann, 2014)) and calculates the pan genome.</p>
         <form class="tool_form" id="roary_form" action="/cgi-bin/submit_roary.cgi" method="post" enctype="multipart/form-data">
           <fieldset>
             <legend>STEP 1 - Upload GenBank</legend>

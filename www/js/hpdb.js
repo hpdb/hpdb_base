@@ -323,7 +323,7 @@ $(document).ready(function () {
       $form.find(':submit').removeClass('btn-secondary').addClass('btn-primary');
     },
     success: function(responseText, statusText, xhr, $form) {
-      alert(responseText);
+      alert('Done! You can track the progress in Your Projects tab.');
       $form.find(':submit').text('Submit');
       $form.find(':submit').removeAttr('disabled');
       $form.find(':submit').removeClass('btn-secondary').addClass('btn-primary');

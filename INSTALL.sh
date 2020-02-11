@@ -328,7 +328,7 @@ install_snippy() {
   tar -xzf snippy-4.4.5.tar.gz
   cd snippy-4.4.5/bin
   sed -i.bak 's,vt normalize -r,vt normalize -n -r,' snippy # patch snippy to skip inconsistent reference bases
-  ln -fs `pwd`/snippy $rootdir/bin
+  find . -type f -executable -exec ln -fs `pwd`/{} $rootdir/bin \;
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
                             snippy installed
