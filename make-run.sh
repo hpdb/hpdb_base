@@ -2,7 +2,7 @@
 # make-run.sh
 # make sure core is always running.
 
-source "$HOME/.bashrc"
+source "/home/hpdb/.bashrc"
 if ps ax | grep -v grep | grep runcore > /dev/null
 then
   exit
