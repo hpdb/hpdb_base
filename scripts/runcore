@@ -158,7 +158,7 @@ def stop_if_already_running():
 
 def func1():
   logf = open("/home/hpdb/runcore_queue.log", "a+")
-  logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+  logf.write('[+] runcore_queue started at %s\n' % time.strftime("%H:%M:%S %d/%m/%Y", time.localtime()))
   logf.close()
   while True:
     if not check_queue():
@@ -166,7 +166,7 @@ def func1():
 
 def func2():
   logf = open("/home/hpdb/runcore_external.log", "a+")
-  logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S", time.localtime()))
+  logf.write('[+] runcore_external started at %s\n' % time.strftime("%H:%M:%S %d/%m/%Y", time.localtime()))
   logf.close()
   while True:
     if not check_external():
