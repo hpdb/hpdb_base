@@ -894,6 +894,14 @@ if [ -f $HOME/.bashrc ]; then {
 }
 fi
 
-(crontab -l ; echo "* * * * * bash $rootdir/make-run.sh &>/dev/null") | crontab -
+if ( ! grep -Fxq "# Added by HPDB pipeline installation - Do not remove this file" $HOME/.hpdb )
+then
+  echo "# Added by HPDB pipeline installation - Do not remove this file" >> $HOME/.hpdb
+  echo "export HPDB_BASE=$rootdir" >> $HOME/.hpdb
+  echo "export PATH=$rootdir/bin:$rootdir/thirdParty/Anaconda2/bin:\$PATH:" >> $HOME/.hpdb
+  echo "export PYTHONPATH=$rootdir/scripts:\$PYTHONPATH:" >> $HOME/.hpdb
+fi
+
+(crontab -l ; echo "* * * * * bash $rootdir/make-run.sh") | crontab -
 
 echo "All done! Run 'exec bash' to restart your terminal session."
