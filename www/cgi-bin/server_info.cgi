@@ -122,7 +122,6 @@ def findVersion(name, cmd, re):
     return name + ' is not installed'
 
 def printVersion():
-  print('HPDB version: %s' % os.environ['HPDB_VERSION'])
   print(findVersion('apache', '{ httpd -V & apache2 -V; } 2>/dev/null', r'Apache/*([\d.]+)'))
   print(findVersion('conda', 'conda -V', r'conda\s*([\d.]+)'))
   print(findVersion('python', 'python -V', r'Python\s*([\d.]+)'))
