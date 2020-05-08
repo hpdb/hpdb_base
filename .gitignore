@@ -10,3 +10,4 @@ data
 queue
 www/JBrowse
 *.pyc
+.DS_Store
