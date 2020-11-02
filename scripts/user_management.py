@@ -6,7 +6,7 @@ import utils, shutil
 
 # change your password here
 def newDBConnection():
-  return MySQLdb.connect(user = "root", passwd = "hpdb2019", db = "hpdb")
+  return MySQLdb.connect(user = "root", passwd = "hpdb2020", db = "hpdb")
 
 def generateRandomSessionKey():
   return binascii.hexlify(os.urandom(32))
@@ -59,7 +59,7 @@ def deleteproject(db, userid, username, jobid):
   c = db.cursor()
   c.execute("delete from projects where userid=%s and jobid=%s", (userid, jobid));
   db.commit()
-  
+
   try:
     shutil.rmtree(getUserProjectDir(userid) + jobid, True)
     os.remove(getUserDownloadDir(userid) + jobid + '.zip')

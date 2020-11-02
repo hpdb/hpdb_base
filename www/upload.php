@@ -37,7 +37,7 @@ $hpdb_config = read_config(__DIR__ . "/../sys.properties");
 // Uncomment this one to fake upload time
 // usleep(5000);
 
-$conn = new mysqli('localhost', 'root', 'hpdb2019', 'hpdb');
+$conn = new mysqli('localhost', 'root', 'hpdb2020', 'hpdb');
 if ($conn->connect_error) {
   die('{"result": "error", "message": "Failed to open MySQL connection."}');
 }

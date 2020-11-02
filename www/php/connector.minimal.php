@@ -45,7 +45,7 @@ function read_config($configFile) {
 
 $hpdb_config = read_config(__DIR__ . "/../../sys.properties");
 
-$conn = new mysqli('localhost', 'root', 'hpdb2019', 'hpdb');
+$conn = new mysqli('localhost', 'root', 'hpdb2020', 'hpdb');
 if ($conn->connect_error) {
   die('{"result": "error", "message": "Failed to open MySQL connection."}');
 }

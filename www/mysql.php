@@ -1,6 +1,6 @@
 <?php
 // Create connection
-$conn = new mysqli('localhost', 'root', 'hpdb2019', 'hpdb');
+$conn = new mysqli('localhost', 'root', 'hpdb2020', 'hpdb');
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);

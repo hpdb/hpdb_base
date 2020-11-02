@@ -186,9 +186,9 @@ install_htslib() {
                             Installing htslib
   ------------------------------------------------------------------------------
   "
-  wget -c https://github.com/samtools/htslib/releases/download/1.9/htslib-1.9.tar.bz2
-  tar -xjf htslib-1.9.tar.bz2
-  cd htslib-1.9
+  wget -c https://github.com/samtools/htslib/releases/download/1.10.2/htslib-1.10.2.tar.bz2
+  tar -xjf htslib-1.10.2.tar.bz2
+  cd htslib-1.10.2
   ./configure --prefix=$rootdir && make && make install
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
@@ -202,9 +202,9 @@ install_samtools() {
                             Installing samtools
   ------------------------------------------------------------------------------
   "
-  wget -c https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
-  tar -xjf samtools-1.9.tar.bz2
-  cd samtools-1.9
+  wget -c https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
+  tar -xjf samtools-1.10.tar.bz2
+  cd samtools-1.10
   ./configure --prefix=$rootdir && make && make install
   cd $rootdir/thirdParty
   echo "------------------------------------------------------------------------------
@@ -324,9 +324,9 @@ install_snippy() {
     install_freebayes
   fi
 
-  wget -c https://github.com/tseemann/snippy/archive/v4.4.5.tar.gz -O snippy-4.4.5.tar.gz
-  tar -xzf snippy-4.4.5.tar.gz
-  cd snippy-4.4.5/bin
+  wget -c https://github.com/tseemann/snippy/archive/v4.6.0.tar.gz -O snippy-4.6.0.tar.gz
+  tar -xzf snippy-4.6.0.tar.gz
+  cd snippy-4.6.0/bin
   sed -i.bak 's,vt normalize -r,vt normalize -n -r,' snippy # patch snippy to skip inconsistent reference bases
   find . -type f -executable -exec ln -fs `pwd`/{} $rootdir/bin \;
   cd $rootdir/thirdParty
@@ -605,7 +605,7 @@ install_JBrowse() {
   then
     rm -rf $rootdir/www/JBrowse
   fi
-  
+
   mv JBrowse-1.16.6 $rootdir/www/JBrowse
   cd $rootdir/www/JBrowse
   ./setup.sh
@@ -615,9 +615,9 @@ install_JBrowse() {
   else
     mkdir -p -m 775 data
   fi
-  
+
   ln -s $rootdir/data userdata
-  
+
   cd $rootdir/thirdParty
   #ln -sf $rootdir/thirdParty/JBrowse-1.16.6 $rootdir/www/JBrowse
   echo "
@@ -675,14 +675,14 @@ cat << EOF
     list            show available tools for updates
     tools_name      install/update individual tool
     force           force to install all list tools locally
-    
+
     ex: To update clustalo only
         $0 clustalo
     ex: To update clustalo and prodigal
         $0 clustalo prodigal
     ex: RE-install Alignment tools
         $0 Alignment
-        
+
 EOF
 }
 
@@ -738,42 +738,42 @@ then
           install_$tool
         done
         echo -e "Alignment tools installed.\n"
-        exit 0;; 
+        exit 0;;
       Analysis)
         for tool in "${analysis_tools[@]}"
         do
           install_$tool
         done
         echo -e "Analysis tools installed.\n"
-        exit 0;; 
+        exit 0;;
       Annotation)
         for tool in "${annotation_tools[@]}"
         do
           install_$tool
         done
         echo -e "Annotation tools installed.\n"
-        exit 0;; 
+        exit 0;;
       Classification)
         for tool in "${classification_tools[@]}"
         do
           install_$tool
         done
         echo -e "Classification tools installed.\n"
-        exit 0;; 
+        exit 0;;
       Phylogeny)
         for tool in "${phylogeny_tools[@]}"
         do
           install_$tool
         done
         echo -e "Phylogeny tools installed.\n"
-        exit 0;; 
+        exit 0;;
       Utility)
         for tool in "${utility_tools[@]}"
         do
           install_$tool
         done
         echo -e "Utility tools installed.\n"
-        exit 0;; 
+        exit 0;;
       force)
         for tool in "${all_tools[@]}"
         do
@@ -781,13 +781,14 @@ then
         done
         ;;
       *)
-        if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${analysis_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${phylogeny_tools[@]}" || containsElement "$f" "${utility_tools[@]}" )
-        then
-          install_$f
-        else
-          echo "$f: invalid tool"
-          print_tools_list
-        fi
+        #if ( containsElement "$f" "${annotation_tools[@]}" || containsElement "$f" "${analysis_tools[@]}" || containsElement "$f" "${alignments_tools[@]}" || containsElement "$f" "${classification_tools[@]}" || containsElement "$f" "${phylogeny_tools[@]}" || containsElement "$f" "${utility_tools[@]}" )
+        #then
+        #  install_$f
+        #else
+        #  echo "$f: invalid tool"
+        #  print_tools_list
+        #fi
+        install_$f
         exit;;
     esac
   done

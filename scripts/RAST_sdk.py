@@ -18,7 +18,7 @@ def parse_url():
   return dict(urlparse.parse_qsl(urlparse.urlsplit(url).query))
 
 def run_query(function, username, password, args):
-  server = 'http://pubseed.theseed.org/rast/server.cgi'
+  server = 'https://pubseed.theseed.org/rast/server.cgi'
   param = {'function': function,
            'username': username,
            'password': password,
@@ -105,15 +105,15 @@ Below are web-simulated methods
 '''
 
 def get_cookies_RAST(username, password):
-  data = {'page': 'Home',
+  data = {'page': 'Login',
           'login': username,
           'password': password,
           'action': 'perform_login'}
-  return 'WebSession=' + requests.post('http://rast.nmpdr.org/rast.cgi', data = data).cookies['WebSession']
+  return 'WebSession=' + requests.post('https://rast.nmpdr.org/rast.cgi', data = data).cookies['WebSession']
 
 def logout_RAST(cookies):
   headers = {'Cookie': cookies}
-  return requests.get('http://rast.nmpdr.org/rast.cgi?page=Jobs&logout=1', headers = headers)
+  return requests.get('https://rast.nmpdr.org/rast.cgi?page=Jobs&logout=1', headers = headers)
 
 def find_between(s, first, last):
   try:
@@ -126,21 +126,22 @@ def find_between(s, first, last):
 def submit_RAST_job(username, password, seqfile, strain):
   cookies = get_cookies_RAST(username, password)
   headers = {'Cookie': cookies}
+
   # Phase 1
   data = {'_submitted': '1',
           '_page': '1',
           'page': 'UploadGenome',
           '_submit': 'Use this data and go to step 2'}
   file = {'sequences_file': open(seqfile, 'rb')}
-  rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, files = file, headers = headers).text
-  
+  rawhtml = requests.post('https://rast.nmpdr.org/rast.cgi', data = data, files = file, headers = headers).text
+
   # Phase 2
   dom = htmldom.HtmlDom()
   dom = dom.createDom(rawhtml)
   data = {'_submitted': '2',
           '_page': '2',
           'page': 'UploadGenome',
-          'ajax_url': 'http://rast.nmpdr.org/ncbi.cgi',
+          'ajax_url': 'https://rast.nmpdr.org/ncbi.cgi',
           'sequences_file': '',
           'taxonomy_id': '210',
           'taxonomy_string': 'Bacteria; Proteobacteria; delta/epsilon subdivisions; Epsilonproteobacteria; Campylobacterales; Helicobacteraceae; Helicobacter',
@@ -152,15 +153,15 @@ def submit_RAST_job(username, password, seqfile, strain):
           '_submit': 'Use this data and go to step 3'}
   data['upload_dir'] = dom.find('#upload_dir').attr('value')
   data['upload_check'] = htmlunescape(dom.find('#upload_check').attr('value'))
-  rawhtml = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
-  
+  rawhtml = requests.post('https://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
+
   # Phase 3
   dom = htmldom.HtmlDom()
   dom = dom.createDom(rawhtml)
   data = {'_submitted': '3',
           '_page': '3',
           'page': 'UploadGenome',
-          'ajax_url': 'http://rast.nmpdr.org/ncbi.cgi',
+          'ajax_url': 'https://rast.nmpdr.org/ncbi.cgi',
           'sequences_file': '',
           'taxonomy_id': '210',
           'taxonomy_string': 'Bacteria; Proteobacteria; delta/epsilon subdivisions; Epsilonproteobacteria; Campylobacterales; Helicobacteraceae; Helicobacter',
@@ -242,7 +243,7 @@ def submit_RAST_job(username, password, seqfile, strain):
           '_submit': 'Finish the upload'}
   data['upload_dir'] = dom.find('#upload_dir').attr('value')
   data['upload_check'] = htmlunescape(dom.find('#upload_check').attr('value'))
-  res = requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
+  res = requests.post('https://rast.nmpdr.org/rast.cgi', data = data, headers = headers).text
   logout_RAST(cookies)
   res = find_between(res, 'Your upload will be processed as job ', '.')
   return int(res)
@@ -250,21 +251,21 @@ def submit_RAST_job(username, password, seqfile, strain):
 def download_RAST_job(username, password, jobid, verbose = False):
   cookies = get_cookies_RAST(username, password)
   headers = {'Cookie': cookies}
-  
+
   def download(jobid, file):
     data = {'page': 'DownloadFile',
             'job': str(jobid),
             'file': file,
             'do_download': 'Download'}
-    
-    with requests.post('http://rast.nmpdr.org/rast.cgi', data = data, headers = headers, stream = True) as r:
+
+    with requests.post('https://rast.nmpdr.org/rast.cgi', data = data, headers = headers, stream = True) as r:
       r.raise_for_status()
       with open(file, 'wb') as f:
         for chunk in r.iter_content(chunk_size = 8192):
           if chunk:
             f.write(chunk)
-  
-  rawhtml = requests.get('http://rast.nmpdr.org/?page=JobDetails&job=' + str(jobid), headers = headers).text
+
+  rawhtml = requests.get('https://rast.nmpdr.org/?page=JobDetails&job=' + str(jobid), headers = headers).text
   dom = htmldom.HtmlDom()
   dom = dom.createDom(rawhtml)
   element = dom.find('select')[0] # dirty hack to work on Python 2
@@ -275,17 +276,17 @@ def download_RAST_job(username, password, jobid, verbose = False):
     if (verbose):
       print('Downloading ' + file)
     download(jobid, file)
-  
+
   logout_RAST(cookies)
 
 def parse_TSV(tsvfile):
   with open(tsvfile, 'r') as tsv:
     features = [line for line in csv.reader(tsv, dialect = 'excel-tab')][1:]
-  
+
   peg    = list(filter(lambda f: f[2] == 'peg', features))
   repeat = list(filter(lambda f: f[2] == 'repeat', features))
   rna    = list(filter(lambda f: f[2] == 'rna', features))
   tRNA   = list(filter(lambda f: 'tRNA' in f[7], rna))
   rRNA   = list(filter(lambda f: 'rRNA' in f[7], rna))
-  
+
   return peg, repeat, rna, tRNA, rRNA
